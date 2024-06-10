@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mSQL">
+<!-- 	<select id="login" resultType="int" parameterType="com.human.son.vo.MemberVO"> -->
+	<select id="login" resultType="int" parameterType="mVO">
+		SELECT
+			COUNT(*) cnt
+		FROM
+			member
+		WHERE
+			id = #{id}
+			AND pw = #{pw}
+	</select>
+	
+	<select id="idCheck" resultType="int" parameterType="string">
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE
+			id = #{id}
+	</select>
+
+	<select id="idList" resultType="string">
+		SELECT
+			id
+		FROM
+			member
+	</select>
+	
+	<!-- 회원의 아이디로 해당회원의 정보를 조회하는 질의명령 -->
+	<select id="memberInfo" resultType="mVO" parameterType="string">
+		SELECT
+			name, id, mail, tel, m.gen, joindate jdate, filename savename
+		FROM
+			member m, avatar a
+		WHERE
+			avatar = ano
+			AND id = #{id}
+	</select>
+	
+	<insert id="addMember" parameterType="mVO">
+		INSERT INTO
+			member(mno, name, id, pw, mail, tel, gen, avatar)
+		VALUES(
+			mnoSeq.NEXTVAL, #{name}, #{id}, #{pw}, #{mail}, #{tel}, #{gen}, #{ano}
+		)
+	</insert>
+</mapper>

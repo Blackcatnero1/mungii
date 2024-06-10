@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						https://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+	<beans:bean id="logoutCheck" class="com.human.son.service.LogoutCheckInterceptor" />
+	<beans:bean id="loginCheck" class="com.human.son.service.LoginCheckInterceptor" />
+	<beans:bean id="gboardCheck" class="com.human.son.service.GboardInterceptor" />
+	<beans:bean id="surveyCheck" class="com.human.son.service.SurveyInterceptor" />
+	<beans:bean id="adminCheck" class="com.human.son.service.AdminInterceptor" />
+	 -->
+	
+<!-- 	<interceptors> -->
+		<!-- 로그아웃체크 -->
+		<!-- 
+		<interceptor>
+			<mapping path="/member/*.son" />
+			<exclude-mapping path="/member/idCheck.son"/>
+			<exclude-mapping path="/member/memberInfo.son"/>
+			<exclude-mapping path="/member/logout.son"/>
+			<exclude-mapping path="/member/memberList.son"/>
+			<exclude-mapping path="/member/myInfo.son"/>
+			<beans:ref bean="logoutCheck"/>
+		</interceptor>
+		 -->
+		<!-- 로그인체크 -->
+		<!-- 
+		<interceptor>
+			<mapping path="/member/*.son" />
+			<mapping path="/fboard/*.son" />
+			<mapping path="/survey/*.son" />
+			<exclude-mapping path="/member/idCheck.son"/>
+			<exclude-mapping path="/member/memberInfo.son"/>
+			<exclude-mapping path="/member/login.son"/>
+			<exclude-mapping path="/member/loginProc.son"/>
+			<exclude-mapping path="/member/join.son"/>
+			<exclude-mapping path="/member/joinProc.son"/>
+			<exclude-mapping path="/fboard/fileboard.son"/>
+			<exclude-mapping path="/fboard/fboardDelImg.son"/>
+			<exclude-mapping path="/survey/surveyList.son"/>
+			<exclude-mapping path="/survey/surveyQuest.son"/>
+			<exclude-mapping path="/survey/surveyAnswer.son"/>
+			<exclude-mapping path="/survey/surveyResult.son"/>
+			<exclude-mapping path="/survey/makeSurvey.son"/>
+			<exclude-mapping path="/survey/questList.son"/>
+			<exclude-mapping path="/survey/exList.son"/>
+			<beans:ref bean="loginCheck" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/gboard/gWrite*.son" />
+			<beans:ref bean="gboardCheck"></beans:ref>
+		</interceptor>
+		<interceptor>
+			<mapping path="/survey/surveyQuest.son" />
+			<mapping path="/survey/surveyAnswer.son" />
+			<mapping path="/survey/surveyResult.son" />
+			<beans:ref bean="surveyCheck" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/survey/makeSurvey.son" />
+			<beans:ref bean="adminCheck"></beans:ref>
+		</interceptor>
+		 -->
+	<!-- </interceptors> -->
+	
+</beans:beans>
