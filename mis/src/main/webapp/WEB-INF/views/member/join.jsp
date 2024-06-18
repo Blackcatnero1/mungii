@@ -126,7 +126,7 @@
                 if(spw != srepw){
                     document.frm.repw.value = '';
                     document.frm.repw.focus();
-                    alert('비밀번호 틀렸어');
+                    alert('비밀번호 불일치');
                     return;
                 }
                 
@@ -204,17 +204,17 @@
                 <label for="id">아이디 :</label>
                 <input type="text" name="id" id="id" placeholder="아이디를 입력하세요.">
                 <div class="button" id="chkBtn">Check</div>
-                <small id="idmsg" class="w3-hide">* 이미 누군가가 사용중.</small>
+                <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디.</small>
             </div>
             <div class="form-group">
                 <label for="pw">비밀번호 :</label>
                 <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요.">
-                <small id="pwmsg" class="w3-hide"># 다시 적으세요.</small>
+                <small id="pwmsg" class="w3-hide"># 비밀번호를 확인해주세요.</small>
             </div>
             <div class="form-group">
                 <label for="repw">비밀번호 확인 :</label>
-                <input type="password" id="repw" placeholder="비밀번호 확인 입력!">
-                <small id="repwmsg" class="w3-hide"># 비밀번호가 다르다 확인해라.</small>
+                <input type="password" id="repw" placeholder="비밀번호 확인 입력">
+                <small id="repwmsg" class="w3-hide"># 비밀번호를 다시 확인해주세요.</small>
             </div>
             <div class="form-group">
                 <label for="mail">이메일 :</label>
@@ -282,9 +282,9 @@
             </div>
         </form>
         <div class="buttons">
-            <div class="button orange" id="reset">Reset</div>
-            <div class="button green" id="home">Home</div>
-            <div class="button blue" id="join">회원가입</div>
+            <div class="button orange w3-left" id="reset">Reset</div>
+            <div class="button green w3-left" id="home">Home</div>
+            <div class="button blue w3-right" id="join">회원가입</div>
         </div>
     </div>
 </body>
