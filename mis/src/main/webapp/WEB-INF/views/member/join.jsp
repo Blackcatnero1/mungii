@@ -11,9 +11,7 @@
     <style type="text/css">
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f1f3f4;
-            margin: 0;
-            padding: 0;
+            background-color: #e5e5e5;
         }
         .header {
             background-color: #4285f4;
@@ -57,16 +55,11 @@
             background-color: #4285f4;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
             font-size: 14px;
         }
         .button:hover {
             background-color: #357ae8;
         }
-        .button.orange { background-color: #f4b400; }
-        .button.green { background-color: #34a853; }
-        .button.blue { background-color: #4285f4; }
-        .button.red { background-color: #ea4335; }
         .radio-group {
             display: flex;
             justify-content: space-around;
@@ -79,20 +72,6 @@
         .radio-group input {
             margin-right: 5px;
         }
-        .avatar-group {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-        }
-        .avatar-group .avtBox {
-            display: inline-block;
-            text-align: center;
-        }
-        .avatar-group img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
         .buttons {
             text-align: center;
             margin-top: 30px;
@@ -100,17 +79,7 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.rdo').change(function(){
-                $('#fAvt, #mAvt').stop().slideUp();
-                var tag = $(this).val();
-                if(tag == 'M'){
-                    $('#mAvt').removeClass('w3-hide');
-                    $('#mAvt').slideDown();
-                } else {
-                    $('#fAvt').removeClass('w3-hide');
-                    $('#fAvt').slideDown();
-                }
-            });
+            
             
             function tCheck(t, v){
                 if(!v) {
@@ -133,9 +102,8 @@
                 var smail = document.frm.mail.value;
                 var stel = document.frm.tel.value;
                 var sgen = document.querySelectorAll('[name="gen"]:checked')[0].value;
-                var sano = document.querySelectorAll('[name="ano"]:checked')[0].value;
                 
-                if(!sid || !spw || !smail || !stel || !sgen || !sano){
+                if(!sid || !spw || !smail || !stel || !sgen){
                     return;
                 }
                 
@@ -193,98 +161,74 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <h1 class="header">회원가입</h1>
-        <form method="GET" action="/mis/member/joinProc.mis" name="frm" id="frm" class="form">
-            <div class="form-group">
-                <label for="name">이름 :</label>
-                <input type="text" name="name" id="name" placeholder="이름을 입력하세요.">
+	<div class="w3-content" style="max-width:1600px">
+	
+	  <!-- 헤더1 -->
+		<header class="w3-display-container w3-wide" id="home">
+			<div class="header">
+				<h1>미세먼지 회원가입창</h1>
+			</div>
+		</header>
+		
+		<!-- 버튼헤더(필요시 갯수추가) -->
+		<header class="w3-container w3-center w3-padding-48 w3-white">
+		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼1</button></h6>
+		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼2</button></h6>
+		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼3</button></h6>
+		</header>
+	</div>
+	
+    <div class="container w3-content w3-container">
+        <h1 class="header w3-round">회원가입</h1>
+        <form method="GET" action="/mis/member/joinProc.mis" name="frm" id="frm" class="form w3-padding">
+        
+            <div class="form-group w3-col w3-margin">
+                <label for="name" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">이름 :</label>
+                <input type="text" name="name" id="name" placeholder="이름을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
             </div>
-            <div class="form-group">
-                <label for="id">아이디 :</label>
-                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요.">
-                <div class="button" id="chkBtn">Check</div>
+            <div class="form-group w3-col w3-margin">
+                <label for="id" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">아이디 :</label>
+                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s5 m6 l7 w3-input w3-border w3-round">
+                <div class="button w3-button w3-right" id="chkBtn" style="width: 85px; height: 40px; margin-top: 0px; margin-right: 5%; margin-bottom: 0px;">Check</div>
                 <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디.</small>
             </div>
-            <div class="form-group">
-                <label for="pw">비밀번호 :</label>
-                <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요.">
+            <div class="form-group w3-col w3-margin">
+                <label for="pw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">비밀번호 :</label>
+                <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
                 <small id="pwmsg" class="w3-hide"># 비밀번호를 확인해주세요.</small>
             </div>
-            <div class="form-group">
-                <label for="repw">비밀번호 확인 :</label>
-                <input type="password" id="repw" placeholder="비밀번호 확인 입력">
+            <div class="form-group w3-col w3-margin">
+                <label for="repw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">비밀번호 확인 :</label>
+                <input type="password" id="repw" placeholder="비밀번호 확인 입력" class="w3-col l8 s8 w3-input w3-border w3-round">
                 <small id="repwmsg" class="w3-hide"># 비밀번호를 다시 확인해주세요.</small>
             </div>
-            <div class="form-group">
-                <label for="mail">이메일 :</label>
-                <input type="text" name="mail" id="mail" placeholder="이메일을 입력하세요.">
+            <div class="form-group w3-col w3-margin">
+                <label for="mail" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">이메일 :</label>
+                <input type="text" name="mail" id="mail" placeholder="이메일을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
             </div>
-            <div class="form-group">
-                <label for="tel">전화번호 :</label>
-                <input type="text" name="tel" id="tel" placeholder="전화번호를 입력하세요.">
-            </div>
-            <div class="form-group">
-                <label>성별 :</label>
-                <div class="radio-group">
-                    <label for="F">
-                        <input type="radio" name="gen" id="F" class="rdo" value="F"> 
-                        여자
-                    </label>
-                    <label for="M">
-                        <input type="radio" name="gen" id="M" class="rdo" value="M"> 
-                        남자
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>아바타 :</label>
-                <div id="mAvt" class="avatar-group w3-hide">
-                    <div class="avtBox">
-                        <label for="11">
-                            <img src="/mis/image/avatar/img_avatar11.png">
-                        </label>
-                        <input type="radio" name="ano" id="11" class="w3-radio avtrdo" value="11" checked>
+            <div class="form-group w3-col w3-margin">
+                <label class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">성별 :</label>
+                <div class="radio-group w3-col s8 m8">
+                	<div class="w3-half w3-center">
+	                    <label for="F">
+	                        <input type="radio" name="gen" id="F" class="rdo" value="F"> 
+	                        여자
+	                    </label>
                     </div>
-                    <div class="avtBox">
-                        <label for="12">
-                            <img src="/mis/image/avatar/img_avatar12.png">
-                        </label>
-                        <input type="radio" name="ano" id="12" class="w3-radio avtrdo" value="12">
-                    </div>
-                    <div class="avtBox">
-                        <label for="13">
-                            <img src="/mis/image/avatar/img_avatar13.png">
-                        </label>
-                        <input type="radio" name="ano" id="13" class="w3-radio avtrdo" value="13">
-                    </div>
-                </div>
-                <div id="fAvt" class="avatar-group w3-hide">
-                    <div class="avtBox">
-                        <label for="21">
-                            <img src="/mis/image/avatar/img_avatar21.png">
-                        </label>
-                        <input type="radio" name="ano" id="21" class="w3-radio avtrdo" value="21">
-                    </div>
-                    <div class="avtBox">
-                        <label for="22">
-                            <img src="/mis/image/avatar/img_avatar22.png">
-                        </label>
-                        <input type="radio" name="ano" id="22" class="w3-radio avtrdo" value="22">
-                    </div>
-                    <div class="avtBox">
-                        <label for="23">
-                            <img src="/mis/image/avatar/img_avatar23.png">
-                        </label>
-                        <input type="radio" name="ano" id="23" class="w3-radio avtrdo" value="23">
+                    <div class="w3-half w3-center">
+	                    <label for="M">
+	                        <input type="radio" name="gen" id="M" class="rdo" value="M"> 
+	                        남자
+	                    </label>
                     </div>
                 </div>
             </div>
+            
         </form>
         <div class="buttons">
-            <div class="button orange w3-left" id="reset">Reset</div>
-            <div class="button green w3-left" id="home">Home</div>
-            <div class="button blue w3-right" id="join">회원가입</div>
+            <div class="button w3-red w3-left w3-button" id="reset">Reset</div>
+            <div class="button w3-cyan w3-left w3-button" id="home">Home</div>
+            <div class="button w3-indigo w3-right w3-button" id="join">회원가입</div>
         </div>
     </div>
 </body>
