@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 @Controller
-public class CafeMain {
+public class MisMain {
 	@RequestMapping("/")
 	public String getMain() {
 		return "main";

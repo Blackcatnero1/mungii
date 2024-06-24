@@ -23,5 +23,9 @@ public class MainController {
 	public String getMain() {
 		return "main";
 	}
+	@RequestMapping("/temp.mis")
+	public String getTemp() {
+		return "temp";
+	}
 	
 }
