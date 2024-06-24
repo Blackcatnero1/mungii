@@ -98,7 +98,7 @@
         });
     </script>
 </head>
-<body class="w3-light-grey w3-center" >
+<body class="w3-light-grey" >
   
 <div class="w3-content" style="max-width:1600px">
 	
@@ -130,12 +130,10 @@
 			
 				<hr style="border: solid 1px black;">
                 <ol>
-                    {% for pdata, fdata in jdata_value %}
-                        <li>
-                            <div>
-                                도시 : {{ pdata }}, AQI : {{ fdata }}
-                                
-                            </div>
+                    {% for hdata, pdata, fdata in jdata_value %}
+                        <li class="w3-col w3-padding w3-border-bottom">
+                            <a href={{pdata}} class="w3-col m5 w3-text-gray w3-left-align">{{ fdata }}</a>
+                            <div class="w3-col m5">AQI : {{ hdata }}</div>
                         </li>
                     {% endfor %}
                 </ol>
@@ -151,11 +149,10 @@
 			  
 				<hr style="border: solid 1px black;">
 				<ol>
-                    {% for aqi, alt in aqi_alt_values %}
-                        <li>
-                            <div>
-                                도시 : {{ alt }}, AQI : {{ aqi }}
-                            </div>
+                    {% for aqi, alt, alist in aqi_alt_values %}
+                        <li class="w3-col w3-padding w3-border-bottom">
+                            <a href={{alist}} class="w3-col m5 w3-text-gray w3-left-align">{{ alt }}</a>
+                            <div class="w3-col m5">AQI : {{ aqi }}</div>
                         </li>
                     {% endfor %}
                 </ol>

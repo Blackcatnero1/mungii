@@ -41,8 +41,13 @@ def test(request):
     for img_tag in img_tags[:10]:
         alt_values.append(img_tag.get('alt'))
 
+    a_tags = soup.find_all('a', class_='city-label')
+    alist = []
+    for a_tag in a_tags[:10]:
+        alist.append('http://iqair.com' + a_tag['href'])
+
     # 데이터를 템플릿으로 전달
-    aqi_alt_values = zip(aqi_values, alt_values)
+    aqi_alt_values = zip(aqi_values, alt_values, alist)
     
     
     url1 = 'https://www.iqair.com/ko/south-korea'
@@ -58,9 +63,17 @@ def test(request):
     # 가장 마지막 p 태그 선택
     for i in aqi_p[10:20]:
         pdata.append(i.text.strip())
+    flags = soup1.find_all('img', class_='flag')
+    hdata = []
+    for flag in flags[10:20]:
+        # 형제 태그 중에서 a 태그 찾기
+        sibling_a = flag.find_next_sibling('a')
+        a_value = sibling_a.text.strip()
+        hvalue = 'http://iqair.com' + sibling_a['href']
+        hdata.append(hvalue)
 
     # flag 클래스를 가진 모든 img 태그 선택
-    flags = soup1.find_all('img', class_='flag')
+    
     fdata = []
     # flag[11:20] 범위에 있는 각 img 태그의 형제 태그 중 a 태그의 값을 가져오기
     for flag in flags[10:20]:
@@ -70,7 +83,7 @@ def test(request):
         fdata.append(a_value)
 
     # 데이터를 템플릿으로 전달
-    jdata_values = zip(fdata, pdata)
+    jdata_values = zip(pdata, hdata, fdata)
     context = {
         'aqi_alt_values': aqi_alt_values,
         'jdata_value': jdata_values
