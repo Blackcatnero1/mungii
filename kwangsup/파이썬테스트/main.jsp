@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head></head>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsEGfjuuyh6TiF2cXNhugeBPS4FB7ZM0g&callback=initMap&region=KR"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&region=KR"></script>
 <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/css/user.css">
