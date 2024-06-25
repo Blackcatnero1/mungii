@@ -188,7 +188,7 @@
             </div>
             <div class="form-group w3-col w3-margin">
                 <label for="id" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">아이디 :</label>
-                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s5 m6 l7 w3-input w3-border w3-round">
+                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s5 m6 l6 w3-input w3-border w3-round">
                 <div class="button w3-button w3-right" id="chkBtn" style="width: 85px; height: 40px; margin-top: 0px; margin-right: 5%; margin-bottom: 0px;">Check</div>
                 <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디.</small>
             </div>
