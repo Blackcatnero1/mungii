@@ -21,9 +21,9 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .container {
-            max-width: 650px;
+            max-width: 700px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 15px 20px;
             background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -48,7 +48,7 @@
             color: #d93025;
         }
         .button {
-            margin: 10px 5px;
+            margin: 5px 5px;
             padding: 10px 20px;
             border: none;
             color: white;
@@ -101,7 +101,7 @@
                 
                 var smail = document.frm.mail.value;
                 var stel = document.frm.tel.value;
-                var sgen = document.querySelectorAll('[name="gen"]:checked')[0].value;
+                var sgen = document.querySelectorAll('[name="sick"]:checked')[0].value;
                 
                 if(!sid || !spw || !smail || !stel || !sgen){
                     return;
@@ -171,7 +171,7 @@
 		</header>
 		
 		<!-- 버튼헤더(필요시 갯수추가) -->
-		<header class="w3-container w3-center w3-padding-48 w3-white">
+		<header class="w3-container w3-center w3-white w3-padding">
 		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼1</button></h6>
 		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼2</button></h6>
 		    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼3</button></h6>
@@ -179,51 +179,50 @@
 	</div>
 	
     <div class="container w3-content w3-container">
-        <h1 class="header w3-round">회원가입</h1>
+        <h1 class="header w3-round w3-margin">회원가입</h1>
         <form method="GET" action="/mis/member/joinProc.mis" name="frm" id="frm" class="form w3-padding">
         
-            <div class="form-group w3-col w3-margin">
-                <label for="name" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">이름 :</label>
-                <input type="text" name="name" id="name" placeholder="이름을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+        	<div style="margin-top: 20px;">
+	            <div class="form-group w3-col w3-margin">
+	                <label for="name" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">이름 :</label>
+	                <input type="text" name="name" id="name" placeholder="이름을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label for="nic" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">닉네임 :</label>
+	                <input type="text" name="nic" id="nic" placeholder="닉네임을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label for="id" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">아이디 :</label>
+	                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s5 m6 l7 w3-input w3-border w3-round">
+	                <div class="button w3-button w3-right" id="chkBtn" style="width: 85px; height: 45px; margin-top: 0px; margin-right: 4%; margin-bottom: 0px; padding-top: 12px;">Check</div>
+	                <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디입니다.</small>
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label for="pw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">비밀번호 :</label>
+	                <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+	                <small id="pwmsg" class="w3-hide"># 비밀번호를 확인해주세요.</small>
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label for="repw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">비밀번호 확인 :</label>
+	                <input type="password" id="repw" placeholder="비밀번호 확인 입력" class="w3-col l8 s8 w3-input w3-border w3-round">
+	                <small id="repwmsg" class="w3-hide"># 비밀번호를 다시 확인해주세요.</small>
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label for="address" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">거주 지역 :</label>
+	                <input type="text" name="address" id="address" placeholder="거주 지역을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+	            </div>
+	            <div class="form-group w3-col w3-margin">
+	                <label class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">호흡기질환이 있으신가요?</label>
+	                <div class="radio-group w3-col s6 m8 w3-margin" style="margin-top: 20px;">
+	                	<div class="w3-half w3-center">
+	                        <input type="radio" name="sick" id="Y" class="rdo" value="Y" style="display: inline; width: 30px;"> <label for="Y">예</label>
+	                    </div>
+	                    <div class="w3-half w3-center">
+		                    <input type="radio" name="sick" id="N" class="rdo" value="N" style="display: inline; width: 30px;"> <label for="N">아니오</label>
+	                    </div>
+	                </div>
+	            </div>
             </div>
-            <div class="form-group w3-col w3-margin">
-                <label for="id" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">아이디 :</label>
-                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s5 m6 l6 w3-input w3-border w3-round">
-                <div class="button w3-button w3-right" id="chkBtn" style="width: 85px; height: 40px; margin-top: 0px; margin-right: 5%; margin-bottom: 0px;">Check</div>
-                <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디.</small>
-            </div>
-            <div class="form-group w3-col w3-margin">
-                <label for="pw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">비밀번호 :</label>
-                <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
-                <small id="pwmsg" class="w3-hide"># 비밀번호를 확인해주세요.</small>
-            </div>
-            <div class="form-group w3-col w3-margin">
-                <label for="repw" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">비밀번호 확인 :</label>
-                <input type="password" id="repw" placeholder="비밀번호 확인 입력" class="w3-col l8 s8 w3-input w3-border w3-round">
-                <small id="repwmsg" class="w3-hide"># 비밀번호를 다시 확인해주세요.</small>
-            </div>
-            <div class="form-group w3-col w3-margin">
-                <label for="mail" class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">이메일 :</label>
-                <input type="text" name="mail" id="mail" placeholder="이메일을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
-            </div>
-            <div class="form-group w3-col w3-margin">
-                <label class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px;">성별 :</label>
-                <div class="radio-group w3-col s8 m8">
-                	<div class="w3-half w3-center">
-	                    <label for="F">
-	                        <input type="radio" name="gen" id="F" class="rdo" value="F"> 
-	                        여자
-	                    </label>
-                    </div>
-                    <div class="w3-half w3-center">
-	                    <label for="M">
-	                        <input type="radio" name="gen" id="M" class="rdo" value="M"> 
-	                        남자
-	                    </label>
-                    </div>
-                </div>
-            </div>
-            
         </form>
         <div class="buttons">
             <div class="button w3-red w3-left w3-button" id="reset">Reset</div>
