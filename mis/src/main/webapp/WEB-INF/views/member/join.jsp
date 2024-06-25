@@ -224,6 +224,7 @@
 	            </div>
             </div>
         </form>
+        
         <div class="buttons">
             <div class="button w3-red w3-left w3-button" id="reset">Reset</div>
             <div class="button w3-cyan w3-left w3-button" id="home">Home</div>
