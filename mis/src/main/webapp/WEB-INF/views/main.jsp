@@ -89,7 +89,7 @@
         <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">한민</button></h6>
     </header>
     <!-- Grid -->
-    <div class="w3-row w3-padding w3-border">
+    <div class="w3-row w3-padding">
         <!-- 좌분면 -->
         <div class="w3-col l8 s8">
             <!-- 국내 순위 -->
@@ -133,7 +133,7 @@
                         <div class="w3-container w3-padding w3-black">
                             <h4>로그인</h4>
                         </div>
-                        <div class="w3-container w3-white">
+                        <div class="w3-container w3-white" style="padding-bottom: 10px;">
                             <p><input class="w3-input w3-border" type="text" placeholder="아이디" style="padding-left: 10px"></p>
                             <p><input class="w3-input w3-border" type="text" placeholder="비밀번호"></p>
                             <div class="w3-half w3-button w3-green" id="login">로그인</div>
@@ -144,9 +144,9 @@
                         <div class="w3-container w3-padding w3-black">
                             <h4>내 정보</h4>
                         </div>
-                        <div class="w3-container w3-white">
-                            <div class="w3-col w3-button w3-pale-red w3-margin" id="logout">로그아웃</div>
-                            <div class="w3-col w3-button w3-gray w3-margin" id="myPage">마이페이지</div>
+                        <div class="w3-container w3-white" style="padding-bottom: 10px;">
+                            <div class="w3-col w3-button w3-pale-red w3-margin m10" id="logout">로그아웃</div>
+                            <div class="w3-col w3-button w3-gray w3-margin m10" id="myPage">마이페이지</div>
                         </div>
                     </c:if>
                 </div>
@@ -157,9 +157,9 @@
                     <h4>관련 기사</h4>
                 </div>
                 <div class="w3-container w3-white">
-                    <div class="w3-container w3-display-container w3-light-grey w3-section" style="height:200px">
+                    <div class="w3-container w3-display-container w3-light-grey w3-section w3-padding" style="height:200px">
                         <a>기사제목</a>
-                        <hr style="border: solid 1px #808080;">
+                        <hr style="border: solid 1px #808080; margin: 10px;">
                         <a>기사제목2</a>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
 <!-- END w3-content -->
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey" style="padding:32px">
-    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼\n필요한가요</a>
+    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼 필요한가요</a>
     <p>사용설명서 여기다가</p>
 </footer>
 </div>
