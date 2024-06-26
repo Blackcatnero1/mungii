@@ -213,11 +213,11 @@
 	            </div>
 	            <div class="form-group w3-col w3-margin">
 	                <label class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 140px; margin-top: 3px;">호흡기질환이 있으신가요?</label>
-	                <div class="radio-group w3-col s6 m8 w3-margin" style="margin-top: 20px;">
-	                	<div class="w3-half w3-center">
+	                <div class="radio-group w3-col s6 m8 w3-margin">
+	                	<div class="w3-half w3-center" style="margin-top: 10px;">
 	                        <input type="radio" name="sick" id="Y" class="rdo" value="Y" style="display: inline; width: 30px;"> <label for="Y">예</label>
 	                    </div>
-	                    <div class="w3-half w3-center">
+	                    <div class="w3-half w3-center" style="margin-top: 10px;">
 		                    <input type="radio" name="sick" id="N" class="rdo" value="N" style="display: inline; width: 30px;"> <label for="N">아니오</label>
 	                    </div>
 	                </div>
