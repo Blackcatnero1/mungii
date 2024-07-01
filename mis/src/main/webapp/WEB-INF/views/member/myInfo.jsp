@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>mis Main</title>
-    <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
-    <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
-    <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
-    <style type="text/css">
-        body {
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/css/user.css">
+<script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+<style type="text/css">
+		body {
             font-family: 'Roboto', Arial, sans-serif;
             background-color: #f1f3f4;
             margin: 0;
@@ -31,33 +31,19 @@
             border-radius: 8px;
             text-align: center;
         }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#login').click(function(){
-                var sid = '${SID}';
-                if(!sid || sid == 'null'){
-                    $(location).attr('href', '/mis/member/login.mis');
-                } else {
-                    alert('이미 로그인 했습니다.');
-                }
-            });
-            
-            $('#logout').click(function(){
-                $(location).attr('href', '/mis/member/logout.mis');
-            });
-            
-            $('#join').click(function(){
-                var sid = '${SID}';
-                if(!sid || sid == 'null'){
-                    $(location).attr('href', '/mis/member/join.mis');
-                } else {
-                    return;
-                }
-            }); 
-            
-        });
-    </script>
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#home').click(function(){
+			$(location).attr('href', '/main.son');
+		});
+		
+		$('#logout').click(function(){
+			$(location).attr('href', '/member/logout.son');
+		});
+	});
+		
+</script>
 </head>
 <body class="w3-light-grey">
   
@@ -66,7 +52,7 @@
 	  <!-- 헤더1 -->
 	<header class="w3-display-container w3-wide" id="home">
 		<div class="header">
-			<h1>페이지 템플릿(배경 변경 가능성 있음)</h1>
+			<h1>My Info</h1>
 		</div>
 	</header>
 	
@@ -79,9 +65,34 @@
 	
 	<!-- Grid -->
 	<div class="w3-row w3-padding w3-border">
-	
-	</div>
-	
+
+		<div class="w3-container w3-padding-32 w3-white w3-center w3-margin" style="max-width:800px">
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">이 름 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="name"></h3>
+			</div>
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">닉네임 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="nic"></h3>
+			</div>
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">아이디 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="id"></h3>
+			</div>
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">거주 지역 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="address"></h3>
+			</div>
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">호흡기질환 유무 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="sick"></h3>
+			</div>
+			<div class="w3-col">
+				<h3 class="w3-col m3 w3-right-align w3-text-gray pdr10">가입일 : </h3>
+				<h3 class="w3-col m8 w3-center w3-text-gray pdr10 membdata" id="jdate"></h3>
+			</div>
+		</div>
+	</div>	
 <!-- END w3-content -->
 </div>
 	
@@ -92,5 +103,7 @@
 	<p>사용설명서 여기다가</p>
 </footer>
     
+
+	
 </body>
 </html>
