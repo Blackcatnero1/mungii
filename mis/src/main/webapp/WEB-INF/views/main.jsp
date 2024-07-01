@@ -60,13 +60,29 @@
 
             // 각 버튼에 대한 클릭 이벤트 처리
             $('#login').click(function(){
-                var sid = '${SID}';
-                if(!sid || sid == 'null'){
-                    $(location).attr('href', '/mis/member/login.mis');
-                } else {
-                    alert('이미 로그인 했습니다.');
+                var sid = $('#id').val();
+                if(!sid){
+                    $('#id').focus();
+                    return;
+                }
+                
+                var spw = $('#pw').val();
+                if(!spw){
+                    $('#pw').focus();
+                    return;
+                }
+                
+                $('#frm').attr('method', 'POST').attr('action', '/mis/member/loginProc.mis');
+                $('#frm').submit();
+            });
+
+            // 엔터 키로 로그인 버튼 클릭 이벤트 추가
+            $('#id, #pw').on('keypress', function(e) {
+                if (e.which == 13) {
+                    $('#login').click();
                 }
             });
+            
             $('#logout').click(function(){
                 $(location).attr('href', '/mis/member/logout.mis');
             });
@@ -134,8 +150,8 @@
                             <h4>로그인</h4>
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
-                            <p><input class="w3-input w3-border" type="text" placeholder="아이디" style="padding-left: 10px"></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="비밀번호"></p>
+                            <p><input class="w3-input w3-border" name="id" id="id" type="text" placeholder="아이디" style="padding-left: 10px"></p>
+                            <p><input class="w3-input w3-border" name="pw" id="pw" type="text" placeholder="비밀번호"></p>
                             <div class="w3-half w3-button w3-green" id="login">로그인</div>
                             <div class="w3-half w3-button w3-blue" id="join">회원가입</div>
                         </div>

@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mSQL">
-<!-- 	<select id="login" resultType="int" parameterType="com.human.son.vo.MemberVO"> -->
+
 	<select id="login" resultType="int" parameterType="mVO">
 		SELECT
 			COUNT(*) cnt
@@ -33,19 +33,18 @@
 	<!-- 회원의 아이디로 해당회원의 정보를 조회하는 질의명령 -->
 	<select id="memberInfo" resultType="mVO" parameterType="string">
 		SELECT
-			name, id, mail, tel, m.gen, joindate jdate, filename savename
+			nickname, name, id, home,  gen, joindate jdate
 		FROM
-			member m, avatar a
+			member
 		WHERE
-			avatar = ano
-			AND id = #{id}
+			id = #{id}
 	</select>
 	
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
-			member(mno, name, id, pw, mail, tel, gen, avatar)
+			member(mno, nickname, name, id, pw, home, gen)
 		VALUES(
-			mnoSeq.NEXTVAL, #{name}, #{id}, #{pw}, #{mail}, #{tel}, #{gen}, #{ano}
+			mnoSeq.NEXTVAL, #{nickname}, #{name}, #{id}, #{pw}, #{home}, #{gen}
 		)
 	</insert>
 </mapper>
