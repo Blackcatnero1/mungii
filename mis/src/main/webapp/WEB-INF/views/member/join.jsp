@@ -195,7 +195,7 @@
 		            <div class="form-group w3-col w3-margin">
 		                <label for="id" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">아이디 :</label>
 		                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s6 l6 w3-input w3-border w3-round">
-		                <div class="w3-button w3-blue w3-round-large w3-center" id="chkBtn" style="width: 85px; height: 45px; margin-top: 0px; margin-right: 4%; margin-bottom: 0px; padding-top: 12px;">Check</div>
+		                <div class="w3-button w3-blue w3-round w3-center" id="chkBtn" style="width: 85px; height: 45px; margin-top: 0px; margin-right: 4%; margin-bottom: 0px; padding-top: 12px;">Check</div>
 		                <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디입니다.</small>
 		            </div>
 		            <div class="form-group w3-col w3-margin">
