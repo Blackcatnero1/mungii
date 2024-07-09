@@ -71,7 +71,7 @@
 	</header>
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-padding-48 w3-white">
+	<header class="w3-container w3-center w3-padding w3-white">
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼1</button></h6>
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼2</button></h6>
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼3</button></h6>
