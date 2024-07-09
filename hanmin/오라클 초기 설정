@@ -50,10 +50,10 @@ INCREMENT BY 1
 NOCACHE
 NOCYCLE;
 
-이 명령을 실행했을 때 mnoSeq가 출력된다면 정상이다.
+
 SELECT sequence_name
 FROM user_sequences;
-
+위 명령을 실행했을 때 mnoSeq가 출력된다면 정상이다.
 
 INSERT INTO
 			member(mno, nickname, name, id, pw, home)
@@ -62,3 +62,41 @@ INSERT INTO
 		)
         ;
 commit;
+
+
+SELECT
+    COUNT(*) cnt
+FROM
+    member
+WHERE
+    id = 'hanmin'
+    AND pw = 12345;
+    
+SELECT
+    id
+FROM
+    member;
+    
+SELECT
+    nickname, name, id, home, gen, joindate jdate
+FROM
+    member
+WHERE
+    id = 'hanmin'
+;
+ 
+commit;
+
+drop table park;
+
+CREATE TABLE park(
+    pno NUMBER(4)
+        CONSTRAINT PARK_PNO_PK PRIMARY KEY,
+    pname VARCHAR2(100)
+        CONSTRAINT PARK_PNAME_NN NOT NULL,
+    pmis VARCHAR2(30),
+    pcity VARCHAR2(30)
+        CONSTRAINT PARK_PCITY_NN NOT NULL,
+    pkreview VARCHAR2(30)
+        CONSTRAINT PARK_PKREVIEW_NN NOT NULL
+);
