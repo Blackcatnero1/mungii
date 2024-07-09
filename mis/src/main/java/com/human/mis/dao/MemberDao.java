@@ -18,6 +18,7 @@ public class MemberDao {
 	}
 	
 	public int addMember(MemberVO mVO) {
+		System.out.println("**************" + mVO);
 		return session.insert("mSQL.addMember", mVO);
 	}
 }

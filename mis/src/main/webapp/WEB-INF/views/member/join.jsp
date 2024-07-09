@@ -103,11 +103,11 @@
                     return;
                 }
                 
-                var smail = document.frm.mail.value;
-                var stel = document.frm.tel.value;
-                var sgen = document.querySelectorAll('[name="sick"]:checked')[0].value;
+                var sname = document.frm.name.value;
+                var snic = document.frm.nic.value;
+                var saddress = document.frm.address.value;
                 
-                if(!sid || !spw || !smail || !stel || !sgen){
+                if(!sid || !spw || !srepw || !snic || !saddress){
                     return;
                 }
                 

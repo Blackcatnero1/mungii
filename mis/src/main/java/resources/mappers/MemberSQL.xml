@@ -33,7 +33,7 @@
 	<!-- 회원의 아이디로 해당회원의 정보를 조회하는 질의명령 -->
 	<select id="memberInfo" resultType="mVO" parameterType="string">
 		SELECT
-			nickname, name, id, home,  gen, joindate jdate
+			nickname, name, id, home, joindate jdate
 		FROM
 			member
 		WHERE
@@ -42,9 +42,9 @@
 	
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
-			member(mno, nickname, name, id, pw, home, gen)
+			member(mno, nickname, name, id, pw, home)
 		VALUES(
-			mnoSeq.NEXTVAL, #{nickname}, #{name}, #{id}, #{pw}, #{home}, #{gen}
+			mnoSeq.NEXTVAL, #{nickname}, #{name}, #{id}, #{pw}, #{home}
 		)
 	</insert>
 </mapper>
