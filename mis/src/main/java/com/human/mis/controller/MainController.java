@@ -105,9 +105,4 @@ public class MainController {
 		return "temp";
 	}
 	
-	@RequestMapping("/park.mis")
-	public String getPark() {
-		return "park";
-	}
-	
 }
