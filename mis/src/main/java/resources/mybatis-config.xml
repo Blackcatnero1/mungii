@@ -13,6 +13,7 @@
 	<typeAliases>
 		<typeAlias alias="mVO" type="com.human.mis.vo.MemberVO"/>
 		<typeAlias alias="rVO" type="com.human.mis.vo.ReboardVO"/>
+		<typeAlias alias="pVO" type="com.human.mis.vo.ParkVO"/>
 		<typeAlias alias="page" type="com.human.mis.util.PageUtil"/>
 	</typeAliases>
 	
