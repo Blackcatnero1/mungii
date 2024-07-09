@@ -11,6 +11,6 @@ public class ParkDao {
 	SqlSessionTemplate session;
 	
 	public int getPark(ParkVO pVO) {
-		return session.selectOne("mSQL.login", pVO);
+		return session.selectOne("pSQL.getPark", pVO);
 	}
 }
