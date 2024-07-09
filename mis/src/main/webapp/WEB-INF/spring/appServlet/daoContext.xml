@@ -12,5 +12,6 @@
 	
 	<bean id="mDao" class="com.human.mis.dao.MemberDao" />
 	<bean id="rDao" class="com.human.mis.dao.ReboardDao" />
+	<bean id="pDao" class="com.human.mis.dao.ParkDao" />
 	
 </beans>
