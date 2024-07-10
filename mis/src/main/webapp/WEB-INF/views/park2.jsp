@@ -57,22 +57,47 @@
         
     </style>
     <script type="text/javascript">
-     $(document).ready(function(){
-     	/* 페이지 클릭이벤트 */
- 		$('.pageBtn').click(function(){
- 			// 이동할 페이지번호 알아내고
- 			var nowPage = $(this).attr('id');
- 			// 입력태그에 데이터 채우고
- 			$('#nowPage').val(nowPage);
- 			// 글번호 태그 사용불가처리
- 			$('#bno').prop('disabled', true);
- 			// 전송 주소 셋팅하고
- 			$('#pageFrm').attr('action', '/mis/park/park.mis');
- 			
- 			// 폼태그 전송하고
- 			$('#pageFrm').submit();
- 		});
-     });
+        $(document).ready(function(){
+            $('#login').click(function(){
+                var sid = '${SID}';
+                if(!sid || sid == 'null'){
+                    $(location).attr('href', '/mis/member/login.mis');
+                } else {
+                    alert('이미 로그인 했습니다.');
+                }
+            });
+            
+            $('#logout').click(function(){
+                $(location).attr('href', '/mis/member/logout.mis');
+            });
+            
+            $('#join').click(function(){
+                var sid = '${SID}';
+                if(!sid || sid == 'null'){
+                    $(location).attr('href', '/mis/member/join.mis');
+                } else {
+                    return;
+                }
+            });
+            
+            $(document).ready(function(){
+            	/* 페이지 클릭이벤트 */
+        		$('.pageBtn').click(function(){
+        			// 이동할 페이지번호 알아내고
+        			var nowPage = $(this).attr('id');
+        			// 입력태그에 데이터 채우고
+        			$('#nowPage').val(nowPage);
+        			// 글번호 태그 사용불가처리
+        			$('#bno').prop('disabled', true);
+        			// 전송 주소 셋팅하고
+        			$('#pageFrm').attr('action', '/mis/park/park.mis');
+        			
+        			// 폼태그 전송하고
+        			$('#pageFrm').submit();
+        		});
+            });
+            
+        });
     </script>
 </head>
 <form method="post" action="/park/park.mis" id="pageFrm">
