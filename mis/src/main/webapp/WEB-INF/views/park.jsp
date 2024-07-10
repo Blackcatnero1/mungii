@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>mis Main</title>
+    <title>Mis Park</title>
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
@@ -71,7 +71,20 @@
  			// 폼태그 전송하고
  			$('#pageFrm').submit();
  		});
+     	
+ 		$('#1').click(function(){
+ 			$(location).attr('href', '/mis//.mis');
+ 		});
+ 		$('#2').click(function(){
+ 			$(location).attr('href', '/mis//.mis');
+ 		});
+ 		$('#3').click(function(){
+ 			$(location).attr('href', '/mis//.mis');
+ 		});
      });
+ 		function handleClick() {
+ 			$(location).attr('href', '/mis/');
+        }
     </script>
 </head>
 <form method="post" action="/park/park.mis" id="pageFrm">
@@ -82,7 +95,7 @@
 <div class="w3-content" style="max-width:1000px">
 	
 	  <!-- 헤더1 -->
-	<header class="w3-display-container w3-wide" id="home">
+	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()">
 		<div class="header">
 			<h1>페이지 템플릿(배경 변경 가능성 있음)</h1>
 		</div>
@@ -90,9 +103,9 @@
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
 	<header class="w3-container w3-center w3-padding w3-white">
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼1</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼2</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼3</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="1">버튼1</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="2">버튼2</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="3">버튼3</button></h6>
 	</header>
 		
 		<!-- 본문박스 -->

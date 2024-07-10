@@ -88,8 +88,8 @@
                 }
             }
 
-            $('#home').click(function(){
-                $(location).attr('href', '/main.mis');
+            $('#home1').click(function(){
+                $(location).attr('href', '/mis');
             });
             
             $('#join').click(function(){
@@ -104,10 +104,12 @@
                 }
                 
                 var sname = document.frm.name.value;
-                var snic = document.frm.nic.value;
-                var saddress = document.frm.address.value;
+                var snic = document.frm.nickname.value;
+                var shome = document.frm.home.value;
+
+
                 
-                if(!sid || !spw || !srepw || !snic || !saddress){
+                if(!sid || !spw || !srepw || !snic || !shome){
                     return;
                 }
                 
@@ -187,8 +189,8 @@
 		                <input type="text" name="name" id="name" placeholder="이름을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
 		            </div>
 		            <div class="w3-col w3-margin-left w3-margin-right form-group">
-		                <label for="nic" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">닉네임 :</label>
-		                <input type="text" name="nic" id="nic" placeholder="닉네임을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+		                <label for="nickname" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">닉네임 :</label>
+		                <input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
 		            </div>
 		            <div class="w3-col w3-margin-left w3-margin-right form-group">
 		                <label for="id" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">아이디 :</label>
@@ -207,8 +209,8 @@
 		                <small id="repwmsg" class="w3-hide"># 비밀번호를 다시 확인해주세요.</small>
 		            </div>
 		            <div class="w3-col w3-margin-left w3-margin-right form-group">
-		                <label for="address" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">거주 지역 :</label>
-		                <input type="text" name="address" id="address" placeholder="거주 지역을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
+		                <label for="home" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">거주 지역 :</label>
+		                <input type="text" name="home" id="home" placeholder="거주 지역을 입력하세요." class="w3-col l8 s8 w3-input w3-border w3-round">
 		            </div>
 		            <div class="w3-col w3-margin-left w3-margin-right">
 		                <label class="w3-col m3 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">성별 : </label>
@@ -237,7 +239,7 @@
 	        
 	        <div class="w3-col w3-margin-top">
 	            <div class="w3-button w3-blue-gray w3-center w3-third" id="reset">초기화</div>
-	            <div class="w3-button w3-gray w3-center w3-third" id="home">처음으로</div>
+	            <div class="w3-button w3-gray w3-center w3-third" id="home1">처음으로</div>
 	            <div class="w3-button w3-dark-gray w3-center w3-third" id="join">회원가입</div>
 	        </div>
 	    </div>

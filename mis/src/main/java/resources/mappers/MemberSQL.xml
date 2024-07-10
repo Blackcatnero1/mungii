@@ -42,9 +42,9 @@
 	
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
-			member(mno, nickname, name, id, pw, home)
+			member(mno, nickname, name, id, pw, home, gen)
 		VALUES(
-			mnoSeq.NEXTVAL, #{nickname}, #{name}, #{id}, #{pw}, #{home}
+			mnoSeq.NEXTVAL, #{nickname}, #{name}, #{id}, #{pw}, #{home}, #{gen}
 		)
 	</insert>
 </mapper>

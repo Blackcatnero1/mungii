@@ -86,6 +86,9 @@
             $('#logout').click(function(){
                 $(location).attr('href', '/mis/member/logout.mis');
             });
+            $('#park').click(function(){
+                $(location).attr('href', '/mis/park/park.mis');
+            });
         });
     </script>
 </head>
@@ -102,7 +105,7 @@
         <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광혁</button></h6>
         <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광섭</button></h6>
         <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">민경</button></h6>
-        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">한민</button></h6>
+        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off" id="park">태마파크</button></h6>
     </header>
     <!-- Grid -->
     <div class="w3-row w3-padding">
