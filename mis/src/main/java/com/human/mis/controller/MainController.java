@@ -104,5 +104,4 @@ public class MainController {
 	public String getTemp() {
 		return "temp";
 	}
-	
 }

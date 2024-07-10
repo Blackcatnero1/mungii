@@ -1,6 +1,7 @@
 package com.human.mis.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -109,5 +110,15 @@ public class Member {
 		}
 		mv.setView(rv);
 		return mv;
+	}
+	
+	// 마이페이지 데이터 조회 요청 처리 함수
+	@RequestMapping("/mypage.mis")
+	public ModelAndView mypageProc(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
+		String sid = (String) session.getAttribute("SID");
+		 MemberVO mVO = mDao.memberInfo(sid);
+		 mv.addObject("DATA", mVO);
+		 mv.setViewName("mypage");
+		 return mv;
 	}
 }

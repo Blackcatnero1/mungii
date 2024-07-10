@@ -1,10 +1,11 @@
 package com.human.mis.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MemberVO {
 	private int mno, cnt;
-	private String nickname, name, id, pw, home, gen;
+	private String nickname, name, id, pw, home, gen, sdate;
 	private Date jdate;
 	public int getMno() {
 		return mno;
@@ -36,6 +37,12 @@ public class MemberVO {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
 	public String getGen() {
 		return gen;
 	}
@@ -47,6 +54,8 @@ public class MemberVO {
 	}
 	public void setJdate(Date jdate) {
 		this.jdate = jdate;
+		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+		sdate = form.format(jdate);
 	}
 	public String getNickname() {
 		return nickname;

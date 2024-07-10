@@ -33,7 +33,7 @@
 	<!-- 회원의 아이디로 해당회원의 정보를 조회하는 질의명령 -->
 	<select id="memberInfo" resultType="mVO" parameterType="string">
 		SELECT
-			nickname, name, id, home, joindate jdate
+			nickname, name, id, home, joindate jdate, gen
 		FROM
 			member
 		WHERE

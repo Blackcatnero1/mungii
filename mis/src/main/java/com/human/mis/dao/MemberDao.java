@@ -1,5 +1,7 @@
 package com.human.mis.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,5 +21,9 @@ public class MemberDao {
 	
 	public int addMember(MemberVO mVO) {
 		return session.insert("mSQL.addMember", mVO);
+	}
+	
+	public MemberVO memberInfo(String id){
+		return session.selectOne("mSQL.memberInfo", id);
 	}
 }

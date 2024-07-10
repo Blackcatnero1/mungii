@@ -89,6 +89,9 @@
             $('#park').click(function(){
                 $(location).attr('href', '/mis/park/park.mis');
             });
+            $('#myPage').click(function(){
+                $(location).attr('href', '/mis/member/mypage.mis');
+            });
         });
     </script>
 </head>
