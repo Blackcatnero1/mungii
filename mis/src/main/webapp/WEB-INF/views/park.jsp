@@ -11,7 +11,6 @@
     <style type="text/css">
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f1f3f4;
             margin: 0;
             padding: 0;
         }
@@ -141,13 +140,6 @@
 	</div>
 <!-- END w3-content -->
 </div>
-
-	
-<!-- Footer -->
-<footer class="w3-container w3-dark-grey" style="padding:32px">
-	<a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼\n필요한가요</a>
-	<p>사용설명서 여기다가</p>
-</footer>
     
 </body>
 </html>
