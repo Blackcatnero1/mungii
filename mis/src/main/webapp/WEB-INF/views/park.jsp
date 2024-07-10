@@ -31,12 +31,30 @@
             border-radius: 8px;
             text-align: center;
         }
-        
-        .fixed-size {
-            width: 200px;  /* 원하는 고정 너비 */
-            height: 50px; /* 원하는 고정 높이 */
-            overflow: hidden;
+		
+		.fixed-size{
+			height: 280px;
+			text-size: 15px;
+		}
+		
+		/* 이미지 고정 크기 및 자르기 설정 */
+		.fixed-size img {
+		    width: 200px;
+			display: inline-block;
+		    object-fit: cover;
+		}
+		
+		 /* 텍스트 스타일 설정 */
+        h3 {
+            font-size: 1.2em; /* 제목 텍스트 크기 줄이기 */
+            margin: 0.5em 0 0.2em 0; /* 상단 및 하단 마진 조정 */
         }
+
+        p {
+            font-size: 0.9em; /* 본문 텍스트 크기 줄이기 */
+            margin: 0; /* 마진 제거 */
+        }
+        
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -60,7 +78,24 @@
                 } else {
                     return;
                 }
-            }); 
+            });
+            
+            $(document).ready(function(){
+            	/* 페이지 클릭이벤트 */
+        		$('.pageBtn').click(function(){
+        			// 이동할 페이지번호 알아내고
+        			var nowPage = $(this).attr('id');
+        			// 입력태그에 데이터 채우고
+        			$('#nowPage').val(nowPage);
+        			// 글번호 태그 사용불가처리
+        			$('#bno').prop('disabled', true);
+        			// 전송 주소 셋팅하고
+        			$('#pageFrm').attr('action', '/mis/park/park.mis');
+        			
+        			// 폼태그 전송하고
+        			$('#pageFrm').submit();
+        		});
+            });
             
         });
     </script>
@@ -88,81 +123,50 @@
 		
 		<!-- 본문박스 -->
 	<div class="w3-main w3-content w3-padding" style="margin-top: 50px;">
-	
-<c:forEach var="DATA" items="${LIST}">
-			<div class="w3-quarter" style="display: inline-block; height: 200px;" id="parkList">
-				<div class="fixed-size">
-					<img src="${DATA.plink}" style="width:100%">
+<c:if test="${not empty LIST}">
+	<c:forEach var="DATA" items="${LIST}">
+				<div class="w3-quarter" style="display: inline-block; height: 380px;" id="parkList">
+					<div class="fixed-size">
+						<img src="${DATA.plink}" style="height:100%">
+					</div>
+					<h3>${DATA.pname}</h3>
+					<p>${DATA.pcity}</p>
 				</div>
-				<h3>${DATA.pname}</h3>
-				<p>${DATA.pcity}</p>
+	</c:forEach>
+			
+			<div class="w3-col w3-center w3-margin-top">
+				<div class="w3-bar w3-border w3-border w3-border-blue w3-round">
+	<c:if test="${PAGE.startPage eq 1}">
+					<span class="w3-bar-item w3-pale-blue">&laquo;</span>
+	</c:if>
+	<c:if test="${PAGE.startPage ne 1}">
+					<span class="w3-bar-item w3-btn w3-hover-blue pageBtn" 
+														id="${PAGE.startPage - 1}">&laquo;</span>
+	</c:if>
+	<c:forEach var="pageno" begin="${PAGE.startPage}" end="${PAGE.endPage}">
+		<c:if test="${PAGE.nowPage eq pageno}"><!-- 현재 보고있는 페이지인 경우 -->
+					<span class="w3-bar-item w3-btn w3-pink w3-hover-blue pageBtn" 
+																	id="${pageno}">${pageno}</span>
+		</c:if>
+		<c:if test="${PAGE.nowPage ne pageno}">
+					<span class="w3-bar-item w3-btn w3-hover-blue pageBtn" 
+																	id="${pageno}">${pageno}</span>
+		</c:if>
+	</c:forEach>
+	<c:if test="${PAGE.endPage ne PAGE.totalPage}">
+					<span class="w3-bar-item w3-btn w3-hover-blue pageBtn" 
+														id="${PAGE.endPage + 1}">&raquo;</span>
+	</c:if>
+	<c:if test="${PAGE.endPage eq PAGE.totalPage}">
+					<span class="w3-bar-item w3-pale-blue">&raquo;</span>
+	</c:if>
+				</div>
 			</div>
-		</div>
-</c:forEach>
-	
-		<!-- 첫째줄-->
-		<div class="w3-row-padding w3-padding-16 w3-center" id="food">
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
-				<h3>The Perfect Sandwich, A Real NYC Classic</h3>
-				<p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/steak.jpg" alt="Steak" style="width:100%">
-				<h3>Let Me Tell You About This Steak</h3>
-				<p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/cherries.jpg" alt="Cherries" style="width:100%">
-				<h3>Cherries, interrupted</h3>
-				<p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/wine.jpg" alt="Pasta and Wine" style="width:100%">
-				<h3>Once Again, Robust Wine and Vegetable Pasta</h3>
-				<p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-		</div>
-		
-		<!-- 두번째줄-->
-		<div class="w3-row-padding w3-padding-16 w3-center">
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/popsicle.jpg" alt="Popsicle" style="width:100%">
-				<h3>All I Need Is a Popsicle</h3>
-				<p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/salmon.jpg" alt="Salmon" style="width:100%">
-				<h3>Salmon For Your Skin</h3>
-				<p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
-				<h3>The Perfect Sandwich, A Real Classic</h3>
-				<p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-			<div class="w3-quarter">
-				<img src="https://www.w3schools.com/w3images/croissant.jpg" alt="Croissant" style="width:100%">
-				<h3>Le French</h3>
-				<p>Lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-			</div>
-		</div>
-		
-		<!-- 하단버튼 -->
-		<div class="w3-center w3-padding-32">
-			<div class="w3-bar">
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-				<a href="#" class="w3-bar-item w3-black w3-button">1</a>
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-			</div>
-		</div>
-		
-	<!-- END w3-content -->
+</c:if>
 	</div>
-	
+<!-- END w3-content -->
+</div>
+
 	
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey" style="padding:32px">

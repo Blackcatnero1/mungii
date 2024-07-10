@@ -32,14 +32,26 @@ public class Park {
 	
 	@RequestMapping("/park.mis")
 	public ModelAndView getPark(HttpSession session, ModelAndView mv, 
-											RedirectView rv, PageUtil page, ParkVO pVO) {
-		int total = pDao.getParkTotal(pVO);
-		page.setTotalCount(total);
-		page.setPage();
+											RedirectView rv, PageUtil page) {
+		// 페이지 기본값 설정
+		int nowPage = page.getNowPage();
+		if(nowPage == 0) {
+			nowPage = 1;
+		}
 		
-		List list = pDao.getParkList(pVO);
+		int total = pDao.getParkTotal();
+		page.setTotalCount(total);
+		page.setPage(nowPage, total);
+		
+		// 데이터 베이스에서 조회
+		List<ParkVO> list = pDao.getParkList(page);
+		
+		
+		// 데이터 전달하고
 		mv.addObject("LIST", list);
 		mv.addObject("PAGE", page);
+		
+		// 뷰 셋팅하고
 		mv.setViewName("park");
 		return mv;
 	}

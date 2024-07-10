@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.human.mis.util.PageUtil;
 import com.human.mis.vo.ParkVO;
 
 public class ParkDao {
@@ -12,15 +13,12 @@ public class ParkDao {
 	@Autowired
 	SqlSessionTemplate session;
 	
-	public List<ParkVO> getPark(ParkVO pVO) {
-		return session.selectList("pSQL.getPark", pVO);
+	public List<ParkVO> getParkList(PageUtil page) {
+		return session.selectList("pSQL.getParkList", page);
 	}
 	
-	public int getParkTotal(ParkVO pVO) {
-		return session.selectOne("pSQL.getParkTotal", pVO);
+	public int getParkTotal() {
+		return session.selectOne("pSQL.getParkTotal");
 	}
 	
-	public List<ParkVO> getParkList(ParkVO pVO) {
-		return session.selectList("pSQL.getParkList", pVO);
-	}
 }

@@ -19,18 +19,8 @@
 </head>
 <body>
 	<form method="POST" action="${PATH}" id="frm">
-<c:if test="${not empty BNO}">
 		<input type="hidden" name="bno" value="${BNO}">
-</c:if>
-<c:if test="${not empty nowPage}">
 		<input type="hidden" name="nowPage" value="${nowPage}">
-</c:if>
-<c:if test="${not empty RESULT}">
-		<input type="hidden" name="RESULT" value="${RESULT}">
-</c:if>
-<c:if test="${not empty TPNO}">
-		<input type="hidden" name="tpno" value="${TPNO}">
-</c:if>
 	</form>
 </body>
 </html>
