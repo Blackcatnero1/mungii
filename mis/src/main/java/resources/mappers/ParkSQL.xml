@@ -4,13 +4,44 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pSQL">
 
+	<!-- pno로 그 글의 정보를 가지고 오기 위한 코드 -->
 	<select id="getPark" resultType="pVO" parameterType="pVO">
 		SELECT
-			pno, pname, pmis, pcity, pkreview
+			pno, pname, pmis, pcity, pkreview, plink
 		FROM
 			park
 		WHERE
 			pno = #{pno}
+	</select>
+	<!-- 태마파크의 모든 정보 리스트를 가지고 오기 위한 코드 -->
+	<select id="getParkList" resultType="pVO" parameterType="page">
+		SELECT
+		    rno, pno, pname, pmis, pcity, pkreview, plink
+		FROM
+		(
+		    SELECT
+		        ROWNUM rno, pno, pname, pmis, pcity, pkreview, plink
+		    FROM
+		        (
+		        SELECT
+		            pno, pname, pmis, pcity, pkreview, plink
+		        FROM
+		            park
+		        WHERE
+		            pname = pname
+		        ORDER BY
+		            pno DESC
+		        )
+		)
+		WHERE
+		    rno BETWEEN 1 AND 70
+	</select>
+	<!-- 태마파크의 페이징처리를 위한 토탈 카운트 -->
+	<select id="getParkTotal" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			park
 	</select>
 
 </mapper>

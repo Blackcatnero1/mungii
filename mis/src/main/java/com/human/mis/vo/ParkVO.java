@@ -3,7 +3,7 @@ package com.human.mis.vo;
 
 public class ParkVO {
 	private int pno;
-	private String pname, pmis, pcity, pkreview;
+	private String pname, pmis, pcity, pkreview, plink;
 	public int getPno() {
 		return pno;
 	}
@@ -34,9 +34,15 @@ public class ParkVO {
 	public void setPkreview(String pkreview) {
 		this.pkreview = pkreview;
 	}
+	public String getPlink() {
+		return plink;
+	}
+	public void setPlink(String plink) {
+		this.plink = plink;
+	}
 	@Override
 	public String toString() {
 		return "ParkVO [pno=" + pno + ", pname=" + pname + ", pmis=" + pmis + ", pcity=" + pcity + ", pkreview="
-				+ pkreview + "]";
+				+ pkreview + ", plink=" + plink + "]";
 	}
 }

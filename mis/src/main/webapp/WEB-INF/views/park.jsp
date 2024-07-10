@@ -31,6 +31,12 @@
             border-radius: 8px;
             text-align: center;
         }
+        
+        .fixed-size {
+            width: 200px;  /* 원하는 고정 너비 */
+            height: 300px; /* 원하는 고정 높이 */
+            object-fit: scale-down; /* 이미지 크기 조정 방법 */
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -59,6 +65,9 @@
         });
     </script>
 </head>
+<form method="post" action="/park/park.mis" id="pageFrm">
+	<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
+</form>
 <body class="w3-light-grey">
   
 <div class="w3-content" style="max-width:1000px">
@@ -79,6 +88,15 @@
 		
 		<!-- 본문박스 -->
 	<div class="w3-main w3-content w3-padding" style="margin-top: 50px;">
+	
+<c:forEach var="DATA" items="${LIST}">
+			<div class="w3-quarter" id="parkList">
+				<img class=" fixed-size" src="${DATA.plink}" style="width:100%">
+				<h3>${DATA.pname}</h3>
+				<p>${DATA.pcity}</p>
+			</div>
+		</div>
+</c:forEach>
 	
 		<!-- 첫째줄-->
 		<div class="w3-row-padding w3-padding-16 w3-center" id="food">
@@ -142,7 +160,6 @@
 		
 	<!-- END w3-content -->
 	</div>
-</div>
 	
 	
 <!-- Footer -->
