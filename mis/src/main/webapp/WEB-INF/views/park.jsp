@@ -34,8 +34,8 @@
         
         .fixed-size {
             width: 200px;  /* 원하는 고정 너비 */
-            height: 300px; /* 원하는 고정 높이 */
-            object-fit: scale-down; /* 이미지 크기 조정 방법 */
+            height: 50px; /* 원하는 고정 높이 */
+            overflow: hidden;
         }
     </style>
     <script type="text/javascript">
@@ -90,8 +90,10 @@
 	<div class="w3-main w3-content w3-padding" style="margin-top: 50px;">
 	
 <c:forEach var="DATA" items="${LIST}">
-			<div class="w3-quarter" id="parkList">
-				<img class=" fixed-size" src="${DATA.plink}" style="width:100%">
+			<div class="w3-quarter" style="display: inline-block; height: 200px;" id="parkList">
+				<div class="fixed-size">
+					<img src="${DATA.plink}" style="width:100%">
+				</div>
 				<h3>${DATA.pname}</h3>
 				<p>${DATA.pcity}</p>
 			</div>
