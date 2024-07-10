@@ -1,0 +1,10 @@
+CREATE TABLE kpred (
+    kdate DATE,
+    city VARCHAR2(20),
+    PM10 VARCHAR2(10),
+    PM25 VARCHAR2(10),
+    O3 VARCHAR2(10),
+    NO2 VARCHAR2(10),
+    SO2 VARCHAR2(10),
+    CO VARCHAR2(10)
+);
