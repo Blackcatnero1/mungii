@@ -3,7 +3,8 @@ package com.human.mis.vo;
 
 public class ParkVO {
 	private int pno;
-	private String pname, pmis, pcity, pkreview, plink;
+	private String pname, pmis, pcity, pkreview, plink, city;
+
 	public int getPno() {
 		return pno;
 	}
@@ -28,6 +29,12 @@ public class ParkVO {
 	public void setPcity(String pcity) {
 		this.pcity = pcity;
 	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	public String getPkreview() {
 		return pkreview;
 	}
@@ -43,6 +50,6 @@ public class ParkVO {
 	@Override
 	public String toString() {
 		return "ParkVO [pno=" + pno + ", pname=" + pname + ", pmis=" + pmis + ", pcity=" + pcity + ", pkreview="
-				+ pkreview + ", plink=" + plink + "]";
+				+ pkreview + ", plink=" + plink + ", city=" + city + "]";
 	}
 }
