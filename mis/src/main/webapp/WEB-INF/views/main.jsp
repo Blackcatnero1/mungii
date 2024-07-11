@@ -167,8 +167,9 @@
                             <h4>내 정보</h4>
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
-                            <div class="w3-col w3-button w3-pale-red w3-margin m10" id="logout">로그아웃</div>
-                            <div class="w3-col w3-button w3-gray w3-margin m10" id="myPage">마이페이지</div>
+                        	<h5 class="w3-center w3-padding"><b>${SID}</b> 님 환영합니다.</h5>
+                            <div class="w3-col w3-button w3-pale-red" id="logout">로그아웃</div>
+                            <div class="w3-col w3-button w3-gray w3-margin-top" id="myPage">마이페이지</div>
                         </div>
                     </c:if>
                 </div>
