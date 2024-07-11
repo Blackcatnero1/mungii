@@ -7,7 +7,7 @@
 	<!-- pno로 그 글의 정보를 가지고 오기 위한 코드 -->
 	<select id="getPark" resultType="pVO" parameterType="pVO">
 		SELECT
-			pno, pname, pmis, pcity, pkreview, plink
+			pno, pname, pmis, pcity, pkreview, plink, distinct(decode(substr(pcity,1,2),'서울',substr(pcity,4,4), '부산', substr(pcity,4,4), '전북', substr(pcity,4,4), '제주', substr(pcity,4,4),substr(pcity,1,2))) city
 		FROM
 			park
 		WHERE
