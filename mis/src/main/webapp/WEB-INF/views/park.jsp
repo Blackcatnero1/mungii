@@ -103,20 +103,27 @@
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
 	<header class="w3-container w3-center w3-padding w3-white">
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="1">버튼1</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="2">버튼2</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="3">버튼3</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="1">실시간 정보 보기</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="2">미세먼지 예측 하기</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="3">관광지 추천 받기</button></h6>
 	</header>
-		
 		<!-- 본문박스 -->
-	<div class="w3-main w3-content w3-padding" style="margin-top: 50px;">
+	
+	<div class="w3-main w3-content w3-padding w3-center">
+		<div class="w3-col w3-padding">
+			<select class="w3-right w3-padding">
+				<option disabled selected>기본순</option>
+				<option value="review">리뷰순</option>
+				<option value="iaqi">대기질순</option>
+			</select>
+		</div>
 <c:if test="${not empty LIST}">
 	<c:forEach var="DATA" items="${LIST}">
 				<div class="w3-quarter" style="display: inline-block; height: 380px;" id="parkList">
 					<div class="fixed-size">
 						<img src="${DATA.plink}" style="height:100%">
 					</div>
-					<h3>${DATA.pname}</h3>
+					<h6>${DATA.pname}</h6>
 					<p>${DATA.pcity}</p>
 				</div>
 	</c:forEach>
