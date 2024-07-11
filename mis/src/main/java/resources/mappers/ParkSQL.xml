@@ -20,18 +20,21 @@
 		FROM
 		(
 		    SELECT
-		        ROWNUM rno, pno, pname, pmis, pcity, pkreview, plink
-		    FROM
-		        (
-		        SELECT
-		            pno, pname, pmis, pcity, pkreview, plink
-		        FROM
-		            park
-		        WHERE
-		            pname = pname
-		        ORDER BY
-		            pno DESC
-		        )
+			    ROWNUM rno, pno, pname, pmis, pcity, pkreview, plink
+			FROM
+			    (
+			    SELECT
+			        pno, pname, pmis, pcity, pkreview, plink
+			    FROM
+			        park
+			    WHERE
+			        pname = pname
+			    ORDER BY
+			        pno DESC
+			        
+			    )
+			order by
+			    to_number(pkreview) desc
 		)
 		WHERE
 		    rno BETWEEN #{startRno} AND #{endRno}
