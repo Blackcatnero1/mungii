@@ -112,14 +112,14 @@
 	<div class="w3-main w3-content w3-padding w3-center">
 		<div class="w3-col w3-padding">
 			<select class="w3-right w3-padding">
-				<option disabled selected>기본순</option>
+				<option selected value='goods'>추천순</option>
 				<option value="review">리뷰순</option>
 				<option value="iaqi">대기질순</option>
 			</select>
 		</div>
 <c:if test="${not empty LIST}">
 	<c:forEach var="DATA" items="${LIST}">
-				<div class="w3-quarter" style="display: inline-block; height: 380px;" id="parkList">
+				<div class="w3-quarter w3-button" style="display: inline-block; height: 380px;" id="parkList">
 					<div class="fixed-size">
 						<img src="${DATA.plink}" style="height:100%">
 					</div>
