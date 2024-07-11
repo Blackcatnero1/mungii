@@ -157,7 +157,7 @@
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                             <p><input class="w3-input w3-border" name="id" id="id" type="text" placeholder="아이디" style="padding-left: 10px"></p>
-                            <p><input class="w3-input w3-border" name="pw" id="pw" type="text" placeholder="비밀번호"></p>
+                            <p><input type="password" class="w3-input w3-border" name="pw" id="pw" placeholder="비밀번호"></p>
                             <div class="w3-half w3-button w3-green" id="login">로그인</div>
                             <div class="w3-half w3-button w3-blue" id="join">회원가입</div>
                         </div>

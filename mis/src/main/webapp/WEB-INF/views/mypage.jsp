@@ -55,7 +55,7 @@
   <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
     <hr style="width:200px" class="w3-opacity">
     <h2>내 정보</h2>
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-dark-gray">
       <div class="w3-half w3-section">
         닉네임<br>
         <span class="w3-xlarge" id="nickname">${DATA.nickname}</span>
