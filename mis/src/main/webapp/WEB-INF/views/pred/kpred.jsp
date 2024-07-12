@@ -38,14 +38,15 @@
 		    // input 태그에 최소 날짜와 최대 날짜를 설정합니다.
 		    $('#dateSelect').attr('min', currentDateString);
 		    $('#dateSelect').attr('max', limitDateString);
-		    
-		    // 초기 값으로 오늘 날짜를 설정합니다.
-		    $('#dateSelect').val(currentDateString);
-		    
+		    if($('#kdate').val() !== ''){
+			    var currentDateString = $('#kdate').val();
+		    }
 		    var syear = currentDateString.substring(0,4);
 		    var smonth = currentDateString.substring(5,7);
 		    var sday = currentDateString.substring(8,10);
+		    $('#dateSelect').val(syear + '-' +  smonth + '-' + sday);
 		    $('.todayDate').html('(' + syear + '년 ' + smonth + '월 ' + sday + '일)');
+		    
 		    
 		    var sensors = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
 		
@@ -136,7 +137,9 @@
 	</script>
 </head>
 <body class="w3-light-grey">
-
+<form method="post" action="" id="kPredFrm">
+	<input type="hidden" name="kdate" id="kdate" value="${MISLIST.kdate}">
+</form>
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>

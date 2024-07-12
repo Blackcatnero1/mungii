@@ -50,8 +50,39 @@
     </style>
     <script type="text/javascript">
      $(document).ready(function(){
+    	 
+    	// 현재 날짜
+	    var currentDate = new Date();
+	    var currentDateString = currentDate.toISOString().split('T')[0]; // 현재 날짜 문자열 (YYYY-MM-DD 형식)
+	    // 2024년 12월 31일
+	    var limitDate = new Date('2024-12-31');
+	    var limitDateString = limitDate.toISOString().split('T')[0]; // 2024년 12월 31일 문자열 (YYYY-MM-DD 형식)
+	    
+	    // input 태그에 최소 날짜와 최대 날짜를 설정합니다.
+	    $('#dateSelect').attr('min', currentDateString);
+	    $('#dateSelect').attr('max', limitDateString);
+	    
+    	 if($('#pdate').val() == ''){
+		    // 초기 값으로 오늘 날짜를 설정합니다.
+		    $('#dateSelect').val(currentDateString);
+    	 }else{
+    		 $('#dateSelect').val($('#pdate').val());
+    	 }
+    	 if($('#standard').val() !== ''){
+    		 if($('#standard').val() == 'pmis'){
+	    		 $('#sort option:selected').html('대기질순');
+    		 }else if($('#standard').val() == 'pkreview'){
+	    		 $('#sort option:selected').html('리뷰순');
+    		 }else if($('#standard').val() == 'rec'){
+	    		 $('#sort option:selected').html('추천순');
+    		 }
+    		 $('#sort option:selected').val($('#standard').val());
+    	 }
+	    
+	    
      	/* 페이지 클릭이벤트 */
  		$('.pageBtn').click(function(){
+ 			var stand1 = $('#standard').val();
  			// 이동할 페이지번호 알아내고
  			var nowPage = $(this).attr('id');
  			// 입력태그에 데이터 채우고
@@ -59,8 +90,9 @@
  			// 글번호 태그 사용불가처리
  			$('#bno').prop('disabled', true);
  			// 전송 주소 셋팅하고
- 			$('#pageFrm').attr('action', '/mis/park/park.mis');
- 			
+ 			if(stand1 !== "goods"){
+	 			$('#pageFrm').attr('action', '/mis/park/'+ stand1 +'Sort.mis');
+ 			}
  			// 폼태그 전송하고
  			$('#pageFrm').submit();
  		});
@@ -75,23 +107,31 @@
  			$(location).attr('href', '/mis/park/park.mis');
  		});
  		
- 		$('#sort').on('change', function(){
-			var stand = $('#sort option:selected').val();
-			if(stand == 'pmis'){
-				$('#pageFrm').attr('action', '/mis/park/misSort.mis').submit();
-			}else if(stand == 'preview'){
-				$('#pageFrm').attr('action', '/mis/park/reviewSort.mis').submit();
-			}else{
-				$('#pageFrm').submit();
-			}
- 		});
  		$('.kpred').click(function(){
  			var scity = $(this).attr('id');
+ 			var sdate = $('#dateSelect').val();
  			$('#pcity').val(scity);
+ 			$('#pdate').val(sdate);
  			$('#pageFrm').attr('action', '/mis/park/parkPred.mis');
 			$('#pageFrm').submit();
  		});
  		
+ 		
+ 		$('#selCityDate').click(function(){
+ 			var stand = $('#sort option:selected').val();
+ 			var sdate = $('#dateSelect').val();
+ 			$('#pdate').val(sdate);
+			$('#standard').val(stand);
+			if(stand == 'pmis'){
+				$('#pageFrm').attr('action', '/mis/park/pmisSort.mis');
+			}else if(stand == 'pkreview'){
+				$('#pageFrm').attr('action', '/mis/park/pkreviewSort.mis');
+			}else if(stand == 'rec'){
+				$('#pageFrm').attr('action', '/mis/park/recSort.mis');
+			}
+			$('#nowPage').val(1);
+			$('#pageFrm').submit();
+ 		});
      });
  		function handleClick() {
  			$(location).attr('href', '/mis/');
@@ -100,7 +140,9 @@
 </head>
 <form method="post" action="/mis/park/park.mis" id="pageFrm">
 	<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
-	<input type="hidden" name="city" id="pcity" value="">
+	<input type="hidden" name="pcity" id="pcity" value="">
+	<input type="hidden" name="pdate" id="pdate" value="${PAGE.pdate }">
+	<input type="hidden" name="standard" id="standard" value="${PAGE.standard}">
 </form>
 <body class="w3-light-grey">
   
@@ -122,16 +164,17 @@
 		<!-- 본문박스 -->
 	
 	<div class="w3-main w3-content w3-center">
-		<div class="w3-col w3-padding w3-margin-top">
-			<div class="w3-col l10 w3-right-align w3-large">
+		<div class="w3-col w3-margin-top">
+			<div class="w3-col l9 w3-large w3-right-align w3-margin-right">
 				<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
 			</div>
-			<select class="w3-right w3-padding l1" id="sort">
+			<select class="w3-padding l1" id="sort">
 				<option disabled selected>정렬</option>
-				<option value='goods'>추천순</option>
-				<option value="preview">리뷰순</option>
+				<option value='rec'>추천순</option>
+				<option value="pkreview">리뷰순</option>
 				<option value="pmis">대기질순</option>
 			</select>
+			<button class="w3-margin-left w3-large w3-right l1" id="selCityDate">⏎</button>
 		</div>
 			<c:if test="${not empty LIST}">
 			<c:forEach var="DATA" items="${LIST}">
@@ -139,7 +182,7 @@
 							<div class="fixed-size">
 								<img src="${DATA.plink}" style="height:100%">
 							</div>
-							<h6>${DATA.pname}</h6>
+							<h6>${DATA.pname} - 리뷰 : ${DATA.pkreview }</h6>
 							<p>${DATA.pcity} - ${DATA.pmis} AQI</p>
 							<div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred">예측 정보 보러가기</div>
 						</div>

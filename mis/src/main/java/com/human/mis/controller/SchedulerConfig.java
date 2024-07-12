@@ -26,7 +26,7 @@ public class SchedulerConfig {
         return new RestTemplate();
     }
 
-    @Scheduled(cron = "0 50 10 * * *")
+    // @Scheduled(cron = "0 50 10 * * *")
     public void callSalesEndpoint() {
         LocalDateTime currentTime = LocalDateTime.now();
         String[] urls = {"crawling", "crawling2", "crawling3"};

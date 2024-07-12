@@ -16,8 +16,8 @@ public class KpredDao {
 	public List<KpredVO> getCountry(String continent){
 		return session.selectList("kSQL.getCountry", continent);
 	}
-	public List<KpredVO> getCity(KpredVO kpredVO){
-		return session.selectList("kSQL.getCity", kpredVO);
+	public List<KpredVO> getCity(KpredVO kVO){
+		return session.selectList("kSQL.getCity", kVO);
 	}
 	public KpredVO getCityDate(){
 		return session.selectOne("kSQL.cityDate");
@@ -25,8 +25,8 @@ public class KpredDao {
 	public List<KpredVO> getCityname(){
 		return session.selectList("kSQL.selCity");
 	}
-	public KpredVO selCityDate(KpredVO kpredVO) {
-		return session.selectOne("kSQL.selCityDate", kpredVO);
+	public KpredVO selCityDate(KpredVO kVO) {
+		return session.selectOne("kSQL.selCityDate", kVO);
 	}
 	
 }

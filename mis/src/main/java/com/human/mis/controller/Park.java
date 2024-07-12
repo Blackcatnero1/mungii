@@ -58,8 +58,8 @@ public class Park {
 		return mv;
 	}
 	
-	@RequestMapping("/misSort.mis")
-	public ModelAndView misSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv, String standard) {
+	@RequestMapping("/pmisSort.mis")
+	public ModelAndView misSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv) {
 		// 페이지 기본값 설정
 		int nowPage = page.getNowPage();
 		if(nowPage == 0) {
@@ -79,8 +79,9 @@ public class Park {
 		// 뷰 셋팅하고
 		return mv;	
 	}
-	@RequestMapping("/reviewSort.mis")
-	public ModelAndView reviewSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv, String standard) {
+	
+	@RequestMapping("/pkreviewSort.mis")
+	public ModelAndView reviewSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv) {
 		// 페이지 기본값 설정
 		int nowPage = page.getNowPage();
 		if(nowPage == 0) {
@@ -90,7 +91,6 @@ public class Park {
 		int total = pDao.getParkTotal();
 		page.setTotalCount(total);
 		page.setPage(nowPage, total);
-		
 		// 데이터 베이스에서 조회
 		List<ParkVO> list = pDao.reviewSort(page);
 		// 데이터 전달하고
@@ -101,13 +101,39 @@ public class Park {
 		return mv;	
 	}
 	
+	@RequestMapping("/recSort.mis")
+	public ModelAndView recSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv) {
+		// 페이지 기본값 설정
+		int nowPage = page.getNowPage();
+		if(nowPage == 0) {
+			nowPage = 1;
+		}
+		
+		int total = pDao.getParkTotal();
+		page.setTotalCount(total);
+		page.setPage(nowPage, total);
+		// 데이터 베이스에서 조회
+		List<ParkVO> list = pDao.recSort(page);
+		// 데이터 전달하고
+		mv.addObject("LIST", list);
+		mv.addObject("PAGE", page);
+		mv.setViewName("park");
+		// 뷰 셋팅하고
+		return mv;	
+	}
+	
 	@RequestMapping("/parkPred.mis")
-	public ModelAndView parkPred(ModelAndView mv, HttpSession session, ParkVO pVO) {
+	public ModelAndView parkPred(ModelAndView mv, HttpSession session, ParkVO pVO, KpredVO kVO, String pdate, String pcity) {
 		String sid = (String) session.getAttribute("SID");
-		KpredVO kpredVO = pDao.parkCityDate(pVO.getCity());
+		kVO.setKdate(pdate);
+		kVO.setCity(pcity);
+		System.out.println(pdate + pcity);
+		KpredVO kpVO = kDao.selCityDate(kVO);
+		System.out.println(kpVO);
 		List cityList = kDao.getCityname();
+		
 		mv.addObject("CITYLIST", cityList);
-		mv.addObject("MISLIST", kpredVO);
+		mv.addObject("MISLIST", kpVO);
 		mv.addObject("SID", sid);
 		mv.setViewName("pred/kpred");
 		return mv;

@@ -11,7 +11,24 @@ public class PageUtil {
 	private int totalPage; // 총 페이지 수
 	
 	private int startRno, endRno; // 페이지 시작  rownum, 마지막 rownum
+	private String standard, pdate;
 	
+	public String getStandard() {
+		return standard;
+	}
+
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+
+	public String getPdate() {
+		return pdate;
+	}
+
+	public void setPdate(String pdate) {
+		this.pdate = pdate;
+	}
+
 	public void setPage() {
 		setPage(nowPage, totalCount, 8, 5);
 	}
