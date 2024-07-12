@@ -104,7 +104,7 @@ public class Member {
 		// 뷰 셋팅하고
 		if(cnt == 1) {
 			// 회원가입에 성공한 경우
-			session.setAttribute("SID", mVO.getId());
+//			session.setAttribute("SID", mVO.getId());
 			rv.setUrl("/mis/main.mis");
 		} else {
 			rv.setUrl("/mis/member/join.mis");
@@ -115,7 +115,7 @@ public class Member {
 	
 	// 마이페이지 데이터 조회 요청 처리 함수
 	@RequestMapping("/mypage.mis")
-	public ModelAndView mypageProc(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
+	public ModelAndView mypage(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
 		String sid = (String) session.getAttribute("SID");
 		 MemberVO mVO = mDao.memberInfo(sid);
 		 mv.addObject("DATA", mVO);
