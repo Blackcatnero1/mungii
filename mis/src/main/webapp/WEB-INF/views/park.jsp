@@ -178,11 +178,12 @@
 		</div>
 			<c:if test="${not empty LIST}">
 			<c:forEach var="DATA" items="${LIST}">
-						<div class="w3-quarter w3-margin-bottom" style="display: inline-block; height: 380px;">
+						<div class="w3-quarter w3-margin-bottom" style="display: inline-block; height: 450px;">
 							<div class="fixed-size">
 								<img src="${DATA.plink}" style="height:100%">
 							</div>
-							<h6>${DATA.pname} - 리뷰 : ${DATA.pkreview }</h6>
+							<h6>${DATA.pname} </h6>
+							<h6>리뷰 : ${DATA.pkreview }</h6>
 							<p>${DATA.pcity} - ${DATA.pmis} AQI</p>
 							<div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred">예측 정보 보러가기</div>
 						</div>
