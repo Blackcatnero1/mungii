@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+ 	
+<!-- 	<bean id="fileUtil" class="com.human.cafe.util.FileUtil" /> -->
+	<bean id="page" class="com.human.mis.util.PageUtil" /> 
+
+	
+	<bean id="mDao" class="com.human.mis.dao.MemberDao" />
+	<bean id="rDao" class="com.human.mis.dao.ReboardDao" />
+	<bean id="pDao" class="com.human.mis.dao.ParkDao" />
+	<bean id="kDao" class="com.human.mis.dao.KpredDao" />
+	
+</beans>
