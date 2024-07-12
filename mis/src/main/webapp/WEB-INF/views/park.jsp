@@ -164,18 +164,30 @@
 		<!-- 본문박스 -->
 	
 	<div class="w3-main w3-content w3-center">
-		<div class="w3-col w3-margin-top">
-			<div class="w3-col l9 w3-large w3-right-align w3-margin-right">
-				<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
+		<div class='w3-col'>
+			<div class='w3-third'>
+				<h5><i class="fa-solid fa-cloud-sun-rain"></i><b class="cityName">${MISLIST.city}</b><b><small class="todayDate"></small>    </b></h5>
 			</div>
-			<select class="w3-padding l1" id="sort">
-				<option disabled selected>정렬</option>
-				<option value='rec'>추천순</option>
-				<option value="pkreview">리뷰순</option>
-				<option value="pmis">대기질순</option>
-			</select>
-			<button class="w3-margin-left w3-large w3-right l1" id="selCityDate">⏎</button>
+			<div class="w3-third w3-center">
+				<h6><b>
+					<label for="city">도시 선택 : </label>
+					<select class="" id="sort">
+						<option disabled selected>정렬</option>
+						<option value='rec'>추천순</option>
+						<option value="pkreview">리뷰순</option>
+						<option value="pmis">대기질순</option>
+					</select>
+				</b></h6>
+			</div>
+			<div class="w3-third w3-center">
+				<h6>
+					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
+					<button class="w3-margin-left" id="selCityDate">⏎</button>
+				</h6>
+			</div>
 		</div>
+		
+		
 			<c:if test="${not empty LIST}">
 			<c:forEach var="DATA" items="${LIST}">
 						<div class="w3-quarter w3-margin-bottom" style="display: inline-block; height: 450px;">

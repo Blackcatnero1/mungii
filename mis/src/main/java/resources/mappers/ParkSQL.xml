@@ -116,7 +116,7 @@
 		                       substr(pcity,1,2))
 		            AND kdate = TO_CHAR(#{pdate})
 		        order by
-		            pmis asc, pkreview desc
+		            pkreview desc, pmis asc 
 		    )   ) where rno between #{startRno} and #{endRno}
 	</select>
 	<!-- 미세먼지별 정렬 담당 질의명령 -->

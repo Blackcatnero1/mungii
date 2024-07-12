@@ -25,9 +25,18 @@
 			$('#jip').click(function(){
             	$(location).attr('href', '/mis');
             });
-			$('#myInfo').click(function(){
+			$('#myPage').click(function(){
 				$(location).attr('href', '/mis/member/mypage.mis');
 			});
+			$('#join').click(function(){
+				$(location).attr('href', '/mis/member/join.mis');
+			});
+            $('#logout').click(function(){
+                $(location).attr('href', '/mis/member/logout.mis');
+            });
+            $('#login').click(function(){
+                $(location).attr('href', '/mis/member/login.mis');
+            });
 		    // 현재 날짜
 		    var currentDate = new Date();
 		    var currentDateString = currentDate.toISOString().split('T')[0]; // 현재 날짜 문자열 (YYYY-MM-DD 형식)
@@ -143,7 +152,7 @@
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right w3-button w3-col" id="jip">Home</span>
+  <span class="w3-bar-item w3-right w3-button w3-col" id="jip"><i class="fa-solid fa-house"></i></span>
 </div>
 
 <!-- Sidebar/menu -->
@@ -154,7 +163,14 @@
     </div>
     <div class="w3-col s9 w3-bar">
       <span><b>${SID} </b><strong class="todayDate"></strong></span><br>
-      <a class="w3-bar-item w3-button"><i class="fa fa-user" id="myInfo"></i></a>
+      <c:if test="${SID eq null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+      </c:if>
+      <c:if test="${SID ne null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+      </c:if>
     </div>
   </div>
   <hr>

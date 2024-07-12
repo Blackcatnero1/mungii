@@ -127,9 +127,7 @@ public class Park {
 		String sid = (String) session.getAttribute("SID");
 		kVO.setKdate(pdate);
 		kVO.setCity(pcity);
-		System.out.println(pdate + pcity);
 		KpredVO kpVO = kDao.selCityDate(kVO);
-		System.out.println(kpVO);
 		List cityList = kDao.getCityname();
 		
 		mv.addObject("CITYLIST", cityList);
