@@ -94,6 +94,63 @@
             $('#kpred').click(function(){
             	$(location).attr('href', '/mis/kpred/kpred.mis');
             });
+            
+         	// 모든 기사 링크에 클릭 이벤트 추가
+            var articleList = document.getElementById('articleList');
+	        var articles = [
+	        	{ title: '석탄화력 가동을 중지하면 미세먼지 농도는 얼마나 줄어들까?', url: 'http://www.keaj.kr/news/articleView.html?idxno=3396' },
+	            { title: '3.4%라는 숫자로 가려져 있던 석탄화력발전소 초미세먼지의 심각성', url: 'https://www.greenpeace.org/korea/update/5956/blog-ce-hidden-figure-severe-impact-of-fine-dust/' },
+	            { title: '석탄화력에서 배출되는 미세먼지, 사망률 2배 높인다', url: 'https://m.dongascience.com/news.php?idx=62613' },
+	            { title: '고농도 미세먼지 7가지 대응요령', url: 'https://www.cleanair.go.kr/dust/dust/dust-emergency02.do' },
+	            { title: '미세먼지 줄이고 건강은 지키는 8가지 실천방법', url: 'https://www.korea.kr/news/healthView.do?newsId=148912595#health' },
+	            { title: '미세먼지란?', url: 'https://www.ehtis.or.kr/cmn/sym/mnu/mpm/60001011/htmlMenuView.do' },
+	            { title: '폐 망가뜨리는 미세 먼지 ‘이 음식’ 먹으면 배출', url: 'https://m.health.chosun.com/svc/news_view.html?contid=2023020701441' }
+	        ];
+	
+	     // Fisher-Yates 알고리즘을 사용한 배열 섞기
+	        function shuffleArray(array) {
+	            for (let i = array.length - 1; i > 0; i--) {
+	                const j = Math.floor(Math.random() * (i + 1));
+	                [array[i], array[j]] = [array[j], array[i]];
+	            }
+	        }
+
+	        shuffleArray(articles); // 페이지 로드시 한 번 섞어줌
+
+	        // 섞인 기사 제목을 화면에 적용하는 함수
+	        function displayArticles(articles) {
+	            var articleList = document.getElementById('articleList');
+	            articleList.innerHTML = ''; // 기존 리스트 초기화
+
+	            articles.forEach(function(article, index) {
+	                var truncatedTitle = truncateText(article.title, 15); // 최대 길이를 11으로 설정
+	                var articleLink = document.createElement('a');
+	                articleLink.href = article.url;
+	                articleLink.textContent = truncatedTitle;
+	                articleLink.title = article.title; // 원본 텍스트를 title 속성에 추가
+	                articleLink.classList.add('article-link');
+	                articleList.appendChild(articleLink);
+
+	                // 마지막 기사에는 구분선 추가하지 않음
+	                if (index < articles.length - 1) {
+	                    var hr = document.createElement('hr');
+	                    hr.style.border = 'solid 1px #808080';
+	                    hr.style.margin = '10px 0';
+	                    articleList.appendChild(hr);
+	                }
+	            });
+	        }
+
+	        // 텍스트를 자르고 '...'을 추가하는 함수
+	        function truncateText(text, maxLength) {
+	            if (text.length > maxLength) {
+	                return text.substring(0, maxLength) + '...';
+	            } else {
+	                return text;
+	            }
+	        }
+
+	        displayArticles(articles); // 섞인 기사 제목을 화면에 표시
         });
     </script>
 </head>
@@ -175,17 +232,15 @@
             </form>
             <!-- 우하단 -->
             <div class="w3-white w3-margin">
-                <div class="w3-container w3-padding w3-black">
-                    <h4>관련 기사</h4>
-                </div>
-                <div class="w3-container w3-white">
-                    <div class="w3-container w3-display-container w3-light-grey w3-section w3-padding" style="height:200px">
-                        <a>기사제목</a>
-                        <hr style="border: solid 1px #808080; margin: 10px;">
-                        <a>기사제목2</a>
-                    </div>
-                </div>
-            </div>
+			    <div class="w3-container w3-padding w3-black">
+			        <h4>관련 기사</h4>
+			    </div>
+			    <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">
+			        <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">
+
+				    </div>
+				</div>
+			</div>
             <!-- 우하단 닫기 -->
         </div>
         <!-- 좌우 나누는 박스 닫기 -->
