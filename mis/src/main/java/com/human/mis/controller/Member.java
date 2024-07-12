@@ -51,20 +51,21 @@ public class Member {
 		if(cnt != 1) {
 			// 로그인에 실패한 상태
 			view = "/mis/member/login.mis";
-		} else {
-			// 로그인에 성공한 상태
-			session.setAttribute("SID", mVO.getId());
 		}
+//		} else {
+//			// 로그인에 성공한 상태
+//			session.setAttribute("SID", mVO.getId());
+//		}
 		
 		rv.setUrl(view);
 		mv.setView(rv);
 		return mv;
 	}
 	// 로그아웃 처리 요청
-	@RequestMapping("/logoutProc.mis")
-	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+	@RequestMapping("/logout.mis")
+	public ModelAndView logoutProc(HttpSession session, ModelAndView mv, RedirectView rv) {
 		// 세션 빼기
-		session.removeAttribute("SID");
+//		session.removeAttribute("SID");
 		rv.setUrl("/mis/main.mis");
 		mv.setView(rv);
 		return mv;

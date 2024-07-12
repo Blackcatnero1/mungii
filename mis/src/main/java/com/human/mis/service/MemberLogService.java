@@ -48,8 +48,19 @@ public class MemberLogService {
 		}
 	
 	} else if(funcName.equals("logoutProc")) {
-		
+		id = sid;
+		act = "로그아웃";
+		session.removeAttribute("SID");
+	} else if(funcName.equals("joinProc")) {
+		MemberVO mVO = (MemberVO) join.getArgs()[3];
+		int cnt = mVO.getCnt();
+		id = mVO.getId();
+		if(cnt == 1) {
+			act = "회원가입에 성공";
+		} else {
+			act = "회원가입에 실패";
+		}
 	}
-		
+		membLog.info(id + "회원이" + act + "했습니다.");
 	}
 }
