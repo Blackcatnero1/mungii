@@ -68,18 +68,24 @@
 		        var integerValue = Math.round(value);
 	
 		        // 예시: 정수 형태로 변환한 값을 기준으로 클래스 추가
-		        if (integerValue <= 100) {
-		            $('#' + sensor).addClass('w3-blue');
+				if (integerValue <= 50) {
+		            $('#' + sensor).attr('style', 'background-color: rgb(171, 209, 98);');
 			        $('#' + sensor).prepend('<span class="w3-right">' + 1 + ' 등급</span>');
-		        } else if (integerValue <= 200) {
-		            $('#' + sensor).addClass('w3-green');
+		        } else if (integerValue <= 100) {
+		        	$('#' + sensor).attr('style', 'background-color: rgb(248, 212, 97);');
 			        $('#' + sensor).prepend('<span class="w3-right">' + 2 + ' 등급</span>');
-		        } else if (integerValue <= 300) {
-		            $('#' + sensor).addClass('w3-yellow');
+		        } else if (integerValue <= 150) {
+		        	$('#' + sensor).attr('style', 'background-color: rgb(251, 153, 86);');
 			        $('#' + sensor).prepend('<span class="w3-right">' + 3 + ' 등급</span>');
-		        } else {
-		            $('#' + sensor).addClass('w3-red');
+		        } else if (integerValue <= 200) {
+		        	$('#' + sensor).attr('style', 'background-color: rgb(246, 104, 106);');
 			        $('#' + sensor).prepend('<span class="w3-right">' + 4 + ' 등급</span>');
+		        } else if (integerValue <= 250) {
+		        	$('#' + sensor).attr('style', 'background-color: rgb(164, 125, 184);');
+			        $('#' + sensor).prepend('<span class="w3-right">' + 5 + ' 등급</span>');
+		        } else if (integerValue <= 300) {
+		        	$('#' + sensor).attr('style', 'background-color: rgb(160, 119, 133);');
+			        $('#' + sensor).prepend('<span class="w3-right">' + 6 + ' 등급</span>');
 		        }
 	
 		        // 예시: HTML에 정수 형태로 변환한 값 표시
@@ -121,21 +127,30 @@
 						
 						
 						for(var i = 0; i < aqis.length; i++){
-							if (dataList[i] <= 100) {
-								console.log(dataList[i]);
-					            $('#' + aqis[i]).removeClass('w3-green w3-yellow w3-red w3-blue').addClass('w3-blue');
-						        $('#' + aqis[i] + ' > span').html(1 + ' 등급');
+							if (dataList[i] <= 50) {
+					            $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
+					            $('#' + aqis[i] + ' > span').html(1 + ' 등급');
+					        } else if (dataList[i] <= 100) {
+					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
+					        	$('#' + aqis[i] + ' > span').html(2 + ' 등급');
+					        } else if (dataList[i] <= 150) {
+					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
+					        	$('#' + aqis[i] + ' > span').html(3 + ' 등급');
 					        } else if (dataList[i] <= 200) {
-					            $('#' + aqis[i]).removeClass('w3-green w3-yellow w3-red w3-blue').addClass('w3-green');
-					            $('#' + aqis[i] + ' > span').html(2 + ' 등급');
+					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
+					        	$('#' + aqis[i] + ' > span').html(4 + ' 등급');
+					        } else if (dataList[i] <= 250) {
+					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
+					        	$('#' + aqis[i] + ' > span').html(5 + ' 등급');
 					        } else if (dataList[i] <= 300) {
-					            $('#' + aqis[i]).removeClass('w3-green w3-yellow w3-red w3-blue').addClass('w3-yellow');
-					            $('#' + aqis[i] + ' > span').html(3 + ' 등급');
-					        } else {
-					            $('#' + aqis[i]).removeClass('w3-green w3-yellow w3-red w3-blue').addClass('w3-red');
-					            $('#' + aqis[i] + ' > span').html(4 + ' 등급');
+					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
+						        $('#' + aqis[i] + ' > span').html(6 + ' 등급');
 					        }
 						}
+						var sum = spm25 + spm10 + so3 + sco + sno2 + sso2;
+						$('#cai-value').html(average.toFixed(2)); // Displaying average with 2 decimal places
+						
+
 					},
 					error: function(xhr, status, error) {
 		                alert("요청이 실패하였습니다.");
@@ -488,30 +503,6 @@
 	  overlayBg.style.display = "none";
 	}
 
- 	// 함수 정의: CAI 계산하는 함수
-    function calculateCAI(pm25Aqi, pm10Aqi, o3Aqi, coAqi, no2Aqi, so2Aqi) {
-        // 예시 변수의 AQI 값
-        const pm25 = ${MISLIST.predicted_pm25};
-        const pm10 = ${MISLIST.predicted_pm10};
-        const o3 = ${MISLIST.predicted_o3};
-        const co = ${MISLIST.predicted_co};
-        const no2 = ${MISLIST.predicted_no2};
-        const so2 = ${MISLIST.predicted_so2};
-
-        // CAI 계산
-        const cai = (pm25 + pm10 + o3 + co + no2 + so2) / 6;
-
-        return cai;
-    }
-
-    // 페이지 로딩 후 결과를 HTML에 출력
-    window.onload = function() {
-        // CAI 계산
-        const result = calculateCAI();
-        
-     	// 결과를 테이블의 td 요소에 출력 (수치 뒤에 " IAQI" 추가)
-        const caiElement = document.getElementById('cai-value');
-        caiElement.textContent = result.toFixed(2) + " IAQI";
     };
 </script>
 </body>
