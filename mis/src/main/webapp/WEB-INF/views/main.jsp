@@ -16,11 +16,10 @@
             padding: 0;
         }
         .header {
-            background-color: #4285f4;
-            color: white;
-            padding: 20px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-image: url('https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true');
+            width: 100%;
         }
         .container {
             max-width: 650px;
@@ -92,23 +91,23 @@
             $('#myPage').click(function(){
                 $(location).attr('href', '/mis/member/mypage.mis');
             });
+            $('#kpred').click(function(){
+            	$(location).attr('href', '/mis/kpred/kpred.mis');
+            });
         });
     </script>
 </head>
 <body class="w3-light-grey">
-<div class="w3-content" style="max-width:1000px">
+<div class="w3-content" style="max-width:1000px;">
     <!-- 헤더1 -->
-    <header class="w3-display-container w3-wide" id="home">
-        <div class="header">
-            <h1>여기는 미세먼지 메인 입니다.</h1>
-        </div>
-    </header>
+    <div class="w3-col">
+   		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
+    </div>
     <!-- 버튼헤더(필요시 갯수추가) -->
     <header class="w3-container w3-center w3-padding w3-white">
-        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광혁</button></h6>
-        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광섭</button></h6>
-        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">민경</button></h6>
-        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off" id="park">태마파크</button></h6>
+        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측하기</button></h6>
+        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">테마파크</button></h6>
     </header>
     <!-- Grid -->
     <div class="w3-row w3-padding">

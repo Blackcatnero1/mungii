@@ -14,13 +14,6 @@
             margin: 0;
             padding: 0;
         }
-        .header {
-            background-color: #4285f4;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
         .container {
             max-width: 650px;
             margin: 40px auto;
@@ -75,20 +68,39 @@
  		$('#1').click(function(){
  			$(location).attr('href', '/mis//.mis');
  		});
- 		$('#2').click(function(){
- 			$(location).attr('href', '/mis//.mis');
+ 		$('#kpred').click(function(){
+ 			$(location).attr('href', '/mis/kpred/kpred.mis');
  		});
- 		$('#3').click(function(){
- 			$(location).attr('href', '/mis//.mis');
+ 		$('#park').click(function(){
+ 			$(location).attr('href', '/mis/park/park.mis');
  		});
+ 		
+ 		$('#sort').on('change', function(){
+			var stand = $('#sort option:selected').val();
+			if(stand == 'pmis'){
+				$('#pageFrm').attr('action', '/mis/park/misSort.mis').submit();
+			}else if(stand == 'preview'){
+				$('#pageFrm').attr('action', '/mis/park/reviewSort.mis').submit();
+			}else{
+				$('#pageFrm').submit();
+			}
+ 		});
+ 		$('.kpred').click(function(){
+ 			var scity = $(this).attr('id');
+ 			$('#pcity').val(scity);
+ 			$('#pageFrm').attr('action', '/mis/park/parkPred.mis');
+			$('#pageFrm').submit();
+ 		});
+ 		
      });
  		function handleClick() {
  			$(location).attr('href', '/mis/');
         }
     </script>
 </head>
-<form method="post" action="/park/park.mis" id="pageFrm">
+<form method="post" action="/mis/park/park.mis" id="pageFrm">
 	<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
+	<input type="hidden" name="city" id="pcity" value="">
 </form>
 <body class="w3-light-grey">
   
@@ -97,36 +109,41 @@
 	  <!-- 헤더1 -->
 	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()">
 		<div class="header">
-			<h1>페이지 템플릿(배경 변경 가능성 있음)</h1>
+    		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
 		</div>
 	</header>
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
 	<header class="w3-container w3-center w3-padding w3-white">
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="1">실시간 정보 보기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="2">미세먼지 예측 하기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="3">관광지 추천 받기</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
+	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천 받기</button></h6>
 	</header>
 		<!-- 본문박스 -->
 	
-	<div class="w3-main w3-content w3-padding w3-center">
-		<div class="w3-col w3-padding">
-			<select class="w3-right w3-padding">
-				<option selected value='goods'>추천순</option>
-				<option value="review">리뷰순</option>
-				<option value="iaqi">대기질순</option>
+	<div class="w3-main w3-content w3-center">
+		<div class="w3-col w3-padding w3-margin-top">
+			<div class="w3-col l10 w3-right-align w3-large">
+				<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
+			</div>
+			<select class="w3-right w3-padding l1" id="sort">
+				<option disabled selected>정렬</option>
+				<option value='goods'>추천순</option>
+				<option value="preview">리뷰순</option>
+				<option value="pmis">대기질순</option>
 			</select>
 		</div>
-<c:if test="${not empty LIST}">
-	<c:forEach var="DATA" items="${LIST}">
-				<div class="w3-quarter w3-button" style="display: inline-block; height: 380px;" id="parkList">
-					<div class="fixed-size">
-						<img src="${DATA.plink}" style="height:100%">
-					</div>
-					<h6>${DATA.pname}</h6>
-					<p>${DATA.pcity}</p>
-				</div>
-	</c:forEach>
+			<c:if test="${not empty LIST}">
+			<c:forEach var="DATA" items="${LIST}">
+						<div class="w3-quarter w3-margin-bottom" style="display: inline-block; height: 380px;">
+							<div class="fixed-size">
+								<img src="${DATA.plink}" style="height:100%">
+							</div>
+							<h6>${DATA.pname}</h6>
+							<p>${DATA.pcity} - ${DATA.pmis} AQI</p>
+							<div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred">예측 정보 보러가기</div>
+						</div>
+			</c:forEach>
 			
 			<div class="w3-col w3-center w3-margin-top">
 				<div class="w3-bar w3-border w3-border w3-border-blue w3-round">
