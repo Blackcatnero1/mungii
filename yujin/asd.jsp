@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style type="text/css">
         body {
             font-family: 'Roboto', Arial, sans-serif;
@@ -72,174 +74,91 @@
 </head>
 <body class="w3-light-grey">
   
-<div class="w3-content" style="max-width:1000px">
 	
-	  <!-- 헤더1 -->
-	<header class="w3-display-container w3-wide" id="home">
-		<div class="header">
-			<h1>페이지 템플릿(배경 변경 가능성 있음)</h1>
+	<div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right w3-button w3-col" id="jip"><i class="fa-solid fa-house"></i></span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s3">
+      <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s9 w3-bar">
+      <span><b>${SID} </b><strong class="todayDate"></strong></span><br>
+      <c:if test="${SID eq null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+      </c:if>
+      <c:if test="${SID ne null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+      </c:if>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>목차</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:310px;margin-top:43px;">
+
+  <!-- Header -->
+	<header class="w3-container">
+		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
+		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">여행지 추천 받기</button></h6>
+		<div class='w3-col'style="display: inline;">
+			<div class='w3-quarter l3' style="margin-right: -50px!important;">
+				<h5><i class="fa-solid fa-cloud-sun-rain"></i><b class="cityName"></b><b><small class="todayDate"></small> 날씨정보</b></h5>
+			</div>
+			<div class="w3-quarter w3-center l3" style="margin-left: -20px!important;">
+				<h6><b>
+					<label for="city">시/도 : </label>
+					<select id="city">
+						<option disabled selected>시/도.</option>
+	                    <c:forEach var="DATA" items="${CITYLIST}" varStatus="st">
+	                    	<option value="${DATA.city }">${DATA.city}</option>
+	                    </c:forEach>
+					</select>
+				</b></h6>
+			</div>
+			<div class="w3-quarter w3-center l3" style="margin-left: -20px!important;">
+				<h6><b>
+					<label for="city">시/군/구 : </label>
+					<select id="city">
+						<option disabled selected>시/군/구.</option>
+	                    <c:forEach var="DATA" items="${CITYLIST}" varStatus="st">
+	                    	<option value="${DATA.city }">${DATA.city}</option>
+	                    </c:forEach>
+					</select>
+				</b></h6>
+			</div>
+			<div class="">
+				<h6>
+					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
+					<button class="w3-margin-left" id="selCityDate">⏎</button>
+				</h6>
+			</div>
 		</div>
 	</header>
+ 
 	
-	<!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-padding w3-white">
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼1</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼2</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">버튼3</button></h6>
-	</header>
-	
-	 
-	<div class=" w3-content container w3-padding-16 w3-center">
-		<div style="display: inline-block;">
-			<span>지역 :</span>
-			<select class=" pl" style="width: 100px; margin-left:3px; margin-right:3px;">
-				<option selected>시/도</option>
-				<option value="1">서울</option>
-				<option value="1">대전</option>
-				<option value="1">대구</option>
-				<option value="1">부산</option>
-			</select>
-			<select class=" pl" style="width: 120px; margin-left:3px; margin-right:25px;">
-				<option selected>시/군/구</option>
-				<option value="1">강남구</option>
-				<option value="1">강동구</option>
-				<option value="1">강북구</option>
-				<option value="1">강서구</option>
-				<option value="1">관악구</option>
-				<option value="1">광진구</option>
-				<option value="1">구로구</option>
-				<option value="1">금천구</option>
-				<option value="1">광진구</option>
-				<option value="1">노원구</option>
-				<option value="1">도봉구</option>
-				<option value="1">동대문구</option>
-				<option value="1">동작구</option>
-				<option value="1">마포구</option>
-				<option value="1">서대문구</option>
-				<option value="1">서초구</option>
-				<option value="1">성동구</option>
-				<option value="1">성북구</option>
-				<option value="1">송파구</option>
-				<option value="1">양천구</option>
-				<option value="1">영등포구</option>
-				<option value="1">용산구</option>
-				<option value="1">은평구</option>
-				<option value="1">종로구</option>
-				<option value="1">중구</option>
-				<option value="1">중랑구</option>
-			</select>
-			<span>날짜 :</span>
-			<select class="m2 pl" style="width: 70px; margin-left:3px; margin-right:3px;">
-				<option selected>월</option>
-				<option value="1">1월</option>
-				<option value="1">2월</option>
-				<option value="1">3월</option>
-				<option value="1">4월</option>
-				<option value="1">5월</option>
-				<option value="1">6월</option>
-				<option value="1">7월</option>
-				<option value="1">8월</option>
-				<option value="1">9월</option>
-				<option value="1">10월</option>
-				<option value="1">11월</option>
-				<option value="1">12월</option>
-			</select>
-			<select class="m2 pl" style="width: 70px; margin-left:3px; margin-right:25px;">
-				<option selected>일</option>
-				<option value="1">1일</option>
-				<option value="1">2일</option>
-				<option value="1">3일</option>
-				<option value="1">4일</option>
-				<option value="1">5일</option>
-				<option value="1">6일</option>
-				<option value="1">7일</option>
-				<option value="1">8일</option>
-				<option value="1">9일</option>
-				<option value="1">10일</option>
-				<option value="1">11일</option>
-				<option value="1">12일</option>
-				<option value="1">13일</option>
-				<option value="1">14일</option>
-				<option value="1">15일</option>
-				<option value="1">16일</option>
-				<option value="1">17일</option>
-				<option value="1">18일</option>
-				<option value="1">19일</option>
-				<option value="1">20일</option>
-				<option value="1">21일</option>
-				<option value="1">22일</option>
-				<option value="1">23일</option>
-				<option value="1">24일</option>
-				<option value="1">25일</option>
-				<option value="1">26일</option>
-				<option value="1">27일</option>
-				<option value="1">28일</option>
-				<option value="1">29일</option>
-				<option value="1">30일</option>
-				<option value="1">31일</option>
-			</select>
-			<span>시간 :</span>
-			<select class="m2 pl" style="width: 80px; margin-left:3px; margin-right: 3px;">
-				<option selected>시</option>
-				<option value="1">0시</option>
-				<option value="1">1시</option>
-				<option value="1">2시</option>
-				<option value="1">3시</option>
-				<option value="1">4시</option>
-				<option value="1">5시</option>
-				<option value="1">6시</option>
-				<option value="1">7시</option>
-				<option value="1">8시</option>
-				<option value="1">9시</option>
-				<option value="1">10시</option>
-				<option value="1">11시</option>
-				<option value="1">12시</option>
-				<option value="1">13시</option>
-				<option value="1">14시</option>
-				<option value="1">15시</option>
-				<option value="1">16시</option>
-				<option value="1">17시</option>
-				<option value="1">18시</option>
-				<option value="1">19시</option>
-				<option value="1">20시</option>
-				<option value="1">21시</option>
-				<option value="1">22시</option>
-				<option value="1">23시</option>
-				<option value="1">24시</option>
-			</select>
-			<span>~</span>
-			<select class="m2 pl" style="width: 80px; margin-left:3px; margin-right:15px;">
-				<option selected>시</option>
-				<option value="1">0시</option>
-				<option value="1">1시</option>
-				<option value="1">2시</option>
-				<option value="1">3시</option>
-				<option value="1">4시</option>
-				<option value="1">5시</option>
-				<option value="1">6시</option>
-				<option value="1">7시</option>
-				<option value="1">8시</option>
-				<option value="1">9시</option>
-				<option value="1">10시</option>
-				<option value="1">11시</option>
-				<option value="1">12시</option>
-				<option value="1">13시</option>
-				<option value="1">14시</option>
-				<option value="1">15시</option>
-				<option value="1">16시</option>
-				<option value="1">17시</option>
-				<option value="1">18시</option>
-				<option value="1">19시</option>
-				<option value="1">20시</option>
-				<option value="1">21시</option>
-				<option value="1">22시</option>
-				<option value="1">23시</option>
-				<option value="1">24시</option>
-			</select>
-			<div class="w3-blue w3-round w3-padding w3-margin w3-button">예측</div>
-		</div>
-	</div> 
-	<div class="w3-white container w3-container" style="padding-bottom: 35px!important">
+	<div class="w3-white container w3-container" style="padding-bottom: 10px!important; margin-bottom: 30px;">
 		<div class=" w3-round w3-margin">
 			<h5 style="text-align: left!important;"><i class="fa fa-bar-chart"></i><b> PM10(미세먼지)</b></h5>
 			<div class="w3-col w3-center w3-blue" style="width:25%">좋음(0~30)</div>
@@ -249,7 +168,7 @@
 			<div class="w3-content w3-border">내용입력</div>
 	    </div>
     </div>
-    <div class="w3-white container w3-container" style="padding-bottom: 35px!important">
+    <div class="w3-white container w3-container" style="padding-bottom: 10px!important;">
 		<div class="w3-round w3-margin">
 			<h5 style="text-align: left!important;"><i class="fa fa-bar-chart"></i><b> PM2.5(초미세먼지)</b></h5>
 			<div class="w3-col w3-center w3-blue" style="width:25%">좋음(0~15)</div>
