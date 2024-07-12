@@ -2,9 +2,21 @@ package com.human.mis.vo;
 
 
 public class ParkVO {
-	private int pno;
-	private String pname, pmis, pcity, pkreview, plink, city;
-
+	private int pno, rno;
+	private String pname, pmis, pcity, pkreview, plink, city, standard;
+	
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public String getStandard() {
+		return standard;
+	}
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
 	public int getPno() {
 		return pno;
 	}
@@ -49,7 +61,8 @@ public class ParkVO {
 	}
 	@Override
 	public String toString() {
-		return "ParkVO [pno=" + pno + ", pname=" + pname + ", pmis=" + pmis + ", pcity=" + pcity + ", pkreview="
-				+ pkreview + ", plink=" + plink + ", city=" + city + "]";
+		return "ParkVO [pno=" + pno + ", rno=" + rno + ", pname=" + pname + ", pmis=" + pmis + ", pcity=" + pcity
+				+ ", pkreview=" + pkreview + ", plink=" + plink + ", city=" + city + ", standard=" + standard + "]";
 	}
+	
 }

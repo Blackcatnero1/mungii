@@ -7,7 +7,7 @@
 	<!-- pno로 그 글의 정보를 가지고 오기 위한 코드 -->
 	<select id="getPark" resultType="pVO" parameterType="pVO">
 		SELECT
-			pno, pname, pmis, pcity, pkreview, plink, distinct(decode(substr(pcity,1,2),'서울',substr(pcity,4,4), '부산', substr(pcity,4,4), '전북', substr(pcity,4,4), '제주', substr(pcity,4,4),substr(pcity,1,2))) city
+			pno, pname, pmis, pcity, pkreview, plink
 		FROM
 			park
 		WHERE
@@ -15,29 +15,53 @@
 	</select>
 	<!-- 태마파크의 모든 정보 리스트를 가지고 오기 위한 코드 -->
 	<select id="getParkList" resultType="pVO" parameterType="page">
-		SELECT
-		    rno, pno, pname, pmis, pcity, pkreview, plink
-		FROM
-		(
-		    SELECT
-			    ROWNUM rno, pno, pname, pmis, pcity, pkreview, plink
-			FROM
-			    (
-			    SELECT
-			        pno, pname, pmis, pcity, pkreview, plink
-			    FROM
-			        park
-			    WHERE
-			        pname = pname
-			    ORDER BY
-			        pno DESC
-			        
-			    )
-			order by
-			    to_number(pkreview) desc
-		)
-		WHERE
-		    rno BETWEEN #{startRno} AND #{endRno}
+		    
+		    select pno, rno, kdate, pname, pcity, city, pmis, pkreview, plink 
+		from(
+		select
+		    rownum rno, pno, kdate, pname, pcity, city, pmis, pkreview, plink
+		from
+		    (
+		        select
+		            rownum rno,pno, kdate, pname, pcity,decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2)) city, predicted_pm10 pmis, pkreview, plink
+		        from
+		            park p, kpreddata k
+		        where
+		            k.city = decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2))
+		            AND kdate = TO_CHAR(sysdate)
+		        order by
+		            pkreview desc, pmis asc
+		    )) where rno between #{startRno} and #{endRno}
 	</select>
 	<!-- 태마파크의 페이징처리를 위한 토탈 카운트 -->
 	<select id="getParkTotal" resultType="int">
@@ -46,5 +70,102 @@
 		FROM
 			park
 	</select>
-
+	<!-- 미세먼지별 정렬 담당 질의명령 -->
+	<select id="misSort" parameterType="page" resultType="pVO">
+		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
+		from(
+		select
+		    rownum rno, pno, kdate, pname, pcity, city, pmis, pkreview, plink
+		from
+		    (
+		        select
+		            rownum rno,pno, kdate, pname, pcity,decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2)) city, predicted_pm10 pmis, pkreview, plink
+		        from
+		            park p, kpreddata k
+		        where
+		            k.city = decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2))
+		            AND kdate = TO_CHAR(sysdate)
+		        order by
+		            pmis
+		    )   ) where rno between #{startRno} and #{endRno}
+	</select>
+	<!-- 리뷰별 정렬 담당 질의명령 -->
+	<select id="reviewSort" parameterType="page" resultType="pVO">
+		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
+		from(
+		select
+		    rownum rno, pno, kdate, pname, pcity, city, pmis, pkreview, plink
+		from
+		    (
+		        select
+		            rownum rno,pno, kdate, pname, pcity,decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2)) city, predicted_pm10 pmis, pkreview, plink
+		        from
+		            park p, kpreddata k
+		        where
+		            k.city = decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2))
+		            AND kdate = TO_CHAR(sysdate)
+		        order by
+		            pkreview
+		    )   ) where rno between #{startRno} and #{endRno}
+	</select>
 </mapper>

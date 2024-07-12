@@ -7,11 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.human.mis.dao.KpredDao;
 import com.human.mis.dao.ParkDao;
 import com.human.mis.util.PageUtil;
+import com.human.mis.vo.KpredVO;
 import com.human.mis.vo.ParkVO;
 
 /**
@@ -29,7 +32,8 @@ import com.human.mis.vo.ParkVO;
 public class Park {
 	@Autowired
 	ParkDao pDao;
-	
+	@Autowired
+	KpredDao kDao;
 	@RequestMapping("/park.mis")
 	public ModelAndView getPark(HttpSession session, ModelAndView mv, 
 											RedirectView rv, PageUtil page) {
@@ -46,13 +50,81 @@ public class Park {
 		// 데이터 베이스에서 조회
 		List<ParkVO> list = pDao.getParkList(page);
 		
-		
 		// 데이터 전달하고
 		mv.addObject("LIST", list);
 		mv.addObject("PAGE", page);
-		
 		// 뷰 셋팅하고
 		mv.setViewName("park");
 		return mv;
 	}
+	
+	@RequestMapping("/misSort.mis")
+	public ModelAndView misSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv, String standard) {
+		// 페이지 기본값 설정
+		int nowPage = page.getNowPage();
+		if(nowPage == 0) {
+			nowPage = 1;
+		}
+		
+		int total = pDao.getParkTotal();
+		page.setTotalCount(total);
+		page.setPage(nowPage, total);
+		
+		// 데이터 베이스에서 조회
+		List<ParkVO> list = pDao.misSort(page);
+		// 데이터 전달하고
+		mv.addObject("LIST", list);
+		mv.addObject("PAGE", page);
+		mv.setViewName("park");
+		// 뷰 셋팅하고
+		return mv;	
+	}
+	@RequestMapping("/reviewSort.mis")
+	public ModelAndView reviewSort(HttpSession session, ParkVO pVO, PageUtil page, ModelAndView mv, RedirectView rv, String standard) {
+		// 페이지 기본값 설정
+		int nowPage = page.getNowPage();
+		if(nowPage == 0) {
+			nowPage = 1;
+		}
+		
+		int total = pDao.getParkTotal();
+		page.setTotalCount(total);
+		page.setPage(nowPage, total);
+		
+		// 데이터 베이스에서 조회
+		List<ParkVO> list = pDao.reviewSort(page);
+		// 데이터 전달하고
+		mv.addObject("LIST", list);
+		mv.addObject("PAGE", page);
+		mv.setViewName("park");
+		// 뷰 셋팅하고
+		return mv;	
+	}
+	
+	@RequestMapping("/parkPred.mis")
+	public ModelAndView parkPred(ModelAndView mv, HttpSession session, ParkVO pVO) {
+		String sid = (String) session.getAttribute("SID");
+		KpredVO kpredVO = pDao.parkCityDate(pVO.getCity());
+		List cityList = kDao.getCityname();
+		mv.addObject("CITYLIST", cityList);
+		mv.addObject("MISLIST", kpredVO);
+		mv.addObject("SID", sid);
+		mv.setViewName("pred/kpred");
+		return mv;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
