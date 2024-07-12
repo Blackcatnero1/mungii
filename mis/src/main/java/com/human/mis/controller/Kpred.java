@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,6 +36,9 @@ import com.human.mis.dao.*;
 public class Kpred {
 	@Autowired
 	KpredDao kDao;
+	
+	@Autowired
+	MemberDao mDao;
 	@Autowired
 	HttpServletResponse response;
 	
@@ -62,6 +66,44 @@ public class Kpred {
 		KpredVO vo = kDao.selCityDate(kVO);
 		return vo;
 	}
+	// 로그아웃 처리 요청
+	@RequestMapping("/klogout.mis")
+	public ModelAndView klogout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		// 세션 빼기
+		session.removeAttribute("SID");
+		rv.setUrl("/mis/kpred/kpred.mis");
+		mv.setView(rv);
+		return mv;
+	}
+	// 로그인 폼 보기
+	@RequestMapping("/klogin.mis")
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	// 로그인 처리요청
+	@RequestMapping("/kloginProc.mis")
+	public ModelAndView loginProc(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
+		
+		String view = "/mis/kpred/kpred.mis";
+		
+		// getLogin() 에 login이 되면 있으면 1이 넘어 온다.
+		int cnt = mDao.getLogin(mVO);
+		// memberVO에 있는 setCnt() 를 사용해서 cnt를 넣어준다.
+		mVO.setCnt(cnt);
+		if(cnt != 1) {
+			// 로그인에 실패한 상태
+			view = "/mis/member/klogin.mis";
+		} else {
+			// 로그인에 성공한 상태
+			session.setAttribute("SID", mVO.getId());
+		}
+		
+		rv.setUrl(view);
+		mv.setView(rv);
+		return mv;
+	}
+	
 }	
 	
 	

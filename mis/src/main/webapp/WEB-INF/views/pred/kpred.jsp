@@ -16,6 +16,7 @@
 </style>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			console.log($(location).attr('href'));
 			$('#park').click(function(){
 				$(location).attr('href', '/mis/park/park.mis');
 			});
@@ -32,10 +33,10 @@
 				$(location).attr('href', '/mis/member/join.mis');
 			});
             $('#logout').click(function(){
-                $(location).attr('href', '/mis/member/logout.mis');
+                $(location).attr('href', '/mis/kpred/klogout.mis');
             });
             $('#login').click(function(){
-                $(location).attr('href', '/mis/member/login.mis');
+                $(location).attr('href', '/mis/kpred/klogin.mis');
             });
 		    // 현재 날짜
 		    var currentDate = new Date();
@@ -101,62 +102,93 @@
 						city: scity,
 						kdate: sdate
 				}
-				$.ajax({
-					type: "post",
-					url: "/mis/kpred/selCityDate.mis",
-					data: data,
-					success: function(obj){
-						$('.cityName').html(obj.city);
-						var spm25 = obj.predicted_pm25;
-						var spm10 = obj.predicted_pm10;
-						var so3 = obj.predicted_o3;
-						var sco = obj.predicted_co;
-						var sno2 = obj.predicted_no2;
-						var sso2 = obj.predicted_so2;
-						
-						var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
-						var dataList = [spm25, spm10, so3, sco, sno2, sso2];
-						for(var i = 0; i < dataList.length; i++){
-							$('.predict_' + aqis[i]).html(dataList[i] + ' AQI');
-						}
-						
-						var kyear = obj.kdate.substring(0, 4);
-						var kmonth = obj.kdate.substring(5, 7);
-						var kday = obj.kdate.substring(8, 10);
-						$('.todayDate').html('(' + kyear + '년 ' + kmonth + '월 ' + kday + '일)');
-						
-						
-						for(var i = 0; i < aqis.length; i++){
-							if (dataList[i] <= 50) {
-					            $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
-					            $('#' + aqis[i] + ' > span').html(1 + ' 등급');
-					        } else if (dataList[i] <= 100) {
-					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
-					        	$('#' + aqis[i] + ' > span').html(2 + ' 등급');
-					        } else if (dataList[i] <= 150) {
-					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
-					        	$('#' + aqis[i] + ' > span').html(3 + ' 등급');
-					        } else if (dataList[i] <= 200) {
-					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
-					        	$('#' + aqis[i] + ' > span').html(4 + ' 등급');
-					        } else if (dataList[i] <= 250) {
-					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
-					        	$('#' + aqis[i] + ' > span').html(5 + ' 등급');
-					        } else if (dataList[i] <= 300) {
-					        	$('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
-						        $('#' + aqis[i] + ' > span').html(6 + ' 등급');
-					        }
-						}
-						var sum = spm25 + spm10 + so3 + sco + sno2 + sso2;
-						$('#cai-value').html(average.toFixed(2)); // Displaying average with 2 decimal places
-						
+			    $.ajax({
+			        type: "post",
+			        url: "/mis/kpred/selCityDate.mis",
+			        data: data,
+			        success: function(obj) {
+			            $('.cityName').html(obj.city);
+			            var spm25 = parseFloat(obj.predicted_pm25);
+			            var spm10 = parseFloat(obj.predicted_pm10);
+			            var so3 = parseFloat(obj.predicted_o3);
+			            var sco = parseFloat(obj.predicted_co);
+			            var sno2 = parseFloat(obj.predicted_no2);
+			            var sso2 = parseFloat(obj.predicted_so2);
 
-					},
-					error: function(xhr, status, error) {
-		                alert("요청이 실패하였습니다.");
-		            }
-				});
+			            var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
+			            var dataList = [spm25, spm10, so3, sco, sno2, sso2];
+
+			            // AQI 값을 표시합니다.
+			            for (var i = 0; i < dataList.length; i++) {
+			                $('.predict_' + aqis[i]).html(dataList[i] + ' AQI');
+			            }
+
+			            // 날짜를 표시합니다.
+			            var kyear = obj.kdate.substring(0, 4);
+			            var kmonth = obj.kdate.substring(5, 7);
+			            var kday = obj.kdate.substring(8, 10);
+			            $('.todayDate').html('(' + kyear + '년 ' + kmonth + '월 ' + kday + '일)');
+
+			            // AQI 레벨에 따라 배경색과 등급을 할당합니다.
+			            for (var i = 0; i < aqis.length; i++) {
+			                if (!isNaN(dataList[i])) {
+			                    if (dataList[i] <= 50) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
+			                        $('#' + aqis[i] + ' > span').html('1 등급');
+			                    } else if (dataList[i] <= 100) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
+			                        $('#' + aqis[i] + ' > span').html('2 등급');
+			                    } else if (dataList[i] <= 150) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
+			                        $('#' + aqis[i] + ' > span').html('3 등급');
+			                    } else if (dataList[i] <= 200) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
+			                        $('#' + aqis[i] + ' > span').html('4 등급');
+			                    } else if (dataList[i] <= 250) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
+			                        $('#' + aqis[i] + ' > span').html('5 등급');
+			                    } else if (dataList[i] <= 300) {
+			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
+			                        $('#' + aqis[i] + ' > span').html('6 등급');
+			                    }
+			                } else {
+			                    // Handle NaN values (if any)
+			                    $('#' + aqis[i]).attr('style', 'background-color: lightgray;');
+			                    $('#' + aqis[i] + ' > span').html('데이터 없음');
+			                }
+			            }
+
+			            // CAI 값을 계산하고 표시합니다.
+			            var sum = 0;
+			            var count = 0;
+			            for (var i = 0; i < dataList.length; i++) {
+			                if (!isNaN(dataList[i])) {
+			                    sum += dataList[i];
+			                    count++;
+			                }
+			            }
+			            if (count > 0) {
+			                var average = sum / count;
+			                $('#cai-value').html(average.toFixed(2) + ' IAQI');
+			            } else {
+			                $('#cai-value').html('데이터 없음');
+			            }
+			        },
+			        error: function(xhr, status, error) {
+			            alert("요청이 실패하였습니다.");
+			        }
+			    });
 		    });
+		    var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
+		    var ppm25 = parseFloat($('.predict_pm25').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var ppm10 = parseFloat($('.predict_pm10').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var pno2 = parseFloat($('.predict_no2').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var pso2 = parseFloat($('.predict_so2').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var pco = parseFloat($('.predict_co').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var po3 = parseFloat($('.predict_o3').html().substring(0, $('.predict_pm25').html().length - 4));
+		    
+		    var average = (ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6;
+		    $('#cai-value').html(average.toFixed(2) + ' IAQI');
 		});
 	</script>
 </head>
@@ -312,7 +344,7 @@
         <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" style="width:100%" alt="Google Regional Map">
       </div>
       <div class="w3-twothird">
-        <h5>Feeds</h5>
+        <h5>Predicted</h5>
         <table class="w3-table w3-striped w3-white">
           <tr>
             <td><i class="fa-solid fa-person w3-text-green w3-xlarge"></i></td>
@@ -355,7 +387,7 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>General Stats</h5>
+    <h5>Accuracy Rate</h5>
     <p>New Visitors</p>
     <div class="w3-grey">
       <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
