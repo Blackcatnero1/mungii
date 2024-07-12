@@ -61,7 +61,7 @@ public class Member {
 		return mv;
 	}
 	// 로그아웃 처리 요청
-	@RequestMapping("/logout.mis")
+	@RequestMapping("/logoutProc.mis")
 	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
 		// 세션 빼기
 		session.removeAttribute("SID");
