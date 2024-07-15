@@ -165,22 +165,9 @@
 </head>
 <body>
 	<div class="w3-content w3-center" style="max-width:1000px">
-	
-	  <!-- 헤더1 -->
-		<header class="w3-display-container w3-wide">
-			<div class="header">
-				<h1>미세먼지 회원가입창</h1>
-			</div>
-		</header>
-		
-		<!-- 버튼헤더(필요시 갯수추가) -->
-		<header class="w3-container w3-center w3-padding w3-white">
-	        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광혁</button></h6>
-	        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">광섭</button></h6>
-	        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">민경</button></h6>
-	        <h6><button class="w3-button w3-white w3-quarter w3-large w3-opacity w3-hover-opacity-off">한민</button></h6>
-	    </header>
-
+		<div class="field">
+   			<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:700px; height:200px;">
+    	</div>	
 	    <div class="w3-content w3-container container w3-card-4" style='padding-top:0;'>
 	        <form method="GET" action="/mis/member/joinProc.mis" name="frm" id="frm" class="form w3-padding">
 	        	<div style="margin-top: 20px;">
