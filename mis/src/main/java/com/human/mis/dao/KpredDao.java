@@ -34,5 +34,8 @@ public class KpredDao {
 	public KpredVO accCity(KpredVO kVO) {
 		return session.selectOne("kSQL.accCity", kVO);
 	}
+	public List<KpredVO> accRank() {
+		return session.selectList("kSQL.accRank");
+	}
 	
 }

@@ -4,12 +4,24 @@ import java.text.*;
 import java.util.*;
 
 public class KpredVO {
-	private int cnt;
+	private int cnt, rank;
 	private String continent, country, cityname, kdate, pm25_beijing, pm10_beijing, no2_beijing, so2_beijing, o3_beijing,
     co_beijing, actual_pm25, actual_pm10, actual_no2, actual_so2,
     actual_o3, actual_co, predicted_pm25, predicted_pm10, predicted_no2,
-    predicted_so2, predicted_o3, predicted_co, city, kpm25, kpm10, ko3, kco, kno2, kso2;
+    predicted_so2, predicted_o3, predicted_co, city, kpm25, kpm10, ko3, kco, kno2, kso2, arate;
 	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public String getArate() {
+		return arate;
+	}
+	public void setArate(String arate) {
+		this.arate = arate;
+	}
 	public String getKpm25() {
 		return kpm25;
 	}
@@ -192,16 +204,16 @@ public class KpredVO {
 	}
 	@Override
 	public String toString() {
-		return "KpredVO [cnt=" + cnt + ", continent=" + continent + ", country=" + country + ", cityname=" + cityname
-				+ ", kdate=" + kdate + ", pm25_beijing=" + pm25_beijing + ", pm10_beijing=" + pm10_beijing
-				+ ", no2_beijing=" + no2_beijing + ", so2_beijing=" + so2_beijing + ", o3_beijing=" + o3_beijing
-				+ ", co_beijing=" + co_beijing + ", actual_pm25=" + actual_pm25 + ", actual_pm10=" + actual_pm10
-				+ ", actual_no2=" + actual_no2 + ", actual_so2=" + actual_so2 + ", actual_o3=" + actual_o3
+		return "KpredVO [cnt=" + cnt + ", rank=" + rank + ", continent=" + continent + ", country=" + country
+				+ ", cityname=" + cityname + ", kdate=" + kdate + ", pm25_beijing=" + pm25_beijing + ", pm10_beijing="
+				+ pm10_beijing + ", no2_beijing=" + no2_beijing + ", so2_beijing=" + so2_beijing + ", o3_beijing="
+				+ o3_beijing + ", co_beijing=" + co_beijing + ", actual_pm25=" + actual_pm25 + ", actual_pm10="
+				+ actual_pm10 + ", actual_no2=" + actual_no2 + ", actual_so2=" + actual_so2 + ", actual_o3=" + actual_o3
 				+ ", actual_co=" + actual_co + ", predicted_pm25=" + predicted_pm25 + ", predicted_pm10="
 				+ predicted_pm10 + ", predicted_no2=" + predicted_no2 + ", predicted_so2=" + predicted_so2
 				+ ", predicted_o3=" + predicted_o3 + ", predicted_co=" + predicted_co + ", city=" + city + ", kpm25="
 				+ kpm25 + ", kpm10=" + kpm10 + ", ko3=" + ko3 + ", kco=" + kco + ", kno2=" + kno2 + ", kso2=" + kso2
-				+ "]";
+				+ ", arate=" + arate + "]";
 	}
 	
 }

@@ -52,6 +52,8 @@ public class Kpred {
 		KpredVO kpredVO = kDao.getCityDate();
 		List cityList = kDao.getCityname();
 		KpredVO kVO = kDao.selAccu();
+		List rankList = kDao.accRank();
+		mv.addObject("RANKLIST", rankList);
 		mv.addObject("ACCU", kVO);
 		mv.addObject("CITYLIST", cityList);
 		mv.addObject("MISLIST", kpredVO);
