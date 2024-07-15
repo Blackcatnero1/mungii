@@ -89,6 +89,14 @@
 		        flex: 1 1 100%;
 		    }
 		}
+		
+		.source {
+			margin-right: 100px; /* 출처 사이의 간격 조정 */
+			width: 50px;
+	        white-space: nowrap; /* 한 줄에 글자가 다 나오도록 설정 */
+	        overflow: hidden; /* 넘치는 글자 숨기기 */
+	        text-overflow: ellipsis; /* 생략 부호(...) 추가 */
+	    }
     </style>
     <script type="text/javascript">
         function handleClick() {
@@ -137,10 +145,34 @@
     </div>
 
 <!-- Footer -->
-<footer class="w3-container w3-dark-grey" style="padding:32px">
-    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼 필요한가요</a>
-    <p>사용설명서 여기다가</p>
+<footer class="w3-container w3-dark-grey" style="padding: 32px">
+    <h2 style="margin-bottom: 10px;">출처</h2>
+    <div class="w3-row">
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">구글 Map</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">공공데이터포탈</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">도시교통정보센터</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">aqicn</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">에어코리아</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">기상청 기상 포털</h6>
+        </div>
+        <div class="w3-col s12 m6 l1">
+            <h6 class="source">서울특별시 대기환경 정보</h6>
+        </div>
+    </div>
 </footer>
+
+
 </div>
 </body>
 </html>
