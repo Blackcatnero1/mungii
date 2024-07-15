@@ -26,10 +26,10 @@ public class SchedulerConfig {
         return new RestTemplate();
     }
 
-    // @Scheduled(cron = "0 50 10 * * *")
+    //@Scheduled(cron = "0 50 10 * * *")
     public void callSalesEndpoint() {
         LocalDateTime currentTime = LocalDateTime.now();
-        String[] urls = {"crawling", "crawling2", "crawling3"};
+        String[] urls = {"Scheduler.mis"};
         for(int i = 0 ; i < urls.length; i++) {
         	String url = "http://58.72.151.124:6012/" + urls[i];
         	RestTemplate restTemplate = restTemplate();
