@@ -106,6 +106,9 @@
             $('#kpred').click(function(){
             	$(location).attr('href', '/mis/kpred/kpred.mis');
             });
+            $('#realTime').click(function(){
+            	$(location).attr('href', '/mis/realTimeDust/view.mis');
+            });
             
          	// 모든 기사 링크에 클릭 이벤트 추가
             var articleList = document.getElementById('articleList');
@@ -176,7 +179,7 @@
     </div>
     <!-- 버튼헤더(필요시 갯수추가) -->
     <header class="w3-container w3-center w3-padding w3-white">
-        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측하기</button></h6>
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">테마파크</button></h6>
     </header>
