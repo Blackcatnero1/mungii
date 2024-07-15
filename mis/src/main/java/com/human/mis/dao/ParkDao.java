@@ -33,6 +33,10 @@ public class ParkDao {
 		return session.selectList("pSQL.recSort", page);
 	}
 	
+	public List<ParkVO> mainParkList(){
+		return session.selectList("pSQL.mainParkList");
+	}
+	
 	public KpredVO parkCityDate(String city) {
 		return session.selectOne("kSQL.parkCityDate", city);
 	}

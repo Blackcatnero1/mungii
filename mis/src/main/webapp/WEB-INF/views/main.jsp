@@ -50,6 +50,18 @@
         .button.light-green { background-color: #8bc34a; }
         .button.blue { background-color: #2196f3; }
         .button.green { background-color: #4caf50; }
+        		
+		.fixed-size{
+			height: 100px;
+			text-size: 15px;
+		}
+		
+		/* 이미지 고정 크기 및 자르기 설정 */
+		.fixed-size img {
+		    width: 135px;
+			display: inline-block;
+		    object-fit: cover;
+		}
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -123,13 +135,15 @@
 	            articleList.innerHTML = ''; // 기존 리스트 초기화
 
 	            articles.forEach(function(article, index) {
-	                var truncatedTitle = truncateText(article.title, 15); // 최대 길이를 11으로 설정
-	                var articleLink = document.createElement('a');
-	                articleLink.href = article.url;
-	                articleLink.textContent = truncatedTitle;
-	                articleLink.title = article.title; // 원본 텍스트를 title 속성에 추가
-	                articleLink.classList.add('article-link');
-	                articleList.appendChild(articleLink);
+	            	var truncatedTitle = truncateText(article.title, 15); // 최대 길이를 15로 설정
+	            	var articleLink = document.createElement('a');
+	            	articleLink.style.textDecoration = 'none'; // style 속성 설정 방식 수정
+	            	articleLink.href = article.url;
+	            	articleLink.textContent = truncatedTitle;
+	            	articleLink.title = article.title; // 원본 텍스트를 title 속성에 추가
+	            	articleLink.classList.add('article-link', 'w3-margin-left'); // 클래스 리스트에 여러 클래스 추가
+	            	articleLink.style.marginBottom = '-1px'; // 원하는 margin-bottom 값으로 설정
+	            	articleList.appendChild(articleLink);
 
 	                // 마지막 기사에는 구분선 추가하지 않음
 	                if (index < articles.length - 1) {
@@ -167,41 +181,70 @@
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">테마파크</button></h6>
     </header>
     <!-- Grid -->
-    <div class="w3-row w3-padding">
+    <div class="w3-col l8">
         <!-- 좌분면 -->
-        <div class="w3-col l8 s8">
-            <!-- 국내 순위 -->
-            <div class="w3-container w3-white w3-margin w3-padding-large">
-                <div class="w3-center">
-                    <h3>국내</h3>
-                </div>
-                <hr style="border: solid 1px black;">
-                <ol id="domestic-ranking">
-                    <c:forEach items="${linksList2}" var="link">
-		            	<li class="w3-col w3-padding">
-                            <a href="${link.href}" class="w3-col m5 w3-text-gray w3-left-align" style="text-decoration:none;">${link.text}</a>
-                            <div class="w3-col m5">AQI : ${link.aqi}</div>
+	    <!-- 국내 순위 -->
+	    <div class="w3-col l6 s6">
+	        <div class="w3-white w3-margin-right w3-margin-left">
+	            <div class="w3-center">
+	                <h3>국내</h3>
+	            </div>
+	            <hr style="border: solid 1px black; margin: 0;">
+	            <ol id="domestic-ranking">
+                <!-- JSP forEach 루프 -->
+                <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
+                <c:forEach items="${linksList2}" var="link" varStatus="loop">
+                    <c:if test="${loop.index < 5}">
+                        <li class="w3-margin-bottom">
+                            <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;"><b>${link.text}</b></a>
+                            <div><b>AQI : ${link.aqi}</b></div>
                         </li>
-		            </c:forEach>
-                </ol>
-            </div>
-            <!-- 해외 순위 -->
-            <div class="w3-container w3-white w3-margin w3-padding-large">
-                <div class="w3-center">
-                    <h3>해외</h3>
-                </div>
-                <hr style="border: solid 1px black;">
-                <ol id="international-ranking">
-                    <c:forEach items="${linksList}" var="link">
-		                <li class="w3-col w3-padding">
-                            <a href="${link.href}" class="w3-col m5 w3-text-gray w3-left-align" style="text-decoration:none;">${link.text}</a>
-                            <div class="w3-col m5">AQI : ${link.aqi}</div>
-                        </li>
-		            </c:forEach>
-                </ol>
-            </div>
-            <!-- 좌분면 닫기 -->
+                    </c:if>
+                </c:forEach>
+            </ol>
         </div>
+    </div>
+    
+	   <!-- 해외 순위 -->
+	   <div class="w3-col l6 s6">
+	       <div class="w3-white w3-margin-left w3-margin-right ">
+	           <div class="w3-center">
+	               <h3>해외</h3>
+	           </div>
+	           <hr style="border: solid 1px black; margin: 0;">
+	           <ol id="international-ranking">
+	            <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
+	            <c:forEach items="${linksList}" var="link" varStatus="loop">
+	                <c:if test="${loop.index < 5}">
+	                    <li class="w3-margin-top">
+	                        <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;"><b>${link.text}</b></a>
+	                        <div><b>AQI : ${link.aqi}</b></div>
+	                    </li>
+	                </c:if>
+	            </c:forEach>
+	         </ol>
+	     </div>
+	 </div>
+	 <div class="w3-col w3-center">
+       	<div>
+	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">대마파크</h3>
+	        <div class="w3-col">
+	        <c:forEach var="DATA" items="${LIST}">
+				<div class="w3-quarter w3-margin-bottom l3" style="display: inline-block">
+					<div class="fixed-size">
+						<img src="${DATA.plink}" style="height:100%">
+					</div>
+					<h6 style="margin:0;"><small>${DATA.pname}</small></h6>
+					<p style="margin:0;"><small>${DATA.pcity}</small></p>
+					<p style="margin:0;"><small>${DATA.pmis} AQI</small></p>
+				</div>
+			</c:forEach>
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+            <!-- 좌분면 닫기 -->
         <!-- 좌우 나누는 박스 -->
         <div class="w3-rest l3 s3">
             <!-- 우상단 -->

@@ -1,6 +1,7 @@
 package com.human.mis.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,47 +10,51 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * 이 클래스는 cafe 프로젝트의 컨트롤러 클래스로
- * "/main.cafe" 로 요청되는 경우 응답 문서를 선택해서 응답해주는 컨트롤러
- * @author 김한민
- * @since 2024.05.31
- * @version v.1.0
- * 			
- * 			작업이력 ]
- * 					2024.05.31	: 	[ 담당자 ] 김한민
- * 									컨트롤러 제작
- * 									"/main.cafe" URL 멥핑
- *
- */
+import com.human.mis.dao.*;
+import com.human.mis.vo.*;
+
 @Controller
 public class MainController {
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
-	}
-	
-	@RequestMapping("/main.mis")
-	public ModelAndView getMain(ModelAndView mv) {
-		mv.setViewName("main");
-		String url = "https://www.iqair.com/ko/world-air-quality-ranking/cleanest-cities";
-		String url2 = "https://www.iqair.com/ko/south-korea";
-		try {
-            // URL 호출하여 HTML 콘텐츠 가져오기
-            RestTemplate restTemplate = new RestTemplate();
-            String htmlContent = restTemplate.getForObject(url, String.class);
-            String htmlContent2 = restTemplate.getForObject(url2,  String.class);
-            
+    @Autowired
+    ParkDao pDao;
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+    @Autowired
+    RestTemplate restTemplate;
+    @RequestMapping("/main.mis")
+    public ModelAndView getMain(ModelAndView mv, ParkVO pVO) {
+        // 이하 코드는 기존과 동일
+        String url = "https://www.iqair.com/ko/world-air-quality-ranking/cleanest-cities";
+        String url2 = "https://www.iqair.com/ko/south-korea";
+        try {
+            // HttpHeaders 객체를 생성하여 헤더 설정
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0");
+
+            // HttpEntity를 사용하여 헤더를 포함하는 요청 생성
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            // RestTemplate을 사용하여 HTTP 요청
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            ResponseEntity<String> response2 = restTemplate.exchange(url2, HttpMethod.GET, entity, String.class);
+            String htmlContent = response.getBody();
+            String htmlContent2 = response2.getBody();
+
             // HTML 파싱
             Document doc = Jsoup.parse(htmlContent);
             Document doc2 = Jsoup.parse(htmlContent2);
-            
+
             // a 태그와 aqi-number div 찾기
             Elements links = doc.select("a.city-label");
             Elements aqiNumbers = doc.select("div.aqi-number");
@@ -90,6 +95,8 @@ public class MainController {
                 linksList2.add(linkMap2);
                 count++;
             }
+            List mpList = pDao.mainParkList();
+            mv.addObject("LIST", mpList);
             // 상위 10개의 a 태그와 aqi-number div를 포함한 List를 ModelAndView에 추가
             mv.addObject("linksList", linksList);
             mv.addObject("linksList2", linksList2);
@@ -99,9 +106,9 @@ public class MainController {
         }
         return mv;
     }
-	
-	@RequestMapping("/temp.mis")
-	public String getTemp() {
-		return "temp";
-	}
+
+    @RequestMapping("/temp.mis")
+    public String getTemp() {
+        return "temp";
+    }
 }
