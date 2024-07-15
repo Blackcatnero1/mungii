@@ -1,0 +1,1 @@
+<typeAlias alias="rtVO" type="com.human.mis.vo.RealTimeVO"/>
