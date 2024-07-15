@@ -16,7 +16,6 @@
 </style>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			console.log($(location).attr('href'));
 			$('#park').click(function(){
 				$(location).attr('href', '/mis/park/park.mis');
 			});
@@ -71,22 +70,22 @@
 		        // 예시: 정수 형태로 변환한 값을 기준으로 클래스 추가
 				if (integerValue <= 50) {
 		            $('#' + sensor).attr('style', 'background-color: rgb(171, 209, 98);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 1 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">좋음</span>');
 		        } else if (integerValue <= 100) {
 		        	$('#' + sensor).attr('style', 'background-color: rgb(248, 212, 97);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 2 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">보통</span>');
 		        } else if (integerValue <= 150) {
 		        	$('#' + sensor).attr('style', 'background-color: rgb(251, 153, 86);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 3 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">나쁨</span>');
 		        } else if (integerValue <= 200) {
 		        	$('#' + sensor).attr('style', 'background-color: rgb(246, 104, 106);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 4 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">매우나쁨</span>');
 		        } else if (integerValue <= 250) {
 		        	$('#' + sensor).attr('style', 'background-color: rgb(164, 125, 184);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 5 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">심각</span>');
 		        } else if (integerValue <= 300) {
 		        	$('#' + sensor).attr('style', 'background-color: rgb(160, 119, 133);');
-			        $('#' + sensor).prepend('<span class="w3-right">' + 6 + ' 등급</span>');
+			        $('#' + sensor).prepend('<span class="w3-right">치명적</span>');
 		        }
 	
 		        // 예시: HTML에 정수 형태로 변환한 값 표시
@@ -134,22 +133,22 @@
 			                if (!isNaN(dataList[i])) {
 			                    if (dataList[i] <= 50) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
-			                        $('#' + aqis[i] + ' > span').html('1 등급');
+			                        $('#' + aqis[i] + ' > span').html('좋음');
 			                    } else if (dataList[i] <= 100) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
-			                        $('#' + aqis[i] + ' > span').html('2 등급');
+			                        $('#' + aqis[i] + ' > span').html('보통');
 			                    } else if (dataList[i] <= 150) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
-			                        $('#' + aqis[i] + ' > span').html('3 등급');
+			                        $('#' + aqis[i] + ' > span').html('나쁨');
 			                    } else if (dataList[i] <= 200) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
-			                        $('#' + aqis[i] + ' > span').html('4 등급');
+			                        $('#' + aqis[i] + ' > span').html('매우나쁨');
 			                    } else if (dataList[i] <= 250) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
-			                        $('#' + aqis[i] + ' > span').html('5 등급');
+			                        $('#' + aqis[i] + ' > span').html('심각');
 			                    } else if (dataList[i] <= 300) {
 			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
-			                        $('#' + aqis[i] + ' > span').html('6 등급');
+			                        $('#' + aqis[i] + ' > span').html('치명적');
 			                    }
 			                } else {
 			                    // Handle NaN values (if any)
@@ -173,6 +172,42 @@
 			            } else {
 			                $('#cai-value').html('데이터 없음');
 			            }
+			            $('#apm25').html(obj.kpm25 + '%');
+			            
+			            $('#apm10').html(obj.kpm10 + '%');
+			            $('#aco').html(obj.kco + '%');
+			            $('#ao3').html(obj.ko3 + '%');
+			            $('#ano2').html(obj.kno2 + '%');
+			            $('#aso2').html(obj.kso2 + '%');
+			            $('#apm25').css('width', obj.kpm25 + '%');
+			            $('#apm10').css('width', obj.kpm10 + '%');
+			            $('#ano2').css('width', obj.kno2 + '%');
+			            $('#aso2').css('width', obj.kso2 + '%');
+			            $('#ao3').css('width', obj.ko3 + '%');
+			            $('#aco').css('width', obj.kco + '%');
+			            
+			    	    // 배열로 변수와 요소들을 관리
+			    		var kkpm25 = obj.kpm25;
+			    		var kkpm10 = obj.kpm10;
+			    		var kkco = obj.kco;
+			    		var kko3 = obj.ko3;
+			    		var kkno2 = obj.kno2;
+			    		var kkso2 = obj.kso2;
+			    	    var kklist = [kkpm25, kkpm10, kkco, kko3, kkno2, kkso2];
+			    	    var aalist = ['apm25', 'apm10', 'aco', 'ao3', 'ano2', 'aso2'];
+			    	    for(var i = 0 ; i < kklist.length ; i++){
+				    	    if (kklist[i] > 80) {
+				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-green');
+				    	    }else if(kklist[i] > 60){
+				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-yellow');
+				    	    }else if(kklist[i] > 40){
+				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-orange');
+				    	    }else{
+				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-red');
+				    	    }
+			    	    }
+			    		
+			            
 			        },
 			        error: function(xhr, status, error) {
 			            alert("요청이 실패하였습니다.");
@@ -189,6 +224,8 @@
 		    
 		    var average = (ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6;
 		    $('#cai-value').html(average.toFixed(2) + ' IAQI');
+		    
+		    
 		});
 	</script>
 </head>
@@ -197,8 +234,9 @@
 	<input type="hidden" name="kdate" id="kdate" value="${MISLIST.kdate}">
 </form>
 <!-- Top container -->
+
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  메뉴</button>
   <span class="w3-bar-item w3-right w3-button w3-col" id="jip"><i class="fa-solid fa-house"></i></span>
 </div>
 
@@ -222,10 +260,11 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>목차</h5>
+    <h5><i class="fa-solid fa-list"></i> 목차</h5>
+    <hr>
   </div>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  닫기</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
@@ -246,11 +285,11 @@
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">여행지 추천 받기</button></h6>
 		<div class='w3-col'>
 			<div class='w3-third'>
-				<h5><i class="fa-solid fa-cloud-sun-rain"></i><b class="cityName">${MISLIST.city}</b><b><small class="todayDate"></small> 날씨정보</b></h5>
+				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small class="todayDate"></small> 대기정보</b></h5>
 			</div>
 			<div class="w3-third w3-center">
 				<h6><b>
-					<label for="city">도시 선택 : </label>
+					<label for="city"><i class="fa-solid fa-play"></i> 도시 선택 : </label>
 					<select id="city">
 						<option disabled selected>시/구를 선택하세요.</option>
 	                    <c:forEach var="DATA" items="${CITYLIST}" varStatus="st">
@@ -261,8 +300,8 @@
 			</div>
 			<div class="w3-third w3-center">
 				<h6>
-					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
-					<button class="w3-margin-left" id="selCityDate">⏎</button>
+					<b><label for="dateSelect"><i class="fa-solid fa-play"></i> 날짜 선택 : </label><input type="date" id="dateSelect"></b>
+					<button class="w3-margin-left" id="selCityDate"><i class="fa-solid fa-square-check"></i></button>
 				</h6>
 			</div>
 		</div>
@@ -335,7 +374,20 @@
 	      </div>
 	    </div>
 	</div>
-	</div>
+</div>
+<div class="w3-container">
+    <h5><i class="fa-solid fa-play"></i><b> 측정 기준<small>(기준 : AQI)</small></b></h5>
+    <div class="w3-grey w3-margin-top">
+        <div class="w3-col">
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(171, 209, 98);"><b>좋음<small>(1 ~ 50)</small></b></div>
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(248, 212, 97);"><b>보통<small>(51 ~ 100)</small></b></div>
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(251, 153, 86);"><b>나쁨<small>(101 ~ 150)</small></b></div>
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(246, 104, 106);"><b>매우나쁨<small>(151 ~ 200)</small></b></div>
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(164, 125, 184);"><b>심각<small>(201 ~ 250)</small></b></div>
+	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(160, 119, 133);"><b>치명적<small>(251 ~ )</small></b></div>
+       </div>
+   </div>
+</div>
 	
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
@@ -387,20 +439,31 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Accuracy Rate</h5>
-    <p>New Visitors</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
-    </div>
+    <h5><b>예측 정확도<small>(단계별)</small></b></h5>
 
-    <p>New Users</p>
+    <p style="margin:3px;"><b>PM25(미세먼지)</b></p>
     <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
+      <div class="w3-container w3-center w3-padding w3-red" id="apm25" style="width:${ACCU.kpm25}%">${ACCU.kpm25}%</div>
     </div>
-
-    <p>Bounce Rate</p>
+    <p style="margin:3px;"><b>PM10(초미세먼지)</b></p>
     <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
+      <div class="w3-container w3-center w3-padding w3-red" id="apm10" style="width:${ACCU.kpm10}%">${ACCU.kpm10}%</div>
+    </div>
+    <p style="margin:3px;"><b>CO(일산화탄소)</b></p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" id="aco" style="width:${ACCU.kco}%">${ACCU.kco }%</div>
+    </div>
+    <p style="margin:3px;"><b>O3(오존)</b></p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" id="ao3" style="width:${ACCU.ko3}%">${ACCU.ko3 }%</div>
+    </div>
+    <p style="margin:3px;"><b>NO2(이산화질소)</b></p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" id="ano2" style="width:${ACCU.kno2}%">${ACCU.kno2 }%</div>
+    </div>
+    <p style="margin:3px;"><b>SO2(아황산가스)</b></p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" id="aso2" style="width:${ACCU.kso2}%">${ACCU.kso2 }%</div>
     </div>
   </div>
   <hr>
@@ -534,8 +597,34 @@
 	  mySidebar.style.display = "none";
 	  overlayBg.style.display = "none";
 	}
-
-    };
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    // 배열로 변수와 요소들을 관리
+	    var pollutants = [
+	        { id: '#apm25', threshold: 80 },
+	        { id: '#apm10', threshold: 80 },
+	        { id: '#aco', threshold: 80 },
+	        { id: '#ao3', threshold: 80 },
+	        { id: '#ano2', threshold: 80 },
+	        { id: '#aso2', threshold: 80 }
+	    ];
+	
+	    // 반복문을 통해 각 요소에 대해 처리
+	    $.each(pollutants, function(index, item) {
+	        var value = $(item.id).html().substring(0, $(item.id).html().length - 1);
+	        
+	        if (value > item.threshold) {
+	            $(item.id).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-green');
+	        } else if (value > 60) {
+	            $(item.id).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-yellow');
+	        } else if (value > 40) {
+	            $(item.id).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-orange');
+	        } else {
+	            $(item.id).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-red');
+	        }
+	    });
+	});
 </script>
 </body>
 </html>

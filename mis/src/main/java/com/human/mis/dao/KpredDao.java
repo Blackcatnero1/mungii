@@ -28,5 +28,11 @@ public class KpredDao {
 	public KpredVO selCityDate(KpredVO kVO) {
 		return session.selectOne("kSQL.selCityDate", kVO);
 	}
+	public KpredVO selAccu() {
+		return session.selectOne("kSQL.selAccu");
+	}
+	public KpredVO accCity(KpredVO kVO) {
+		return session.selectOne("kSQL.accCity", kVO);
+	}
 	
 }

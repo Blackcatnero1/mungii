@@ -58,12 +58,30 @@
 	</select>
 	<!-- 도시, 날짜 선택 후 조회 -->
 	<select id="selCityDate" resultType="kVO" parameterType="kVO">
+   		select
+			*
+		from
+			kpreddata k, accuracy_score a
+		where
+			k.city = a.city
+            AND a.city = #{city}
+            AND kdate = to_date(#{kdate})
+	</select>
+	<select id="selAccu" resultType="kVO">
 		select
 			*
 		from
-			kpreddata
+			accuracy_score
+		where
+			city = '서울'
+	</select>
+	<select id="accCity" resultType="kVO" parameterType="kVO">
+		select
+			*
+		from
+			accuracy_score
 		where
 			city = #{city}
-			AND kdate = to_date(#{kdate})
 	</select>
+	
 </mapper>

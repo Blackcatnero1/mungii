@@ -51,6 +51,8 @@ public class Kpred {
 		String sid = (String) session.getAttribute("SID");
 		KpredVO kpredVO = kDao.getCityDate();
 		List cityList = kDao.getCityname();
+		KpredVO kVO = kDao.selAccu();
+		mv.addObject("ACCU", kVO);
 		mv.addObject("CITYLIST", cityList);
 		mv.addObject("MISLIST", kpredVO);
 		mv.addObject("SID", sid);

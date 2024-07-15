@@ -8,7 +8,44 @@ public class KpredVO {
 	private String continent, country, cityname, kdate, pm25_beijing, pm10_beijing, no2_beijing, so2_beijing, o3_beijing,
     co_beijing, actual_pm25, actual_pm10, actual_no2, actual_so2,
     actual_o3, actual_co, predicted_pm25, predicted_pm10, predicted_no2,
-    predicted_so2, predicted_o3, predicted_co, city;
+    predicted_so2, predicted_o3, predicted_co, city, kpm25, kpm10, ko3, kco, kno2, kso2;
+	
+	public String getKpm25() {
+		return kpm25;
+	}
+	public void setKpm25(String kpm25) {
+		this.kpm25 = kpm25;
+	}
+	public String getKpm10() {
+		return kpm10;
+	}
+	public void setKpm10(String kpm10) {
+		this.kpm10 = kpm10;
+	}
+	public String getKo3() {
+		return ko3;
+	}
+	public void setKo3(String ko3) {
+		this.ko3 = ko3;
+	}
+	public String getKco() {
+		return kco;
+	}
+	public void setKco(String kco) {
+		this.kco = kco;
+	}
+	public String getKno2() {
+		return kno2;
+	}
+	public void setKno2(String kno2) {
+		this.kno2 = kno2;
+	}
+	public String getKso2() {
+		return kso2;
+	}
+	public void setKso2(String kso2) {
+		this.kso2 = kso2;
+	}
 	public int getCnt() {
 		return cnt;
 	}
@@ -155,13 +192,16 @@ public class KpredVO {
 	}
 	@Override
 	public String toString() {
-		return "MapVO [cnt=" + cnt + ", continent=" + continent + ", country=" + country + ", cityname=" + cityname
+		return "KpredVO [cnt=" + cnt + ", continent=" + continent + ", country=" + country + ", cityname=" + cityname
 				+ ", kdate=" + kdate + ", pm25_beijing=" + pm25_beijing + ", pm10_beijing=" + pm10_beijing
 				+ ", no2_beijing=" + no2_beijing + ", so2_beijing=" + so2_beijing + ", o3_beijing=" + o3_beijing
 				+ ", co_beijing=" + co_beijing + ", actual_pm25=" + actual_pm25 + ", actual_pm10=" + actual_pm10
 				+ ", actual_no2=" + actual_no2 + ", actual_so2=" + actual_so2 + ", actual_o3=" + actual_o3
 				+ ", actual_co=" + actual_co + ", predicted_pm25=" + predicted_pm25 + ", predicted_pm10="
 				+ predicted_pm10 + ", predicted_no2=" + predicted_no2 + ", predicted_so2=" + predicted_so2
-				+ ", predicted_o3=" + predicted_o3 + ", predicted_co=" + predicted_co + ", city=" + city + "]";
+				+ ", predicted_o3=" + predicted_o3 + ", predicted_co=" + predicted_co + ", city=" + city + ", kpm25="
+				+ kpm25 + ", kpm10=" + kpm10 + ", ko3=" + ko3 + ", kco=" + kco + ", kno2=" + kno2 + ", kso2=" + kso2
+				+ "]";
 	}
+	
 }
