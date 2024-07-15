@@ -142,6 +142,7 @@
 	            	var articleLink = document.createElement('a');
 	            	articleLink.style.textDecoration = 'none'; // style 속성 설정 방식 수정
 	            	articleLink.href = article.url;
+	            	articleLink.target = "_blank"; // 새 창에서 열기
 	            	articleLink.textContent = truncatedTitle;
 	            	articleLink.title = article.title; // 원본 텍스트를 title 속성에 추가
 	            	articleLink.classList.add('article-link', 'w3-margin-left'); // 클래스 리스트에 여러 클래스 추가
