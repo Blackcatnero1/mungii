@@ -104,7 +104,7 @@ public class Member {
 		// 뷰 셋팅하고
 		if(cnt == 1) {
 			// 회원가입에 성공한 경우
-//			session.setAttribute("SID", mVO.getId());
+			session.setAttribute("SID", mVO.getId());
 			rv.setUrl("/mis/main.mis");
 		} else {
 			rv.setUrl("/mis/member/join.mis");
