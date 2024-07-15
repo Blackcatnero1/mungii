@@ -97,17 +97,16 @@
     </script>
 </head>
 <body class="w3-light-grey">
-<div class="w3-content" style="max-width:1000px">
+<div class="w3-content" style="max-width:600px">
 
     <!-- 헤더 -->
-    <header class="w3-display-container w3-wide header" onclick="handleClick()">
-        <h1>마이페이지</h1>
-    </header>
+    <div class="field w3-center" onclick="handleClick()">
+		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:600px; height:160px;">
+   	</div>	
 
     <!-- 내 정보 섹션 -->
-    <div class="container w3-content w3-justify w3-padding-64" id="about">
-        <h2 class="w3-center">내 정보</h2>
-        <hr style="width:200px" class="w3-opacity">
+    <div class="container w3-content w3-justify w3-padding" id="about">
+        <h2 class="w3-center"><b>내 정보</b></h2>
 
         <div class="info-group">
             <div class="info-item info-section">
