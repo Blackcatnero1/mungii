@@ -54,6 +54,7 @@ public class Member {
 		}
 //		} else {
 //			// 로그인에 성공한 상태
+//			// MemberLogService 에서 처리
 //			session.setAttribute("SID", mVO.getId());
 //		}
 		
