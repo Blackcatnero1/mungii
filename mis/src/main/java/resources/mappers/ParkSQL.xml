@@ -71,6 +71,55 @@
 			park
 	</select>
 	<!-- 미세먼지별 정렬 담당 질의명령 -->
+	<select id="recSort" parameterType="page" resultType="pVO">
+		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
+		from(
+		select
+		    rownum rno, pno, kdate, pname, pcity, city, pmis, pkreview, plink
+		from
+		    (
+		        select
+		            rownum rno,pno, kdate, pname, pcity,decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2)) city, predicted_pm10 pmis, pkreview, plink
+		        from
+		            park p, kpreddata k
+		        where
+		            k.city = decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2))
+		            AND kdate = TO_CHAR(#{pdate})
+		        order by
+		            pkreview desc, pmis asc 
+		    )   ) where rno between #{startRno} and #{endRno}
+	</select>
+	<!-- 미세먼지별 정렬 담당 질의명령 -->
 	<select id="misSort" parameterType="page" resultType="pVO">
 		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
 		from(
@@ -114,7 +163,7 @@
 		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
 		                            end,
 		                       substr(pcity,1,2))
-		            AND kdate = TO_CHAR(sysdate)
+		            AND kdate = TO_CHAR(#{pdate})
 		        order by
 		            pmis
 		    )   ) where rno between #{startRno} and #{endRno}
@@ -163,9 +212,59 @@
 		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
 		                            end,
 		                       substr(pcity,1,2))
-		            AND kdate = TO_CHAR(sysdate)
+		            AND kdate = TO_CHAR(#{pdate})
 		        order by
-		            pkreview
+		            pkreview desc
 		    )   ) where rno between #{startRno} and #{endRno}
 	</select>
+	<!-- 리뷰별 정렬 담당 질의명령 -->
+	<select id="mainParkList" resultType="pVO">
+		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
+		from(
+		select
+		    rownum rno, pno, kdate, pname, pcity, city, pmis, pkreview, plink
+		from
+		    (
+		        select
+		            rownum rno,pno, kdate, pname, pcity,decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2)) city, predicted_pm10 pmis, pkreview, plink
+		        from
+		            park p, kpreddata k
+		        where
+		            k.city = decode(substr(pcity,1,2),
+		                       '서울', case when substr(pcity, 4, 3) = '송파구' then '송파구'
+		                                    when substr(pcity, 4, 3) = '광진구' then '광진구'
+		                                    when substr(pcity, 4, 3) = '종로구' then '종로구'
+		                                    when substr(pcity, 4, 3) = '서초구' then '서초구'
+		                                    else substr(pcity, 4, 4)
+		                            end,
+		                       '부산', case when substr(pcity, 4, 3) = '해운대' then '해운대구'
+		                                    when substr(pcity, 4, 3) = '동래구' then '동래구'
+		                            end,
+		                       '전북', substr(pcity,4,2),
+		                       '제주', 
+		                            case when substr(pcity, 4, 2) = '제주' then '제주'
+		                                 when substr(pcity, 4, 3) = '서귀포' then '서귀포'
+		                            end,
+		                       substr(pcity,1,2))
+		            AND kdate = TO_CHAR(sysdate)
+		        order by
+		            pkreview desc, pmis asc
+		    )   ) where rno between 1 and 4
+	</select>
+	
 </mapper>

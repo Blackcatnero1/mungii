@@ -13,55 +13,82 @@
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
+		    background-color: #f0f0f0;
+		    font-family: Arial, sans-serif;
+		    font-size: 16px;
+		    line-height: 1.6;
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		h1, h2 {
+		    text-align: center;
+		    color: #333;
+		}
+		
+		hr {
+		    border-color: #333;
+		    margin: 20px auto;
+		    width: 200px;
+		}
         .header {
-            background-color: #4285f4;
-            color: white;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+		    background-color: #0d47a1;
+		    color: white;
+		    padding: 20px;
+		    text-align: center;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		    cursor: pointer;
+		    transition: background-color 0.3s ease;
+		}
+		
+		.header:hover {
+		    background-color: #1565c0;
+		}
+
         .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        .info-section {
-            background-color: #4285f4;
-            color: white;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .info-title {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .info-data {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
+		    max-width: 800px;
+		    margin: 40px auto;
+		    padding: 20px;
+		    background-color: #f9f9f9;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		    border-radius: 8px;
+		}
+		
+		.info-section {
+		    background-color: #e0e0e0;
+		    color: #333;
+		    padding: 15px;
+		    margin: 10px 0;
+		    border-radius: 8px;
+		    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+		
+		.info-title {
+		    font-size: 1.1em;
+		    margin-bottom: 8px;
+		}
+		
+		.info-data {
+		    font-size: 1.3em;
+		    font-weight: bold;
+		}
+
         .info-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
         .info-item {
-            flex: 1 1 45%;
-            margin: 10px 0;
-        }
-        @media (max-width: 600px) {
-            .info-item {
-                flex: 1 1 100%;
-            }
-        }
+		    flex: 1 1 calc(50% - 20px); /* 각 박스의 너비를 50%로 설정하고, 간격을 빼줍니다 */
+		    margin: 10px;
+		    padding: 20px; /* 각 박스의 내부 여백을 추가합니다 */
+		}
+		
+		@media (max-width: 600px) {
+		    .info-item {
+		        flex: 1 1 100%;
+		    }
+		}
     </style>
     <script type="text/javascript">
         function handleClick() {
@@ -110,6 +137,11 @@
         </div>
     </div>
 
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey" style="padding:32px">
+    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼 필요한가요</a>
+    <p>사용설명서 여기다가</p>
+</footer>
 </div>
 </body>
 </html>

@@ -15,6 +15,31 @@
 		<level value="info" />
 	</logger>
 	
+	<!-- file Appender -->
+	<appender name="file" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/webapps/mis/resources/log/log.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %d{yyyy/MM/dd HH:mm:ss} - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Member Log Appender -->
+	<appender name="membAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/webapps/mis/resources/log/member.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %d{yyyy/MM/dd HH:mm:ss} - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- Application Loggers -->
+	<!-- login out logger -->
+	<logger name="membLog">
+		<level value="info" />
+		<appender-ref ref="membAppender" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

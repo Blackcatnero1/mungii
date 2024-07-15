@@ -1,0 +1,1 @@
+<bean id="rtDao" class="com.human.mis.dao.RealTimeDao" />

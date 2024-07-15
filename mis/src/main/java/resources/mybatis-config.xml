@@ -16,6 +16,7 @@
 		<typeAlias alias="pVO" type="com.human.mis.vo.ParkVO"/>
 		<typeAlias alias="kVO" type="com.human.mis.vo.KpredVO"/>
 		<typeAlias alias="page" type="com.human.mis.util.PageUtil"/>
+		<typeAlias alias="rtVO" type="com.human.mis.vo.RealTimeVO"/>
 	</typeAliases>
 	
 </configuration>

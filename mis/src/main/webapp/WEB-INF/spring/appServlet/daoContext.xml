@@ -14,5 +14,6 @@
 	<bean id="rDao" class="com.human.mis.dao.ReboardDao" />
 	<bean id="pDao" class="com.human.mis.dao.ParkDao" />
 	<bean id="kDao" class="com.human.mis.dao.KpredDao" />
+	<bean id="rtDao" class="com.human.mis.dao.RealTimeDao" />
 	
 </beans>

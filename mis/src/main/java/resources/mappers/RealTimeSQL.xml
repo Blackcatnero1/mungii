@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rtSQL">
+	<!-- 서울시 구 개수 받아오기 -->
+	<select id="GooName" resultType="rtVO">
+		SELECT
+			name, apicode
+		FROM
+			local_summery
+		WHERE
+			code LIKE '11%'
+	</select>
+
+	<!-- CCTV코드값 가져오기 -->
+	<select id="getCCTV" resultType="String" parameterType="String">
+		SELECT
+			cctvcode
+		FROM
+			local_summery
+		WHERE
+			name = #{name}
+	</select>
+
+	<!-- 일기예보 가져오기 -->
+	<select id="getWeather" resultType="rtVO" parameterType="rtVO">
+		SELECT
+		    temp_min, temp_max, temp_avg, rain_avg, wind_avg, wind_deg, wind_max, hum_avg, rainp_am, rainp_pm, pred_oz, pred_no2, pred_co, pred_so, pred_pm10, pred_pm25
+		FROM
+		    WEATHER_FORECAST
+		WHERE
+		    name = #{name} AND
+		    fdate = #{date}
+	</select>
+
+	<!-- 관광명소 가져오기 -->
+	<select id="getAttraction" resultType="rtVO" parameterType="rtVO">
+		SELECT
+		    name, stars
+		FROM
+		    attractions
+		WHERE
+		    city = #{name}
+	</select>
+</mapper>

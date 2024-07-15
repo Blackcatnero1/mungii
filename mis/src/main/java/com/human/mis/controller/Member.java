@@ -51,10 +51,11 @@ public class Member {
 		if(cnt != 1) {
 			// 로그인에 실패한 상태
 			view = "/mis/member/login.mis";
-		} else {
-			// 로그인에 성공한 상태
-			session.setAttribute("SID", mVO.getId());
 		}
+//		} else {
+//			// 로그인에 성공한 상태
+//			session.setAttribute("SID", mVO.getId());
+//		}
 		
 		rv.setUrl(view);
 		mv.setView(rv);
@@ -62,9 +63,9 @@ public class Member {
 	}
 	// 로그아웃 처리 요청
 	@RequestMapping("/logout.mis")
-	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+	public ModelAndView logoutProc(HttpSession session, ModelAndView mv, RedirectView rv) {
 		// 세션 빼기
-		session.removeAttribute("SID");
+//		session.removeAttribute("SID");
 		rv.setUrl("/mis/main.mis");
 		mv.setView(rv);
 		return mv;
@@ -114,7 +115,7 @@ public class Member {
 	
 	// 마이페이지 데이터 조회 요청 처리 함수
 	@RequestMapping("/mypage.mis")
-	public ModelAndView mypageProc(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
+	public ModelAndView mypage(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
 		String sid = (String) session.getAttribute("SID");
 		 MemberVO mVO = mDao.memberInfo(sid);
 		 mv.addObject("DATA", mVO);

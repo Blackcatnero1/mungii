@@ -88,8 +88,12 @@
                     $('#pw').focus();
                     return;
                 }
-                
-                $('#frm').attr('method', 'GET').attr('action', '/mis/member/loginProc.mis');
+                var csite = $(location).attr('href');
+                if(csite == 'http://localhost/mis/kpred/klogin.mis'){
+	                $('#frm').attr('method', 'GET').attr('action', '/mis/kpred/kloginProc.mis');
+                }else{
+    	            $('#frm').attr('method', 'GET').attr('action', '/mis/member/loginProc.mis');
+                }
                 $('#frm').submit();
             });
 

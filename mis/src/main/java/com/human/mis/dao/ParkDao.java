@@ -29,6 +29,14 @@ public class ParkDao {
 		return session.selectList("pSQL.reviewSort", page);
 	}
 	
+	public List<ParkVO> recSort(PageUtil page){
+		return session.selectList("pSQL.recSort", page);
+	}
+	
+	public List<ParkVO> mainParkList(){
+		return session.selectList("pSQL.mainParkList");
+	}
+	
 	public KpredVO parkCityDate(String city) {
 		return session.selectOne("kSQL.parkCityDate", city);
 	}

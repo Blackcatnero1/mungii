@@ -64,6 +64,6 @@
 			kpreddata
 		where
 			city = #{city}
-			AND kdate = #{kdate}
+			AND kdate = to_date(#{kdate})
 	</select>
 </mapper>
