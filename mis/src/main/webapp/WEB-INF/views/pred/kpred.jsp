@@ -16,6 +16,12 @@
 </style>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#realTime').click(function(){
+            	$(location).attr('href', '/mis/realTimeDust/view.mis');
+            });
+			$('#realTime2').click(function(){
+            	$(location).attr('href', '/mis/realTimeDust/view.mis');
+            });
 			$('#park').click(function(){
 				$(location).attr('href', '/mis/park/park.mis');
 			});
@@ -265,7 +271,7 @@
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  닫기</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding" id="realTime2"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
   </div>
@@ -280,7 +286,7 @@
 
   <!-- Header -->
 	<header class="w3-container">
-		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off"id="realTime">실시간 정보 보기</button></h6>
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">여행지 추천 받기</button></h6>
 		<div class='w3-col'>
