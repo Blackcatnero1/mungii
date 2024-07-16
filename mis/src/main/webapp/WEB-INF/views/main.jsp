@@ -119,6 +119,8 @@
 	            { title: '고농도 미세먼지 7가지 대응요령', url: 'https://www.cleanair.go.kr/dust/dust/dust-emergency02.do' },
 	            { title: '미세먼지 줄이고 건강은 지키는 8가지 실천방법', url: 'https://www.korea.kr/news/healthView.do?newsId=148912595#health' },
 	            { title: '미세먼지란?', url: 'https://www.ehtis.or.kr/cmn/sym/mnu/mpm/60001011/htmlMenuView.do' },
+	            { title: '인천시 / 도시 숲으로 미세먼지·이산화탄소 감소한다', url: 'https://fksm.co.kr/news/view.php?idx=66673&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
+	            { title: '국가미세먼지정보센터, 아시아 4개국 대기 배출관리 기술 교육', url: 'https://fksm.co.kr/news/view.php?idx=66418&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
 	            { title: '폐 망가뜨리는 미세 먼지 ‘이 음식’ 먹으면 배출', url: 'https://m.health.chosun.com/svc/news_view.html?contid=2023020701441' }
 	        ];
 	
@@ -256,18 +258,18 @@
                 <div class="w3-white w3-margin">
                     <c:if test="${empty SID}">
                         <div class="w3-container w3-padding w3-black">
-                            <h4>로그인</h4>
+                            <h4 style="margin: 0px;">로그인</h4>
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                             <p><input class="w3-input w3-border" name="id" id="id" type="text" placeholder="아이디" style="padding-left: 10px"></p>
                             <p><input type="password" class="w3-input w3-border" name="pw" id="pw" placeholder="비밀번호"></p>
-                            <div class="w3-col w3-half w3-button w3-blue" id="login" style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그인</div>
+                            <div class="w3-col w3-half w3-button w3-blue" id="login" style="margin: 0px; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그인</div>
                             <div class="w3-col w3-half w3-button w3-green w3-margin-top" id="join" style="border-bottom-right-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">회원가입</div>
                         </div>
                     </c:if>
                     <c:if test="${not empty SID}">
                         <div class="w3-container w3-padding w3-black w3-center">
-                            <h4>내 정보</h4>
+                            <h4 style="margin: 0px;">내 정보</h4>
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                         	<h5 class="w3-center w3-padding"><b>${SID}</b> 님 환영합니다.</h5>
@@ -280,7 +282,7 @@
             <!-- 우하단 -->
             <div class="w3-white w3-margin">
 			    <div class="w3-container w3-padding w3-black w3-center">
-			        <h4>관련 기사</h4>
+			        <h4 style="margin: 0px;">관련 기사</h4>
 			    </div>
 			    <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">
 			        <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">
