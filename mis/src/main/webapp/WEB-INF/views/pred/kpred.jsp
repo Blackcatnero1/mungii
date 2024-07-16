@@ -60,7 +60,7 @@
 		    var smonth = currentDateString.substring(5,7);
 		    var sday = currentDateString.substring(8,10);
 		    $('#dateSelect').val(syear + '-' +  smonth + '-' + sday);
-		    $('.todayDate').html('(' + syear + '년 ' + smonth + '월 ' + sday + '일)');
+		    $('.todayDate').html(syear + '년 ' + smonth + '월 ' + sday + '일');
 		    
 		    
 		    var sensors = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
@@ -132,7 +132,7 @@
 			            var kyear = obj.kdate.substring(0, 4);
 			            var kmonth = obj.kdate.substring(5, 7);
 			            var kday = obj.kdate.substring(8, 10);
-			            $('.todayDate').html('(' + kyear + '년 ' + kmonth + '월 ' + kday + '일)');
+			            $('.todayDate').html( kyear + '년 ' + kmonth + '월 ' + kday + '일');
 
 			            // AQI 레벨에 따라 배경색과 등급을 할당합니다.
 			            for (var i = 0; i < aqis.length; i++) {
@@ -212,8 +212,21 @@
 				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-red');
 				    	    }
 			    	    }
-			    		
-			            
+			        },
+			        error: function(xhr, status, error) {
+			            alert("요청이 실패하였습니다.");
+			        }
+			    });
+			    
+			    $.ajax({
+			        type: "post",
+			        url: "/mis/kpred/selDateRank.mis",
+			        data: data,
+			        success: function(obj) {
+			        	for(var i = 0 ; i < 5 ; i++){
+			        		$('#date' + i).html(obj[i].city);
+			        		$('#adate' + i).html(obj[i].predicted_pm10 + '<small> AQI</small>');
+			        	};
 			        },
 			        error: function(xhr, status, error) {
 			            alert("요청이 실패하였습니다.");
@@ -253,7 +266,12 @@
       <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s9 w3-bar">
+    <c:if test="${SID ne null}">
       <span><b>${SID} 님</b></span><br>
+    </c:if>
+    <c:if test="${SID eq null }">
+      <span><b>비회원 유저입니다.</b></span><br>
+    </c:if>
       <c:if test="${SID eq null}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
@@ -291,7 +309,7 @@
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
 		<div class='w3-col'>
 			<div class='w3-third'>
-				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small class="todayDate"></small> 대기정보</b></h5>
+				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small>(</small><small class="todayDate"></small><small>)</small> 대기정보</b></h5>
 			</div>
 			<div class="w3-third w3-center">
 				<h6><b>
@@ -398,11 +416,11 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5>Regions</h5>
+        <h5>꼬북꼬북</h5>
         <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" style="width:100%" alt="Google Regional Map">
       </div>
       <div class="w3-twothird">
-        <h5>Predicted</h5>
+        <h5>예측값</h5>
         <table class="w3-table w3-striped w3-white">
           <tr>
             <td><i class="fa-solid fa-person w3-text-green w3-xlarge"></i></td>
@@ -445,7 +463,7 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5><b>예측 정확도<small>(단계별)</small></b></h5>
+    <h5><b>예측 정확도<small>(단위 : 단계별)</small></b></h5>
 
     <p style="margin:3px;"><b>PM25(미세먼지)</b></p>
     <div class="w3-grey">
@@ -479,8 +497,8 @@
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
       		<tr>
-		        <td>${ DATA.city}</td>
-		        <td>${DATA.arate }%</td>
+		        <td class="w3-half">${ DATA.city}</td>
+		        <td class="w3-half">${DATA.arate }%</td>
 	      </tr>
 	      </c:forEach>
     </table><br>
@@ -488,42 +506,18 @@
   <hr>
   
   <div class="w3-container">
-    <h5><b class="todayDate"></b> 기준 초미세먼지(PM25)가 제일 좋은 지역</h5>
+    <h5><b>초미세먼지(PM25)가 제일 좋은 지역(단위 : AQI)</b> <small>(</small><small><b class="todayDate"></b></small><small>)</small></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
-      		<tr>
-		        <td>${ DATA.city}</td>
-		        <td>${DATA.arate }%</td>
-	      </tr>
-	      </c:forEach>
+		<c:forEach var="DATA" items="${DATERANK}" varStatus="st">
+		    <tr>
+		        <td class="w3-half" id="date${st.index}">${DATA.city}</td>
+		        <td class="w3-half" id="adate${st.index}">${DATA.predicted_pm10}<small> AQI</small></td>
+		    </tr>
+		</c:forEach>
     </table><br>
   </div>
   
   <hr>
-
-  <div class="w3-container">
-    <h5>Recent Comments</h5>
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/mis/avatar/img_avatar13.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
-
-    <div class="w3-row">
-      <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/mis/avatar/img_avatar22.png" style="width:96px;height:96px">
-      </div>
-      <div class="w3-col m10 w3-container">
-        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-      </div>
-    </div>
-  </div>
-  <br>
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">
@@ -547,12 +541,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-light-grey">
-    <h4>FOOTER</h4>
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-  </footer>
 
   <!-- End page content -->
 </div>

@@ -37,5 +37,8 @@ public class KpredDao {
 	public List<KpredVO> accRank() {
 		return session.selectList("kSQL.accRank");
 	}
+	public List<KpredVO> dateRank(String kdate){
+		return session.selectList("kSQL.dateRank", kdate);
+	}
 	
 }

@@ -232,7 +232,7 @@
 	 <div class="w3-col w3-center">
        	<div>
 	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">추천 관광지</h3>
-	        <div class="w3-col">
+	        <div class="w3-col w3-padding w3-center">
 	        <c:forEach var="DATA" items="${LIST}">
 				<div class="w3-quarter w3-margin-bottom l3" style="display: inline-block">
 					<div class="fixed-size">
@@ -261,25 +261,25 @@
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                             <p><input class="w3-input w3-border" name="id" id="id" type="text" placeholder="아이디" style="padding-left: 10px"></p>
                             <p><input type="password" class="w3-input w3-border" name="pw" id="pw" placeholder="비밀번호"></p>
-                            <div class="w3-half w3-button w3-green" id="login">로그인</div>
-                            <div class="w3-half w3-button w3-blue" id="join">회원가입</div>
+                            <div class="w3-col w3-half w3-button w3-blue" id="login" style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그인</div>
+                            <div class="w3-col w3-half w3-button w3-green w3-margin-top" id="join" style="border-bottom-right-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">회원가입</div>
                         </div>
                     </c:if>
                     <c:if test="${not empty SID}">
-                        <div class="w3-container w3-padding w3-black">
+                        <div class="w3-container w3-padding w3-black w3-center">
                             <h4>내 정보</h4>
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                         	<h5 class="w3-center w3-padding"><b>${SID}</b> 님 환영합니다.</h5>
-                            <div class="w3-col w3-button w3-pale-red" id="logout">로그아웃</div>
-                            <div class="w3-col w3-button w3-gray w3-margin-top" id="myPage">마이페이지</div>
+                            <div class="w3-col w3-half w3-button w3-pale-red" id="logout" style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그아웃</div>
+                            <div class="w3-col w3-half w3-button w3-gray w3-margin-top" id="myPage" style="border-bottom-right-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">마이페이지</div>
                         </div>
                     </c:if>
                 </div>
             </form>
             <!-- 우하단 -->
             <div class="w3-white w3-margin">
-			    <div class="w3-container w3-padding w3-black">
+			    <div class="w3-container w3-padding w3-black w3-center">
 			        <h4>관련 기사</h4>
 			    </div>
 			    <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">

@@ -96,5 +96,21 @@
 		)
 		where rank between 1 and 5
 	</select>
-	
+	<select id="dateRank" resultType="kVO" parameterType="String">
+		select rno, city, kdate, predicted_pm10 from
+		    (
+		    select rownum rno, city, kdate, predicted_pm10 from
+		        (
+		            select
+		                city, kdate, predicted_pm10
+		            from
+		                kpreddata
+		            where
+		                kdate = to_date(#{kdate})
+		            order by
+		                to_number(predicted_pm10)
+		        )
+		    )
+		where rno between 1 and 5
+	</select>
 </mapper>
