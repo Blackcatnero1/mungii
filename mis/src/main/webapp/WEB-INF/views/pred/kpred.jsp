@@ -162,7 +162,6 @@
 			                    $('#' + aqis[i] + ' > span').html('데이터 없음');
 			                }
 			            }
-
 			            // CAI 값을 계산하고 표시합니다.
 			            var sum = 0;
 			            var count = 0;
@@ -173,13 +172,21 @@
 			                }
 			            }
 			            if (count > 0) {
-			                var average = sum / count;
-			                $('#cai-value').html(average.toFixed(2) + ' IAQI');
+			                var avg = sum / count;
+			                $('#cai-value').html(avg.toFixed(2) + ' IAQI');
+			    		    if (avg <= 50) {
+			    		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
+			    		    } else if (avg <= 100) {
+			    		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
+			    		    } else if (avg <= 150) {
+			    		        $('#hrang').attr('src', '/mis/image/하랑이/노랑이.jpg');
+			    		    } else {
+			    		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
+			    		    }
 			            } else {
 			                $('#cai-value').html('데이터 없음');
 			            }
 			            $('#apm25').html(obj.kpm25 + '%');
-			            
 			            $('#apm10').html(obj.kpm10 + '%');
 			            $('#aco').html(obj.kco + '%');
 			            $('#ao3').html(obj.ko3 + '%');
@@ -243,7 +250,15 @@
 		    
 		    var average = (ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6;
 		    $('#cai-value').html(average.toFixed(2) + ' IAQI');
-		    
+		    if (average <= 50) {
+		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
+		    } else if (average <= 100) {
+		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
+		    } else if (average <= 150) {
+		        $('#hrang').attr('src', '/mis/image/하랑이/노랑이.jpg');
+		    } else {
+		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
+		    }
 		    
 		});
 	</script>
@@ -263,14 +278,14 @@
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s3">
-      <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img src="/mis/image/avatar/img_avatar11.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s9 w3-bar">
     <c:if test="${SID ne null}">
-      <span><b>${SID} 님</b></span><br>
+      <span><b>${SID} 님 환영합니다.</b></span><br>
     </c:if>
     <c:if test="${SID eq null }">
-      <span><b>비회원 유저입니다.</b></span><br>
+      <span><b>Guest 님 환영합니다.</b></span><br>
     </c:if>
       <c:if test="${SID eq null}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
@@ -416,8 +431,8 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5>꼬북꼬북</h5>
-        <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" style="width:100%" alt="Google Regional Map">
+        <h5>오늘의 미세먼지는 ?!</h5>
+        <img src="/mis/image/하랑이/빨강이.jpg" style="height:305px;" id="hrang">
       </div>
       <div class="w3-twothird">
         <h5>예측값</h5>
@@ -490,8 +505,7 @@
       <div class="w3-container w3-center w3-padding w3-red" id="aso2" style="width:${ACCU.kso2}%">${ACCU.kso2 }%</div>
     </div>
   </div>
-  <hr>
-
+	<hr>
   <div class="w3-container">
     <h5><b>평균 예측률 높은 지역</b></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
@@ -504,7 +518,6 @@
     </table><br>
   </div>
   <hr>
-  
   <div class="w3-container">
     <h5><b>초미세먼지(PM25)가 제일 좋은 지역(단위 : AQI)</b> <small>(</small><small><b class="todayDate"></b></small><small>)</small></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
@@ -516,7 +529,6 @@
 		</c:forEach>
     </table><br>
   </div>
-  
   <hr>
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">

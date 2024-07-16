@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +26,21 @@
             border-radius: 8px;
             text-align: center;
         }
-		
-		
+        
+		.labelPark {
+		    font-weight: bold;
+		    font-size: 20px;
+		    margin-right: 20px;
+		    text-align: right;
+		    color: gray;
+		}
+		.spanPark{
+		    font-weight: bold;
+		    font-size: 20px;
+		    margin-right: 20px;
+		    text-align: right;
+		    color: black;
+		}
 		
 		 /* 텍스트 스타일 설정 */
         h3 {
@@ -186,7 +201,7 @@
 			     </c:if>
 				</h6>
 			</div>
-			<div class="w3-third w3-center" style="margin-top:8px;">
+			<div class="w3-third w3-center" style="margin-top:10px;">
 				<h6 class="w3-right-align"><b>
 					<label for="city">정렬 기준 : </label>
 					<select class="" id="sort">
@@ -200,7 +215,7 @@
 			<div class="w3-third w3-center" style="margin-top:8px;">
 				<h6 class=" w3-right-align">
 					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
-					<button class="w3-margin-left" id="selCityDate">⏎</button>
+					<button class="w3-margin-left"><i class="fa-solid fa-square-check" id="selCityDate"></i></button>
 				</h6>
 			</div>
 		</div>
@@ -214,17 +229,22 @@
             <div class="w3-col w3-margin-bottom w3-border w3-card-4 w3-padding" style="display: inline-block;">
                 <img class="w3-col l2 w3-left" src="${DATA.plink}" style="height: 135px; width: 200px">
                 <div class="w3-col l7 w3-left-align w3-padding">
-	                <label for="location" class="w3-col s6" style="font-size:20px">관광지명 : </label><span id="location" style="font-size:20px">${DATA.pname}</span><br>
+					<c:if test="${fn:length(DATA.pname) > 10}">                	
+	                	<label for="location" class="w3-col s3 labelPark">관광지명</label><span class="spanPark l7" id="location"><small>${DATA.pname}</small></span><br>
+	                </c:if>
+					<c:if test="${fn:length(DATA.pname) <= 10}">                	
+	                	<label for="location" class="w3-col s3 labelPark">관광지명</label><span class="spanPark l7" id="location">${DATA.pname}</span><br>
+	                </c:if>
 	                <c:choose>
 	                    <c:when test="${DATA.pkreview == 999}">
-	                        <label for="location" class="w3-col s6" style="font-size:20px">리뷰 : </label><span id="location" style="font-size:20px">${DATA.pkreview}+</span><br>
+	                        <label for="location" class="w3-col s3 labelPark">리뷰</label><span class="spanPark l7" id="location">${DATA.pkreview}+</span><br>
 	                    </c:when>
 	                    <c:otherwise>
-	                    	<label for="location" class="w3-col s6" style="font-size:20px">리뷰 : </label><span id="location" style="font-size:20px">${DATA.pkreview}</span><br>
+	                    	<label for="location" class="w3-col s3 labelPark">리뷰</label><span class="spanPark l7" id="location">${DATA.pkreview}</span><br>
 	                    </c:otherwise>
 	                </c:choose>
-	                <label for="location" class="w3-col s6" style="font-size:20px">위치 : </label><span id="location" style="font-size:20px">${DATA.pcity}</span><br>
-	                <label for="location" class="w3-col s6" style="font-size:20px">미세먼지(PM10) 농도 : </label><span id="location" style="font-size:20px"> ${DATA.pmis} AQI</span><br>
+	                <label for="location" class="w3-col s3 labelPark">위치</label><span class="spanPark l7" id="location">${DATA.pcity}</span><br>
+	                <label for="location" class="w3-col s3 labelPark">미세먼지 농도</label><span class="spanPark l7" id="location"> ${DATA.pmis} AQI</span><br>
                 </div>
                 <div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred l2 w3-right" style="margin-top:50px">예측 정보 보러가기</div>
             </div>
