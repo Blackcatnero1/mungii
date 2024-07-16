@@ -26,6 +26,34 @@
             	$(location).attr('href', '/mis/realTimeDust/view.mis');
             });
 
+            $('#home').click(function(){
+            	$(location).attr('href', '/mis/main.mis');
+            });
+
+            $('#gopred').click(function(){
+            	var date = $('#predictionDate').val()
+            	var name = $('#lang').val()
+            	
+            	alert(date + ' / ' + name);
+            	// form태그에 넣는 과정
+            	var el_Date = document.createElement('input');            	
+            	$(el_Date).attr('type', 'hidden');
+            	$(el_Date).attr('name', 'date');
+            	$(el_Date).val(date);
+            	
+            	var el_Name = document.createElement('input');
+            	$(el_Name).attr('type', 'hidden');
+            	$(el_Name).attr('name', 'name');
+            	$(el_Name).val(name);
+            	
+            	$('#frm').append(el_Date);
+            	$('#frm').append(el_Name);
+				
+            	// form 태그 submit
+            	$('#frm').attr('action', '/mis/realTimeDust/goPred.mis');
+            	$('#frm').submit();
+            });
+
             $('#moreShow').click(function(){
             	window.open('https://www.google.com/search?q=${PRED.name}+%EA%B4%80%EA%B4%91%EB%AA%85%EC%86%8C&sca_esv=62f2cb7c00ed810a&sca_upv=1&sxsrf=ADLYWIKrXvG5pAvLeqVjjNNZbujx_gEtvw:1720577807961&udm=15&sa=X&ved=2ahUKEwjH5rTos5uHAxWfp1YBHZRlBAoQxN8JegQIMhAb&biw=1422&bih=996&dpr=0.9', '_blank');
             });
@@ -33,11 +61,12 @@
 </script>
 </head>
 <body class="w3-light-grey">
-
+	<form method="POST" id="frm">
+	</form>
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">Logo</span>
+  <span class="w3-bar-item w3-right w3-button w3-col" id="home"><i class="fa-solid fa-house"></i></span>
 </div>
   
 
@@ -48,10 +77,15 @@
       <img src="/mis/avatar/img_avatar12.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>${PRED.name} <strong>${PRED.date}</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+      <span>${SID} <strong>${PRED.date}</strong></span><br>
+      <c:if test="${SID eq null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+      </c:if>
+      <c:if test="${SID ne null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+      </c:if>
     </div>
   </div>
   <hr>
@@ -84,7 +118,55 @@
 	<h6><button id="goback" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
 	<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
 	<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
-    <h5 style="padding-top:60px"><b><i class="fa-solid fa-cloud-sun-rain"></i>${PRED.name}<small>(${PRED.date})</small> 날씨정보</b></h5>
+    
+    <div class='w3-col' style="padding-top:10px">
+    	<div class='w3-left'>
+		    <h5><b><i class="fa-solid fa-cloud-sun-rain"></i>${PRED.name}<small>(${PRED.date})</small> 날씨정보</b></h5>	
+    	</div>
+    	<div class="w3-right">
+		    <div style="padding-top:5px">
+			    <span class="w3-bar-item w3-right w3-button w3-col" id="gopred"><i class="fa-solid fa-square-check w3-xlarge"></i></span>			     		
+    		</div>
+    	</div>
+    	<div class="w3-right">
+		    <div style="padding-top:10px">
+			    <label for="lang">예측 도시</label>
+			    <select name="languages" id="lang" style="width: 100px; height: 30px;">
+			    	<option value="${PRED.name}">${PRED.name}</option>
+	<c:forEach var="DATA" items="${LCITY}">
+	            	<option value="${DATA}">${DATA}</option>
+	</c:forEach>
+			    </select>
+    		</div>
+    	</div>
+    	<div class="w3-right" style="padding-left: 10px; padding-right: 10px;">
+    		<div style="padding-top:10px">
+			    <label for="predictionDate">예측 날짜 선택:</label>
+	            <input type="date" id="predictionDate">    		
+    		</div>
+    	</div>
+<script>
+	// 현재 날짜를 가져옵니다.
+	const today = new Date();
+	const selectedDateStr = '${PRED.date}';
+	const selectedDate = new Date(selectedDateStr);
+	
+	// 3일 후의 날짜를 계산합니다.
+	const threeDaysLater = new Date();
+	const tomorrow = new Date();
+	threeDaysLater.setDate(today.getDate() + 3);
+	tomorrow.setDate(today.getDate() + 1);
+	
+	// 'YYYY-MM-DD' 형식으로 날짜를 포맷팅합니다.
+	const formatDate = date => date.toISOString().split('T')[0];
+	
+	// 날짜 선택 필드를 현재 날짜로 설정하고 최소 및 최대 날짜를 설정합니다.
+	const predictionDateInput = document.getElementById('predictionDate');
+	predictionDateInput.min = formatDate(tomorrow); // 오늘 날짜
+	predictionDateInput.max = formatDate(threeDaysLater); // 4일 후 날짜
+	predictionDateInput.value = formatDate(selectedDate); // 기본값을 오늘 날짜로 설정
+</script>
+    </div>
   </header>
 
   <div class="w3-row-padding w3-margin-bottom">
@@ -289,7 +371,7 @@
     
   <div class="w3-container">
   <h5 style="padding-top:30px"><b><i class="fa fa-bank fa-fw"></i>${PRED.name}의 주요 명소</b></h5>
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white w3-card-4">
 <c:forEach var="DATA" items="${ALIST}">
       <tr>
         <td>${DATA.name}</td>

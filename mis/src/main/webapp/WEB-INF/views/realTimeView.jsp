@@ -6,17 +6,28 @@
 <head>
     <title>해외 미세먼지 확인하기</title>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
-    <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
-    <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
+	<link rel="stylesheet" type="text/css" href="/mis/css/user.css">
+	<script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <script type="text/javascript">
         $(document).ready(function(){
         	var issubmit = false;
         	
-            $('#header').click(function(){
+            $('#home').click(function(){
                 $(location).attr('href', '/mis/main.mis');
             });
+            
+            $('#gomis').click(function(){
+                $(location).attr('href', '/mis/kpred/kpred.mis');
+            });
+
+            $('#gopark').click(function(){
+                $(location).attr('href', '/mis/park/park.mis');
+            });
+ 
 
             $('#goPred').click(function(){
             	// 예측 날짜 도시이름 받아오기
@@ -231,8 +242,14 @@
             display: flex;
             flex-direction: column;
         }
-
-        #header {
+		.welcome-text {
+		    display: inline-block;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    max-width: 100%;
+		  }
+        /* #header {
             width: 100%;
             height: 100px;
             background-color: #007BFF;
@@ -241,7 +258,7 @@
             justify-content: center;
             color: white;
             font-size: 24px;
-        }
+        } */
 
         #map-container {
             flex: 1;
@@ -256,7 +273,7 @@
             border-top: 3px solid #fff;
         }
 
-        #sidebar {
+      /*   #sidebar {
             width: 10%; /* 사이드바 너비 설정 */
             padding: 10px;
             box-sizing: border-box;
@@ -266,7 +283,7 @@
             align-items: flex-end;
         }
         
-        #predModel{
+        /* #predModel{
 			position: fixed;
 			left: 50%;
 			top: 50%;
@@ -300,7 +317,7 @@
             margin-left: 29px;
         } */
         
-        .gm-style-iw {
+       .gm-style-iw {
 	        width: 800px; /* Adjust based on iframe width plus any padding/margin */
 	        height: 605px;
 	        padding: 10px;
@@ -342,59 +359,93 @@
         }
     </style>
 </head>
-<body>
+<body class="w3-light-grey">
 	<form method="POST" id="frm">
 	</form>
-    <div id="header" class="button">메인 배너</div>
-    <!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-white" style="background-color: #f0f0f0;">
-	    <h6><button id="home" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
-	</header>
-	
-    <div id="map-container">
-        <div id="sidebar">
-        		<div id="si">        		
-					  <div class="w3-dropdown-hover">
-					    <button id="ssideButton" class="w3-button button" name="seoul">서울</button>
-					    <div class="w3-dropdown-content dropdown-content w3-border">
-		            <c:forEach var="DATA" items="${SLIST}">
-			            	<button id="sideButton" name="@${DATA.apicode}" class="sbutton w3-bar-item w3-button"><small>${DATA.name}</small></button>
-		            </c:forEach>
-					    </div>
-					  </div>
-		            
-		            <button id="sideButton" class="button" name="incheon">인천</button>
-		            <div id="incheon" class="sbut">
-		            	<button id="sideButton" name="@1670" class="sbutton"><small>인천1</small></button>
-		            </div>
-        		</div>
-        </div>
-        <div id="map"></div>
-        
-        <!-- 예측 Model창 -->
-		<div id="predModel" class="w3-modal">
-		    <div class="w3-modal-content w3-animate-zoom w3-card-4">
-		        <header id="modelheader" class="w3-container w3-teal"> 
-		            <span onclick="document.getElementById('predModel').style.display='none'" 
-		                class="w3-button w3-display-topright">&times;</span>
-		            <h2 id="predTitle">미세먼지 예측하기</h2>
-		        </header>
-		        <div class="w3-container">
-		            <!-- 기존 텍스트를 날짜 선택 필드로 변경 -->
-		            <p> </p>
-		            <label for="predictionDate">예측 날짜 선택:</label>
-		            <input type="date" id="predictionDate">
-		            <button id="goPred" class="w3-margin-left">확인</button>
-		            <p> </p>
-		        </div>
-		        <footer class="w3-container w3-teal">
-		            <p>금일로부터 3일뒤의 날짜만 확인 가능합니다.</p>
-		        </footer>
-		    </div>
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right w3-button w3-col" id="home"><i class="fa-solid fa-house"></i></span>
+</div>
+  
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:200px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s10 w3-bar">
+		<div>&nbsp;</div>
+		<div>&nbsp;</div>
+		<span>Welcom, <strong>${SID}</strong></span><br>
+		<c:if test="${SID eq null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+      </c:if>
+      <c:if test="${SID ne null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+      </c:if>
+    </div>
+  </div>
+	<hr>
+	<div class="w3-container">
+    	<h5>Dashboard</h5>
+ 	</div>
+ 	<div class="w3-bar-block">
+    <!-- 사이드 바 -->
+    <div id="sidebar">
+		<div id="si">        		
+			<div class="w3-dropdown-hover">
+			    <button id="ssideButton" class="w3-button button" name="seoul">서울</button>
+			    <div class="w3-dropdown-content dropdown-content w3-border">
+            <c:forEach var="DATA" items="${SLIST}">
+	            	<button id="sideButton" name="@${DATA.apicode}" class="sbutton w3-bar-item w3-button"><small>${DATA.name}</small></button>
+            </c:forEach>
+			    </div>
+			</div>
+		</div>
 		</div>
 	</div>
+</nav>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:200px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container w3-center" style="padding-bottom:10px">
+	<h6><button id="goback" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+	<h6><button id="gomis" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
+	<h6><button id="gopark" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
+  </header>
+</div>
+<div id="map"></div>	
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+<!-- 예측 Model창 -->
+<div id="predModel" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+        <header id="modelheader" class="w3-container w3-teal"> 
+            <span onclick="document.getElementById('predModel').style.display='none'" 
+                class="w3-button w3-display-topright">&times;</span>
+            <h2 id="predTitle">미세먼지 예측하기</h2>
+        </header>
+        <div class="w3-container">
+            <!-- 기존 텍스트를 날짜 선택 필드로 변경 -->
+            <p> </p>
+            <label for="predictionDate">예측 날짜 선택:</label>
+            <input type="date" id="predictionDate">
+            <button id="goPred" class="w3-margin-left">확인</button>
+            <p> </p>
+        </div>
+        <footer class="w3-container w3-teal">
+            <p>금일로부터 3일뒤의 날짜만 확인 가능합니다.</p>
+        </footer>
+    </div>
+</div>
+
 <script>
     // 현재 날짜를 가져옵니다.
     const today = new Date();
@@ -413,6 +464,45 @@
     predictionDateInput.max = formatDate(threeDaysLater); // 4일 후 날짜
     predictionDateInput.value = formatDate(tomorrow); // 기본값을 오늘 날짜로 설정
 </script>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
 
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+<script>
+  function adjustFontSize() {
+    const textElement = document.getElementById('sid-text');
+    const parentWidth = textElement.parentElement.offsetWidth;
+    let fontSize = parseInt(window.getComputedStyle(textElement).fontSize);
+    
+    while (textElement.scrollWidth > parentWidth && fontSize > 8) {
+      fontSize -= 1;
+      textElement.style.fontSize = fontSize + 'px';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', adjustFontSize);
+  window.addEventListener('resize', adjustFontSize);
+</script>
 </body>
 </html>

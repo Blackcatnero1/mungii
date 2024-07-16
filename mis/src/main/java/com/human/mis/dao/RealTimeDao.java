@@ -38,4 +38,11 @@ public class RealTimeDao {
 	public List<RealTimeVO> getAttraction(RealTimeVO rtVO) {
 		return session.selectList("rtSQL.getAttraction", rtVO);
 	}
+
+	/**
+	 * 도시 가져오기
+	 */
+	public List<String> getCity() {
+		return session.selectList("rtSQL.getCityName");
+	}
 }

@@ -43,4 +43,12 @@
 		WHERE
 		    city = #{name}
 	</select>
+	
+	<!-- 지역 가져오기 -->
+	<select id="getCityName" resultType="String">
+		SELECT
+		    name
+		FROM
+		    local_summery
+	</select>
 </mapper>
