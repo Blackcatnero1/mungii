@@ -148,25 +148,25 @@
 <footer class="w3-container w3-dark-grey" style="padding: 32px">
     <h2 style="margin-bottom: 10px;">출처</h2>
     <div class="w3-row">
-        <div class="w3-col s12 m6 l1">
-            <h6 class="source">구글 Map</h6>
+        <div class="w3-col w3-margin-right s12 m6 l1">
+            <h6 class="source" >구글 Map</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">공공데이터포탈</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">도시교통정보센터</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">aqicn</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">에어코리아</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">기상청 기상 포털</h6>
         </div>
-        <div class="w3-col s12 m6 l1">
+        <div class="w3-col w3-margin-right s12 m6 l1">
             <h6 class="source">서울특별시 대기환경 정보</h6>
         </div>
     </div>
