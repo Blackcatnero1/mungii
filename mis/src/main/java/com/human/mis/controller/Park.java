@@ -129,9 +129,14 @@ public class Park {
 		kVO.setKdate(pdate);
 		kVO.setCity(pcity);
 		KpredVO kpVO = kDao.selCityDate(kVO);
+		KpredVO kkvo = kDao.accCity(kVO.getCity());
 		List cityList = kDao.getCityname();
-		
+		List rankList = kDao.accRank();
+		List dateRank = kDao.dateRank(kpVO.getKdate().substring(0,10));
+		mv.addObject("RANKLIST", rankList);
+		mv.addObject("ACCU", kkvo);
 		mv.addObject("CITYLIST", cityList);
+		mv.addObject("DATERANK", dateRank);
 		mv.addObject("MISLIST", kpVO);
 		mv.addObject("SID", sid);
 		mv.setViewName("pred/kpred");

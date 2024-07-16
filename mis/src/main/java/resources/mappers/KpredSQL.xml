@@ -75,7 +75,7 @@
 		where
 			city = '서울'
 	</select>
-	<select id="accCity" resultType="kVO" parameterType="kVO">
+	<select id="accCity" resultType="kVO" parameterType="String">
 		select
 			*
 		from
@@ -96,6 +96,7 @@
 		)
 		where rank between 1 and 5
 	</select>
+	
 	<select id="dateRank" resultType="kVO" parameterType="String">
 		select rno, city, kdate, predicted_pm10 from
 		    (
