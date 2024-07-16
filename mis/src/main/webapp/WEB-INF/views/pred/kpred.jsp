@@ -253,7 +253,7 @@
       <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s9 w3-bar">
-      <span><b>${SID} </b><strong class="todayDate"></strong></span><br>
+      <span><b>${SID} 님</b></span><br>
       <c:if test="${SID eq null}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
@@ -282,13 +282,13 @@
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+<div class="w3-main" style="margin-left:300px;margin-top:37px;">
 
   <!-- Header -->
 	<header class="w3-container">
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off"id="realTime">실시간 정보 보기</button></h6>
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
-		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">여행지 추천 받기</button></h6>
+		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
 		<div class='w3-col'>
 			<div class='w3-third'>
 				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small class="todayDate"></small> 대기정보</b></h5>
@@ -486,23 +486,19 @@
     </table><br>
   </div>
   <hr>
+  
   <div class="w3-container">
-    <h5>Recent Users</h5>
-    <ul class="w3-ul w3-card-4 w3-white">
-      <li class="w3-padding-16">
-        <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Mike</span><br>
-      </li>
-      <li class="w3-padding-16">
-        <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Jill</span><br>
-      </li>
-      <li class="w3-padding-16">
-        <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Jane</span><br>
-      </li>
-    </ul>
+    <h5><b class="todayDate"></b> 기준 초미세먼지(PM25)가 제일 좋은 지역</h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
+      		<tr>
+		        <td>${ DATA.city}</td>
+		        <td>${DATA.arate }%</td>
+	      </tr>
+	      </c:forEach>
+    </table><br>
   </div>
+  
   <hr>
 
   <div class="w3-container">

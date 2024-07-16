@@ -179,10 +179,10 @@
    		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
     </div>
     <!-- 버튼헤더(필요시 갯수추가) -->
-    <header class="w3-container w3-center w3-padding w3-white">
+    <header class="w3-container w3-center w3-white w3-padding">
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측하기</button></h6>
-        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">테마파크</button></h6>
+        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
     </header>
     <!-- Grid -->
     <div class="w3-col l8">
@@ -231,7 +231,7 @@
 	 </div>
 	 <div class="w3-col w3-center">
        	<div>
-	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">대마파크</h3>
+	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">추천 관광지</h3>
 	        <div class="w3-col">
 	        <c:forEach var="DATA" items="${LIST}">
 				<div class="w3-quarter w3-margin-bottom l3" style="display: inline-block">

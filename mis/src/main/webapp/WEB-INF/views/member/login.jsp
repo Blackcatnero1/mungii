@@ -285,10 +285,12 @@
                 var csite = $(location).attr('href');
                 if(csite == 'http://localhost/mis/kpred/klogin.mis'){
 	                $('#frm').attr('method', 'post').attr('action', '/mis/kpred/kloginProc.mis');
+                }else if(csite == 'http://localhost/mis/realTimeDust/rlogin.mis'){
+    	            $('#frm').attr('method', 'post').attr('action', '/mis/realTimeDust/rloginProc.mis');
                 }else{
     	            $('#frm').attr('method', 'post').attr('action', '/mis/member/loginProc.mis');
-	                $('#frm').submit();
                 }
+	                $('#frm').submit();
             });
 
             // 엔터 키로 로그인 버튼 클릭 이벤트 추가

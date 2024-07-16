@@ -14,6 +14,19 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <script type="text/javascript">
         $(document).ready(function(){
+			$('#myPage').click(function(){
+				$(location).attr('href', '/mis/member/mypage.mis');
+			});
+			$('#join').click(function(){
+				$(location).attr('href', '/mis/member/join.mis');
+			});
+            $('#logout').click(function(){
+                $(location).attr('href', '/mis/realTimeDust/rlogout.mis');
+            });
+            $('#login').click(function(){
+                $(location).attr('href', '/mis/realTimeDust/rlogin.mis');
+            });
+            
         	var issubmit = false;
         	
             $('#home').click(function(){
@@ -27,7 +40,10 @@
             $('#gopark').click(function(){
                 $(location).attr('href', '/mis/park/park.mis');
             });
- 
+ 			
+            $('#goback').click(function(){
+            	$(location).attr('href', '/mis/realTimeDust/view.mis');
+            });
 
             $('#goPred').click(function(){
             	// 예측 날짜 도시이름 받아오기
@@ -193,9 +209,9 @@
 	        		     	'<div class="w3-padding-left" style="display: flex; align-items: center">' +
 	        		        	'<h2><strong>' + cityName_val + '</strong></h2>' +
 	        		        	'<div>' +
-	        		        		'<p class="w3-btn"><a href="' + airQualityURL + '/kr/m" target="iframe_a" class="w3-padding-small">미세먼지 현황 보기</a></p>' +
-	        		        		'<p class="w3-btn"><a href="'+obj.result+'" target="iframe_a" class="w3-padding-small">CCTV 보기</a></p>' +
-	        		        		'<p id="mispred" name="'+cityName_val+'" class="w3-btn w3-padding-small"><u>' + cityName_val + ' 지역 미세먼지 예측하기</u></p>' +
+	        		        		'<p class="w3-btn" style="cursor:pointer;"><a href="' + airQualityURL + '/kr/m" target="iframe_a" class="w3-padding-small">미세먼지 현황 보기</a></p>' +
+	        		        		'<p class="w3-btn" style="cursor:pointer;"><a href="'+obj.result+'" target="iframe_a" class="w3-padding-small">CCTV 보기</a></p>' +
+	        		        		'<p id="mispred" name="'+cityName_val+'" class="w3-btn w3-padding-small" style="cursor:pointer;"><u>' + cityName_val + ' 지역 미세먼지 예측하기</u></p>' +
 	        	       			'</div>' +
 	        		        '</div>' +
 	        		        '<iframe src="' + airQualityURL + '/kr/m" name="iframe_a" height="300px" width="100%" dtitle="Iframe Example" scrolling="no"></iframe>' +
@@ -375,7 +391,8 @@
     <div class="w3-col s10 w3-bar">
 		<div>&nbsp;</div>
 		<div>&nbsp;</div>
-		<span>Welcom, <strong>${SID}</strong></span><br>
+		<span>Welcome,  </span>
+		<p style="margin-top:5px;"><strong>${SID}</strong> 님<br></p>
 		<c:if test="${SID eq null}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
@@ -388,17 +405,17 @@
   </div>
 	<hr>
 	<div class="w3-container">
-    	<h5>Dashboard</h5>
+    	<h5><b><i class="fa fa-bars"></i> 도시 목록</b></h5>
  	</div>
  	<div class="w3-bar-block">
     <!-- 사이드 바 -->
     <div id="sidebar">
 		<div id="si">        		
 			<div class="w3-dropdown-hover">
-			    <button id="ssideButton" class="w3-button button" name="seoul">서울</button>
+			    <button id="ssideButton" class="w3-button button w3-center" name="seoul">서울</button>
 			    <div class="w3-dropdown-content dropdown-content w3-border">
             <c:forEach var="DATA" items="${SLIST}">
-	            	<button id="sideButton" name="@${DATA.apicode}" class="sbutton w3-bar-item w3-button"><small>${DATA.name}</small></button>
+	            	<button id="sideButton" name="@${DATA.apicode}" class="sbutton w3-bar-item w3-button w3-center"><small>${DATA.name}</small></button>
             </c:forEach>
 			    </div>
 			</div>
@@ -408,13 +425,13 @@
 </nav>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:200px;margin-top:43px;">
+<div class="w3-main" style="margin-left:200px;margin-top:37px;">
 
   <!-- Header -->
-  <header class="w3-container w3-center" style="padding-bottom:10px">
+  <header class="w3-center" style="padding-bottom:10px">
 	<h6><button id="goback" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
 	<h6><button id="gomis" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
-	<h6><button id="gopark" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
+	<h6><button id="gopark" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">관광지 추천받기</button></h6>
   </header>
 </div>
 <div id="map"></div>	

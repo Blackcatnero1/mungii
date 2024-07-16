@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.human.mis.dao.MemberDao;
 import com.human.mis.dao.RealTimeDao;
 import com.human.mis.vo.MemberVO;
 import com.human.mis.vo.RealTimeVO;
@@ -33,6 +34,8 @@ import com.human.mis.vo.RealTimeVO;
 public class RealTime {
 	@Autowired
 	RealTimeDao rtDao;
+	@Autowired
+	MemberDao mDao;
 	
 	// 실시간화면 보기 요청
 	@RequestMapping("view.mis")
@@ -82,5 +85,42 @@ public class RealTime {
 		String gooCCTV = rtDao.getCCTV(name);
 		map.put("result", gooCCTV);		
 		return map;
+	}
+	// 로그아웃 처리 요청
+	@RequestMapping("/rlogout.mis")
+	public ModelAndView klogout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		// 세션 빼기
+		session.removeAttribute("SID");
+		rv.setUrl("/mis/realTimeDust/view.mis");
+		mv.setView(rv);
+		return mv;
+	}
+	// 로그인 폼 보기
+	@RequestMapping("/rlogin.mis")
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	// 로그인 처리요청
+	@RequestMapping("/rloginProc.mis")
+	public ModelAndView loginProc(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
+		
+		String view = "/mis/realTimeDust/view.mis";
+		
+		// getLogin() 에 login이 되면 있으면 1이 넘어 온다.
+		int cnt = mDao.getLogin(mVO);
+		// memberVO에 있는 setCnt() 를 사용해서 cnt를 넣어준다.
+		mVO.setCnt(cnt);
+		if(cnt != 1) {
+			// 로그인에 실패한 상태
+			view = "/mis/member/rlogin.mis";
+		} else {
+			// 로그인에 성공한 상태
+			session.setAttribute("SID", mVO.getId());
+		}
+		
+		rv.setUrl(view);
+		mv.setView(rv);
+		return mv;
 	}
 }
