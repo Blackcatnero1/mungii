@@ -109,7 +109,10 @@
             $('#realTime').click(function(){
             	$(location).attr('href', '/mis/realTimeDust/view.mis');
             });
-            
+            $('.hrefTag').click(function(){
+            	var sid = $(this).attr('id');
+            	$(location).attr('href', 'https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=0&acr=1&acq=tjfdkrzpdl&qdt=0&ie=utf8&query=' + sid);
+            })
          	// 모든 기사 링크에 클릭 이벤트 추가
             var articleList = document.getElementById('articleList');
 	        var articles = [
@@ -120,8 +123,8 @@
 	            { title: '미세먼지 줄이고 건강은 지키는 8가지 실천방법', url: 'https://www.korea.kr/news/healthView.do?newsId=148912595#health' },
 	            { title: '미세먼지란?', url: 'https://www.ehtis.or.kr/cmn/sym/mnu/mpm/60001011/htmlMenuView.do' },
 	            { title: '인천시 / 도시 숲으로 미세먼지·이산화탄소 감소한다', url: 'https://fksm.co.kr/news/view.php?idx=66673&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
-	            { title: '국가미세먼지정보센터, 아시아 4개국 대기 배출관리 기술 교육', url: 'https://fksm.co.kr/news/view.php?idx=66418&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
-	            { title: '폐 망가뜨리는 미세 먼지 ‘이 음식’ 먹으면 배출', url: 'https://m.health.chosun.com/svc/news_view.html?contid=2023020701441' }
+	            //{ title: '국가미세먼지정보센터, 아시아 4개국 대기 배출관리 기술 교육', url: 'https://fksm.co.kr/news/view.php?idx=66418&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
+	            //{ title: '폐 망가뜨리는 미세 먼지 ‘이 음식’ 먹으면 배출', url: 'https://m.health.chosun.com/svc/news_view.html?contid=2023020701441' }
 	        ];
 	
 	     // Fisher-Yates 알고리즘을 사용한 배열 섞기
@@ -187,10 +190,10 @@
         <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
     </header>
     <!-- Grid -->
-    <div class="w3-col l8">
+    <div class="w3-col l8 m8">
         <!-- 좌분면 -->
 	    <!-- 국내 순위 -->
-	    <div class="w3-col l6 s6">
+	    <div class="w3-col l6 m6 s6">
 	        <div class="w3-white w3-margin-right w3-margin-left">
 	            <div class="w3-center">
 	                <h3>국내</h3>
@@ -212,7 +215,7 @@
     </div>
     
 	   <!-- 해외 순위 -->
-	   <div class="w3-col l6 s6">
+	   <div class="w3-col l6 m6 s6">
 	       <div class="w3-white w3-margin-left w3-margin-right ">
 	           <div class="w3-center">
 	               <h3>해외</h3>
@@ -238,7 +241,7 @@
 	        <c:forEach var="DATA" items="${LIST}">
 				<div class="w3-quarter w3-margin-bottom l3" style="display: inline-block">
 					<div class="fixed-size">
-						<img src="${DATA.plink}" style="height:100%">
+						<img src="${DATA.plink}" style="height:100%; cursor:pointer;" class="hrefTag" id="${DATA.pname}">
 					</div>
 					<h6 style="margin:0;"><small>${DATA.pname}</small></h6>
 					<p style="margin:0;"><small>${DATA.pcity}</small></p>
@@ -252,7 +255,7 @@
 <div>
             <!-- 좌분면 닫기 -->
         <!-- 좌우 나누는 박스 -->
-        <div class="w3-rest l3 s3">
+        <div class="w3-rest l3 m3 s3">
             <!-- 우상단 -->
             <form method="POST" id="frm">
                 <div class="w3-white w3-margin">
