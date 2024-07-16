@@ -323,10 +323,10 @@
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
 		<div class='w3-col'>
-			<div class='w3-third'>
+			<div class='w3-third w3-left'>
 				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small>(</small><small class="todayDate"></small><small>)</small> 대기정보</b></h5>
 			</div>
-			<div class="w3-third w3-center">
+			<div class="w3-third w3-left">
 				<h6><b>
 					<label for="city"><i class="fa-solid fa-play"></i> 도시 선택 : </label>
 					<select id="city">
@@ -337,7 +337,7 @@
 					</select>
 				</b></h6>
 			</div>
-			<div class="w3-third w3-center">
+			<div class="w3-third w3-left">
 				<h6>
 					<b><label for="dateSelect"><i class="fa-solid fa-play"></i> 날짜 선택 : </label><input type="date" id="dateSelect"></b>
 					<button class="w3-margin-left" id="selCityDate"><i class="fa-solid fa-square-check"></i></button>
