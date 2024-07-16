@@ -97,9 +97,6 @@
  			$('#pageFrm').submit();
  		});
      	
- 		$('#1').click(function(){
- 			$(location).attr('href', '/mis//.mis');
- 		});
  		$('#kpred').click(function(){
  			$(location).attr('href', '/mis/kpred/kpred.mis');
  		});
@@ -124,11 +121,14 @@
  			var sdate = $('#dateSelect').val();
  			$('#pdate').val(sdate);
 			$('#standard').val(stand);
+			
 			if(stand == 'pmis'){
 				$('#pageFrm').attr('action', '/mis/park/pmisSort.mis');
 			}else if(stand == 'pkreview'){
 				$('#pageFrm').attr('action', '/mis/park/pkreviewSort.mis');
 			}else if(stand == 'rec'){
+				$('#pageFrm').attr('action', '/mis/park/recSort.mis');
+			}else{
 				$('#pageFrm').attr('action', '/mis/park/recSort.mis');
 			}
 			$('#nowPage').val(1);
@@ -174,7 +174,7 @@
 				<h6><b>
 					<label for="city">도시 선택 : </label>
 					<select class="" id="sort">
-						<option disabled selected>정렬</option>
+						<option disabled selected value="rec">정렬</option>
 						<option value='rec'>추천순</option>
 						<option value="pkreview">리뷰순</option>
 						<option value="pmis">대기질순</option>
@@ -192,29 +192,31 @@
 		
 			<c:if test="${not empty LIST}">
 			<c:forEach var="DATA" items="${LIST}">
-						<div class="w3-quarter w3-margin-bottom" style="display: inline-block; height: 450px;">
+						<div class="w3-third w3-margin-bottom" style="display: inline-block; height: 450px;">
 							<div class="fixed-size">
 								<img src="${DATA.plink}" style="height:100%">
 							</div>
 							<h6>${DATA.pname} </h6>
-							<h6>리뷰 : ${DATA.pkreview }</h6>
+							<c:if test="${DATA.pkreview == 999}">
+							    <h6>리뷰 : ${DATA.pkreview}+</h6>
+							</c:if>
+							<c:if test="${DATA.pkreview != 999}">
+								<h6>리뷰 : ${DATA.pkreview}</h6>
+							</c:if>
 							<p>${DATA.pcity} - ${DATA.pmis} AQI</p>
 							<div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred">예측 정보 보러가기</div>
 						</div>
 			</c:forEach>
 			
-			<div class="w3-col w3-center w3-margin-top">
-				<div class="w3-bar w3-border w3-border w3-border-blue w3-round">
-	<c:if test="${PAGE.startPage eq 1}">
-					<span class="w3-bar-item w3-pale-blue">&laquo;</span>
-	</c:if>
+			<div class="w3-col w3-center">
+				<div class="w3-bar w3-round">
 	<c:if test="${PAGE.startPage ne 1}">
-					<span class="w3-bar-item w3-btn w3-hover-blue pageBtn" 
+					<span class="w3-bar-item w3-btn pageBtn w3-light-gray w3-hover-blue" 
 														id="${PAGE.startPage - 1}">&laquo;</span>
 	</c:if>
 	<c:forEach var="pageno" begin="${PAGE.startPage}" end="${PAGE.endPage}">
 		<c:if test="${PAGE.nowPage eq pageno}"><!-- 현재 보고있는 페이지인 경우 -->
-					<span class="w3-bar-item w3-btn w3-pink w3-hover-blue pageBtn" 
+					<span class="w3-bar-item w3-pink" 
 																	id="${pageno}">${pageno}</span>
 		</c:if>
 		<c:if test="${PAGE.nowPage ne pageno}">
@@ -223,11 +225,8 @@
 		</c:if>
 	</c:forEach>
 	<c:if test="${PAGE.endPage ne PAGE.totalPage}">
-					<span class="w3-bar-item w3-btn w3-hover-blue pageBtn" 
+					<span class="w3-bar-item w3-btn pageBtn w3-light-gray w3-hover-blue" 
 														id="${PAGE.endPage + 1}">&raquo;</span>
-	</c:if>
-	<c:if test="${PAGE.endPage eq PAGE.totalPage}">
-					<span class="w3-bar-item w3-pale-blue">&raquo;</span>
 	</c:if>
 				</div>
 			</div>

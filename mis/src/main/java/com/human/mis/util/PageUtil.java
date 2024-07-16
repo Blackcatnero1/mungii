@@ -30,11 +30,11 @@ public class PageUtil {
 	}
 
 	public void setPage() {
-		setPage(nowPage, totalCount, 8, 5);
+		setPage(nowPage, totalCount, 6, 5);
 	}
 	
 	public void setPage(int nowPage, int totalCount) {
-		setPage(nowPage, totalCount, 8, 5);
+		setPage(nowPage, totalCount, 6, 5);
 	}
 	
 	public void setPage(int nowPage, int totalCount, int pageRow, int pageGroup) {
