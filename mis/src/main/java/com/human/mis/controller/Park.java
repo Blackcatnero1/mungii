@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.human.mis.dao.KpredDao;
-import com.human.mis.dao.ParkDao;
+import com.human.mis.dao.*;
 import com.human.mis.util.PageUtil;
-import com.human.mis.vo.KpredVO;
-import com.human.mis.vo.ParkVO;
+import com.human.mis.vo.*;
 
 /**
  * 이 클래스는 태마파크 정보를 처리를 해주는 컨트롤러 클래스
@@ -34,6 +32,8 @@ public class Park {
 	ParkDao pDao;
 	@Autowired
 	KpredDao kDao;
+	@Autowired
+	MemberDao mDao;
 	@RequestMapping("/park.mis")
 	public ModelAndView getPark(HttpSession session, ModelAndView mv, 
 											RedirectView rv, PageUtil page) {
@@ -49,8 +49,9 @@ public class Park {
 		
 		// 데이터 베이스에서 조회
 		List<ParkVO> list = pDao.getParkList(page);
-		
+		String sid = (String) session.getAttribute("SID");
 		// 데이터 전달하고
+		mv.addObject("SID", sid);
 		mv.addObject("LIST", list);
 		mv.addObject("PAGE", page);
 		// 뷰 셋팅하고
@@ -134,6 +135,43 @@ public class Park {
 		mv.addObject("MISLIST", kpVO);
 		mv.addObject("SID", sid);
 		mv.setViewName("pred/kpred");
+		return mv;
+	}
+	// 로그아웃 처리 요청
+	@RequestMapping("/parkLogout.mis")
+	public ModelAndView klogout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		// 세션 빼기
+		session.removeAttribute("SID");
+		rv.setUrl("/mis/park/park.mis");
+		mv.setView(rv);
+		return mv;
+	}
+	// 로그인 폼 보기
+	@RequestMapping("/parkLogin.mis")
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	// 로그인 처리요청
+	@RequestMapping("/parkLoginProc.mis")
+	public ModelAndView loginProc(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
+		
+		String view = "/mis/park/park.mis";
+		
+		// getLogin() 에 login이 되면 있으면 1이 넘어 온다.
+		int cnt = mDao.getLogin(mVO);
+		// memberVO에 있는 setCnt() 를 사용해서 cnt를 넣어준다.
+		mVO.setCnt(cnt);
+		if(cnt != 1) {
+			// 로그인에 실패한 상태
+			view = "/mis/member/plogin.mis";
+		} else {
+			// 로그인에 성공한 상태
+			session.setAttribute("SID", mVO.getId());
+		}
+		
+		rv.setUrl(view);
+		mv.setView(rv);
 		return mv;
 	}
 }

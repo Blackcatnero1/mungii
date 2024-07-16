@@ -7,6 +7,7 @@
     <title>Mis Park</title>
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
     <style type="text/css">
         body {
@@ -126,6 +127,18 @@
 			$('#nowPage').val(1);
 			$('#pageFrm').submit();
  		});
+		$('#myPage').click(function(){
+			$(location).attr('href', '/mis/member/mypage.mis');
+		});
+		$('#join').click(function(){
+			$(location).attr('href', '/mis/member/join.mis');
+		});
+        $('#logout').click(function(){
+            $(location).attr('href', '/mis/park/parkLogout.mis');
+        });
+        $('#login').click(function(){
+            $(location).attr('href', '/mis/park/parkLogin.mis');
+        });
      });
  		function handleClick() {
  			$(location).attr('href', '/mis/');
@@ -150,7 +163,7 @@
 	</header>
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-padding w3-white">
+	<header class="w3-container w3-center w3-white">
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
 	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천 받기</button></h6>
@@ -159,11 +172,22 @@
 	
 	<div class="w3-main w3-content w3-center">
 		<div class='w3-col'>
-			<div class='w3-third'>
-				<h5><i class="fa-solid fa-cloud-sun-rain"></i><b class="cityName">${MISLIST.city}</b><b><small class="todayDate"></small>    </b></h5>
+			<div class='w3-third' style="margin-top:3px;">
+				<h6 class="w3-left-align">&nbsp;&nbsp;<i class="fa-solid fa-user"></i>
+			      	<c:if test="${SID eq null}">
+						<b> Guest </b> 님 환영합니다.
+			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+			     </c:if>
+			     <c:if test="${SID ne null}">
+						<b> ${SID} </b> 님 환영합니다.
+			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
+			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+			     </c:if>
+				</h6>
 			</div>
-			<div class="w3-third w3-center">
-				<h6><b>
+			<div class="w3-third w3-center" style="margin-top:8px;">
+				<h6 class="w3-right-align"><b>
 					<label for="city">정렬 기준 : </label>
 					<select class="" id="sort">
 						<option disabled selected value="rec">정렬</option>
@@ -173,8 +197,8 @@
 					</select>
 				</b></h6>
 			</div>
-			<div class="w3-third w3-center">
-				<h6>
+			<div class="w3-third w3-center" style="margin-top:8px;">
+				<h6 class=" w3-right-align">
 					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
 					<button class="w3-margin-left" id="selCityDate">⏎</button>
 				</h6>
