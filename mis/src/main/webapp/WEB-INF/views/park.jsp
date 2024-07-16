@@ -231,26 +231,26 @@
     <c:forEach var="DATA" items="${LIST}">
         <li style="list-style-type: none; /* 순서 없는 목록의 기본 마커 숨김 */">
             <div class="w3-col w3-margin-bottom w3-border w3-card-4 w3-padding" style="display: inline-block;">
-                <img class="w3-col l2 w3-left hrefTag" src="${DATA.plink}" style="height: 135px; width: 200px; cursor:pointer;" id="${DATA.pname }">
-                <div class="w3-col l7 w3-left-align w3-padding">
+                <img class="w3-col l2 m2 w3-left hrefTag" src="${DATA.plink}" style="height: 135px; width: 200px; cursor:pointer;" id="${DATA.pname }">
+                <div class="w3-col l7 m7 w3-left-align w3-padding">
 					<c:if test="${fn:length(DATA.pname) > 10}">                	
-	                	<label for="location" class="w3-col s3 labelPark">관광지명</label><span class="spanPark l7" id="location"><small>${DATA.pname}</small></span><br>
+	                	<label for="location" class="w3-col s3 m3 labelPark">관광지명</label><span class="spanPark l7 m7" id="location"><small>${DATA.pname}</small></span><br>
 	                </c:if>
 					<c:if test="${fn:length(DATA.pname) <= 10}">                	
-	                	<label for="location" class="w3-col s3 labelPark">관광지명</label><span class="spanPark l7" id="location">${DATA.pname}</span><br>
+	                	<label for="location" class="w3-col s3 m3 labelPark">관광지명</label><span class="spanPark l7 m7" id="location">${DATA.pname}</span><br>
 	                </c:if>
 	                <c:choose>
 	                    <c:when test="${DATA.pkreview == 999}">
-	                        <label for="location" class="w3-col s3 labelPark">리뷰</label><span class="spanPark l7" id="location">${DATA.pkreview}+</span><br>
+	                        <label for="location" class="w3-col s3 m3 labelPark">리뷰</label><span class="spanPark l7 m7" id="location">${DATA.pkreview}+</span><br>
 	                    </c:when>
 	                    <c:otherwise>
-	                    	<label for="location" class="w3-col s3 labelPark">리뷰</label><span class="spanPark l7" id="location">${DATA.pkreview}</span><br>
+	                    	<label for="location" class="w3-col s3 m3 labelPark">리뷰</label><span class="spanPark l7 m7" id="location">${DATA.pkreview}</span><br>
 	                    </c:otherwise>
 	                </c:choose>
-	                <label for="location" class="w3-col s3 labelPark">위치</label><span class="spanPark l7" id="location">${DATA.pcity}</span><br>
-	                <label for="location" class="w3-col s3 labelPark">미세먼지 농도</label><span class="spanPark l7" id="location"> ${DATA.pmis} AQI</span><br>
+	                <label for="location" class="w3-col s3 m3 labelPark">위치</label><span class="spanPark l7 m7" id="location">${DATA.pcity}</span><br>
+	                <label for="location" class="w3-col s3 m3 labelPark">미세먼지 농도</label><span class="spanPark l7 m7" id="location"> ${DATA.pmis} AQI</span><br>
                 </div>
-                <div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred l2 w3-right" style="margin-top:50px">예측 정보 보러가기</div>
+                <div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred l2 m2 w3-right" style="margin-top:50px">예측 정보 보러가기</div>
             </div>
         </li>
     </c:forEach>
