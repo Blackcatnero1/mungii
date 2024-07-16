@@ -4,7 +4,7 @@ public class RealTimeVO {
 	private int code, apicode, temp_min, temp_max, temp_avg, rain_avg, wind_avg, wind_max, hum_avg,
 					pred_pm10, pred_pm25;
 	private double pred_oz, pred_no2, pred_co, pred_so;
-	private String name, date, wind_deg, rainp_am, rainp_pm, attraction, stars;
+	private String name, date, wind_deg, rainp_am, rainp_pm, attraction, stars, ahce;
 	
 	public int getCode() {
 		return code;
@@ -145,5 +145,10 @@ public class RealTimeVO {
 	public void setStar(String star) {
 		this.stars = star;
 	}
-	
+	public String getAhce() {
+		return ahce;
+	}
+	public void setAhce(String ahce) {
+		this.ahce = ahce;
+	}
 }

@@ -393,14 +393,18 @@
 		<div>&nbsp;</div>
 		<span>Welcome,  </span>
 		<p style="margin-top:5px;"><strong>${SID}</strong> 님<br></p>
-		<c:if test="${SID eq null}">
+	<c:if test="${SID eq 'Guest'}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
-      </c:if>
-      <c:if test="${SID ne null}">
+	</c:if>
+	<c:if test="${SID eq null}">
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
+      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+	</c:if>
+	<c:if test="${SID ne null and SID ne 'Guest'}">
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
       		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
-      </c:if>
+	</c:if>
     </div>
   </div>
 	<hr>

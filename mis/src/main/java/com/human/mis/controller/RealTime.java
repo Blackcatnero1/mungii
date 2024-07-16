@@ -40,8 +40,13 @@ public class RealTime {
 	// 실시간화면 보기 요청
 	@RequestMapping("view.mis")
 	public ModelAndView goRealTimeDust(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
+		System.out.println("################# rtView IN");
 		List<RealTimeVO> gooName_List = rtDao.getSeoulGooList();
 		String sid = (String) session.getAttribute("SID");
+		System.out.println("################# rtView sid : " + sid);
+		if(sid == null){
+			sid = "Guest";
+		}
 		mv.addObject("SID", sid);
 		mv.addObject("SLIST", gooName_List);
 		mv.setViewName("realTimeView");
@@ -52,8 +57,16 @@ public class RealTime {
 	@RequestMapping("goPred.mis")
 	public ModelAndView goPred(HttpSession session, ModelAndView mv, RealTimeVO rtVO) {
 		RealTimeVO realTimeVO = new RealTimeVO();
+		String isache = "";
 		List<RealTimeVO> attraction = rtDao.getAttraction(rtVO);
 		List<String> cityNameList = rtDao.getCity();
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null){
+			sid = "Guest";
+		}
+		else {
+			isache = rtDao.getAche(sid);			
+		}
 		
 		realTimeVO = rtDao.getWeather(rtVO);
 		
@@ -65,8 +78,8 @@ public class RealTime {
 		
 		String rainp_am = realTimeVO.getRainp_am();
 		String rainp_pm = realTimeVO.getRainp_pm();
-		String sid = (String) session.getAttribute("SID");
 		
+		mv.addObject("ISACHE", isache);
 		mv.addObject("LCITY", cityNameList);
 		mv.addObject("SID", sid);
 		mv.addObject("ALIST", attraction);

@@ -287,6 +287,8 @@
 	                $('#frm').attr('method', 'post').attr('action', '/mis/kpred/kloginProc.mis');
                 }else if(csite == 'http://localhost/mis/realTimeDust/rlogin.mis'){
     	            $('#frm').attr('method', 'post').attr('action', '/mis/realTimeDust/rloginProc.mis');
+                }else if(csite == 'http://localhost/mis/realTimeDust/plogin.mis'){
+    	            $('#frm').attr('method', 'post').attr('action', '/mis/realTimeDust/ploginProc.mis');
                 }else{
     	            $('#frm').attr('method', 'post').attr('action', '/mis/member/loginProc.mis');
                 }

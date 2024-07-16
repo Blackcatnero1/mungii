@@ -51,4 +51,14 @@
 		FROM
 		    local_summery
 	</select>
+
+	<!-- 질병 유무 가져오기 -->
+	<select id="getAche" resultType="String">
+		SELECT
+		    isshow
+		FROM
+		    member
+	    WHERE
+	    	id = #{id}
+	</select>
 </mapper>

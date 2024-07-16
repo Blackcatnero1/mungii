@@ -45,4 +45,11 @@ public class RealTimeDao {
 	public List<String> getCity() {
 		return session.selectList("rtSQL.getCityName");
 	}
+
+	/**
+	 * 질병 여부 가져오기
+	 */
+	public String getAche(String id) {
+		return session.selectOne("rtSQL.getAche", id);
+	}
 }
