@@ -24,17 +24,7 @@
             text-align: center;
         }
 		
-		.fixed-size{
-			height: 280px;
-			text-size: 15px;
-		}
 		
-		/* 이미지 고정 크기 및 자르기 설정 */
-		.fixed-size img {
-		    width: 200px;
-			display: inline-block;
-		    object-fit: cover;
-		}
 		
 		 /* 텍스트 스타일 설정 */
         h3 {
@@ -90,11 +80,13 @@
  			// 글번호 태그 사용불가처리
  			$('#bno').prop('disabled', true);
  			// 전송 주소 셋팅하고
- 			if(stand1 !== "goods"){
+ 			if(stand1 == ''){
+	 			$('#pageFrm').submit();
+ 			}else if(stand1 !== "goods"){
 	 			$('#pageFrm').attr('action', '/mis/park/'+ stand1 +'Sort.mis');
+	 			$('#pageFrm').submit();
  			}
  			// 폼태그 전송하고
- 			$('#pageFrm').submit();
  		});
      	
  		$('#kpred').click(function(){
@@ -172,7 +164,7 @@
 			</div>
 			<div class="w3-third w3-center">
 				<h6><b>
-					<label for="city">도시 선택 : </label>
+					<label for="city">정렬 기준 : </label>
 					<select class="" id="sort">
 						<option disabled selected value="rec">정렬</option>
 						<option value='rec'>추천순</option>
@@ -191,22 +183,32 @@
 		
 		
 			<c:if test="${not empty LIST}">
-			<c:forEach var="DATA" items="${LIST}">
-						<div class="w3-third w3-margin-bottom" style="display: inline-block; height: 450px;">
-							<div class="fixed-size">
-								<img src="${DATA.plink}" style="height:100%">
-							</div>
-							<h6>${DATA.pname} </h6>
-							<c:if test="${DATA.pkreview == 999}">
-							    <h6>리뷰 : ${DATA.pkreview}+</h6>
-							</c:if>
-							<c:if test="${DATA.pkreview != 999}">
-								<h6>리뷰 : ${DATA.pkreview}</h6>
-							</c:if>
-							<p>${DATA.pcity} - ${DATA.pmis} AQI</p>
-							<div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred">예측 정보 보러가기</div>
-						</div>
-			</c:forEach>
+<div class="w3-col">
+    <!-- Assuming LIST is your list of DATA objects -->
+    <c:forEach var="DATA" items="${LIST}">
+        <li style="list-style-type: none; /* 순서 없는 목록의 기본 마커 숨김 */">
+            <div class="w3-col w3-margin-bottom w3-border w3-card-4 w3-padding" style="display: inline-block;">
+                <img class="w3-col l2 w3-left" src="${DATA.plink}" style="height: 135px; width: 200px">
+                <div class="w3-col l7 w3-left-align w3-padding">
+	                <label for="location" class="w3-col s6" style="font-size:20px">관광지명 : </label><span id="location" style="font-size:20px">${DATA.pname}</span><br>
+	                <c:choose>
+	                    <c:when test="${DATA.pkreview == 999}">
+	                        <label for="location" class="w3-col s6" style="font-size:20px">리뷰 : </label><span id="location" style="font-size:20px">${DATA.pkreview}+</span><br>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<label for="location" class="w3-col s6" style="font-size:20px">리뷰 : </label><span id="location" style="font-size:20px">${DATA.pkreview}</span><br>
+	                    </c:otherwise>
+	                </c:choose>
+	                <label for="location" class="w3-col s6" style="font-size:20px">위치 : </label><span id="location" style="font-size:20px">${DATA.pcity}</span><br>
+	                <label for="location" class="w3-col s6" style="font-size:20px">미세먼지(PM10) 농도 : </label><span id="location" style="font-size:20px"> ${DATA.pmis} AQI</span><br>
+                </div>
+                <div id="${DATA.city}" class="w3-padding w3-button w3-gray kpred l2 w3-right" style="margin-top:50px">예측 정보 보러가기</div>
+            </div>
+        </li>
+    </c:forEach>
+</div>
+
+
 			
 			<div class="w3-col w3-center">
 				<div class="w3-bar w3-round">
