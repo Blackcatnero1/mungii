@@ -39,7 +39,7 @@
 		WHERE
 			id = #{id}
 	</select>
-	
+	<!-- 회원가입을 하기 위한 질의명령 -->
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
 			member(mno, nickname, name, id, pw, home, gen)
