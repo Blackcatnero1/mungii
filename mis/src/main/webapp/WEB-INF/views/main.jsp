@@ -300,10 +300,18 @@
     <!-- END GRID -->
 <!-- END w3-content -->
 <!-- Footer -->
-<footer class="w3-container w3-dark-grey" style="padding:32px">
-    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>위로가는버튼 필요한가요</a>
-    <p>사용설명서 여기다가</p>
-</footer>
+<div class="w3-col w3-padding-16 w3-dark-gray">
+    <div class="w3-row">
+      <div class="w3-container w3-col">
+      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 80px; width: 72px; margin-top:30px;">
+      	<div>
+	        <h6> Team. 먼지가 되어 leader. 전민경 . 02) 3667-3688 business</h6>
+			<h6> Team member. 김광섭, 김한민, 김유진, 허광혁</h6>
+			<h6> AI데이터플랫폼(with Python, JAVA, Spring)을 이용한 빅데이터 분석 전문가 과정(8회차)</h6>
+      	</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

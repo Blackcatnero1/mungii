@@ -16,6 +16,9 @@
 </style>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#timePred').click(function(){
+            	$(location).attr('href', 'http://58.72.151.124:6012/pred');
+            });
 			$('#realTime').click(function(){
             	$(location).attr('href', '/mis/realTimeDust/view.mis');
             });
@@ -306,7 +309,7 @@
     <a href="#" class="w3-bar-item w3-button w3-padding w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  닫기</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" id="realTime2"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding" id="timePred"><i class="fa fa-users fa-fw"></i> 시간별 예측</a>
   </div>
 </nav>
 
@@ -533,23 +536,16 @@
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-        <p>Language</p>
-        <p>Country</p>
-        <p>City</p>
+        <h5 class="w3-bottombar w3-border-green">Used Prediction Model</h5>
+        <p>Linear Regression</p>
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-red">System</h5>
-        <p>Browser</p>
-        <p>OS</p>
-        <p>More</p>
+        <h5 class="w3-bottombar w3-border-red">Used Library</h5>
+        <p>scikit-learn</p>
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-orange">Target</h5>
-        <p>Users</p>
-        <p>Active</p>
-        <p>Geo</p>
-        <p>Interests</p>
+        <h5 class="w3-bottombar w3-border-orange">Used Data</h5>
+        <p>World Air Quality Data</p>
       </div>
     </div>
   </div>
