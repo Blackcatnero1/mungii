@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mis Main</title>
+<link rel="stylesheet" type="text/css" href="static/css/w3.css">
+<link rel="stylesheet" type="text/css" href="static/css/user.css">
+<script type="text/javascript" src="/static/js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style type="text/css">
+    
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: #f1f3f4;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #4285f4;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .container {
+        max-width: 950px;
+        margin: 40px auto;
+        padding: 15px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    .pl {
+        border: 1px solid #C4C4C4;
+        box-sizing: border-box;
+        border-radius: 10px;
+        padding: 12px 13px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    
+    /* 그래프 컨테이너 스타일 */
+    .chart-container {
+        width: 100%; /* 그래프 컨테이너 너비 설정 */
+        max-width: 920px; /* 최대 너비 설정 */
+        height: 550px; /* 그래프 컨테이너 높이 설정 */
+        margin: 20px auto; /* 가운데 정렬 */
+        background-color: #fff; /* 배경색 */
+        border: 1px solid #8b8b8b; /* 테두리 스타일 */
+        border-radius: 8px; /* 테두리 둥글게 */
+        box-shadow: 0 0 10px rgba(15, 14, 14, 0.1); /* 그림자 효과 */
+        overflow: hidden; /* 내용 넘침 처리 */
+        padding: 10px; /* 내부 여백 설정 */
+        box-sizing: border-box; /* 내부 여백 포함 */
+        display: flex; /* Flexbox 사용 */
+        justify-content: center; /* 가로 가운데 정렬 */
+        align-items: center; /* 세로 가운데 정렬 */
+        flex-direction: column; /* 세로 방향 정렬 */
+    }
+    /* 그래프 이미지 스타일 */
+    .chart-container img {
+        max-width: 100%; /* 최대 너비 설정 */
+        max-height: 100%; /* 최대 높이 설정 */
+    }
+    /* 텍스트 스타일 */
+    .chart-title {
+        font-size: 1.0em; /* 글꼴 크기 */
+        font-weight: bold; /* 굵은 글꼴 */
+        color: #04163d; /* 글꼴 색상 */
+        padding: 5px 5px; /* 내부 여백 */
+        margin-bottom: 10px; /* 아래 여백 설정 */
+        white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
+        overflow: hidden; /* 텍스트가 넘칠 경우 자르기 */
+        text-overflow: ellipsis; /* 넘칠 경우 말줄임표(...)로 표시 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        border-bottom: 2px solid #04163d; /* 밑줄 추가 */
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#login').click(function(){
+            var sid = '{{ SID }}';
+            if(!sid || sid == 'null'){
+                window.location.href = '/mis/member/login.mis';
+            } else {
+                alert('이미 로그인 했습니다.');
+            }
+        });
+        
+        $('#logout').click(function(){
+            window.location.href = '/mis/member/logout.mis';
+        });
+        
+        $('#join').click(function(){
+            var sid = '{{ SID }}';
+            if(!sid || sid == 'null'){
+                window.location.href = '/mis/member/join.mis';
+            } else {
+                return;
+            }
+        }); 
+        
+    });
+</script>
+
+<script>
+    function updateArea2() {
+        var area1 = document.getElementById("area1");
+        var area2 = document.getElementById("area2");
+        var Areaselect = area1.value;
+    
+        // 비활성화된 첫 번째 옵션을 제거
+        area2.options.length = 0;
+    
+        // 선택한 지역에 따라 시/군/구 목록 업데이트하기
+        switch (Areaselect) {
+            case "서울":
+                var seoulDistricts = [
+                    "서울 전체", "서울 강남구", "서울 강동구", "서울 강북구", "서울 강서구", "서울 광진구",
+                    "서울 구로구", "서울 금천구", "서울 노원구", "서울 도봉구", "서울 동대문구",
+                    "서울 동작구", "서울 마포구", "서울 서대문구", "서울 서초구", "서울 성동구",
+                    "서울 성북구", "서울 송파구", "서울 양천구", "서울 영등포구", "서울 용산구",
+                    "서울 은평구", "서울 종로구", "서울 중구", "서울 중랑구" 
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                seoulDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+                
+            case "부산":
+                var busanDistricts = [
+                    "부산 전체", "부산 사상구", "부산 연제구", "부산 기장군", "부산 동래구", "부산 금정구",
+                    "부산 남구", "부산 북구", "부산 해운대구", "부산 사하구", "부산 수영구",
+                    "부산 영도구", "부산 서구", "부산 동구", "부산 강서구", "부산 진구", 
+                    "부산 중구" 
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                busanDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+            
+            case "대구":
+                var daeguDistricts = [
+                    "대구 전체", "대구 북구", "대구 달성군", "대구 서구", "대구 동구", "대구 군위군",
+                    "대구 남구", "대구 달서구", "대구 중구", "대구 수성구"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                daeguDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "인천":
+                var incheonDistricts = [
+                    "인천 전체",
+                    "인천 계양구", "인천 연수구", "인천 부평구", "인천 동구", "인천 강화군",
+                    "인천 미추홀구", "인천 서구", "인천 중구", "인천 옹진군", "인천 남동구"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                incheonDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "광주":
+                var guangjuDistricts = [
+                    "광주 전체", "광주 남구", "광주 광산구", "광주 동구", "광주 서구", "광주 북구"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                guangjuDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "대전":
+                var daejeonDistricts = [
+                    "대전 전체", "대전 동구", "대전 중구", "대전 유성구", "대전 대덕구", "대전 서구"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                daejeonDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "울산":
+                var ulsanDistricts = [
+                    "울산 전체", "울산 동구", "울산 남구", "울주군", "울산 북구", "울산 중구"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                ulsanDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+            
+            case "세종":
+                var sejongDistricts = [
+                    "세종 세종시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                sejongDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+            
+            case "경기":
+                var gyenggiDistricts = [
+                    "경기 전체", "경기 과천시", "경기 연천군", "경기 평택시", "경기 용인시", "경기 파주시",
+                    "경기 가평군", "경기 안양시", "경기 김포시", "경기 여주시", "경기 양주시",
+                    "경기 동두천시", "경기 이천시", "경기 부천시", "경기 양평군", "경기 고양시",
+                    "경기 광주시", "경기 의정부시", "경기 구리시", "경기 포천시", "경기 화성시",
+                    "경기 안산시", "경기 군포시", "경기 안성시", "경기 하남시", "경기 남양주시",
+                    "경기 성남시", "경기 의왕시", "경기 오산시", "경기 수원시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                gyenggiDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "강원":
+                var gangwonDistricts = [
+                    "강원 전체", "강원 인제군", "강원 평창군", "강원 양양군", "강원 속초시", "강원 동해시",
+                    "강원 춘천시", "강원 횡성군", "강원 철원군", "강원 홍천군", "강원 정선군",
+                    "강원 영월군", "강원 고성군", "강원 태백시", "강원 원주시", "강원 삼척시",
+                    "강원 화천군", "강원 양구군", "강원 강릉시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                gangwonDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "충북":
+                var chongbookDistricts = [
+                    "충북 전체", "충북 제천시", "충북 진천군", "충북 보은군", "충북 청주시", "충북 증평군",
+                    "충북 괴산군", "충북 단양군", "충북 충주시", "충북 영동군", "충북 옥천군",
+                    "충북 음성군"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                chongbookDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+            
+            case "전북":
+                var jeonbookDistricts = [
+                    "전북 전체", "전북 전주시", "전북 정읍시", "전북 장수군", "전북 익산시", "전북 군산시",
+                    "전북 완주군", "전북 무주군", "전북 순창군", "전북 고창군", "전북 김제시",
+                    "전북 임실군", "전북 부안군", "전북 진안군", "전북 남원시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                jeonbookDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "전남":
+                var jeonnamDistricts = [
+                    "전남 전체", "전남 완도군", "전남 담양군", "전남 무안군", "전남 영암군", "전남 장흥군",
+                    "전남 강진군", "전남 함평군", "전남 여수시", "전남 장성군", "전남 목포시",
+                    "전남 화순군", "전남 구례군", "전남 나주시", "전남 광양시", "전남 진도군",
+                    "전남 고흥군", "전남 신안군", "전남 영광군", "전남 순천시", "전남 곡성군",
+                    "전남 해남군", "전남 보성군"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                jeonnamDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "경북":
+                var kyungbookDistricts = [
+                    "경북 전체", "경북 의성군", "경북 고령군", "경북 예천군", "경북 구미시", "경북 영양군",
+                    "경북 봉화군", "경북 성주군", "경북 울릉군", "경북 경산시", "경북 안동시",
+                    "경북 문경시", "경북 영천시", "경북 청송군", "경북 경주시", "경북 김천시",
+                    "경북 영주시", "경북 울진군", "경북 포항시", "경북 군위군", "경북 칠곡군",
+                    "경북 영덕군", "경북 상주시", "경북 청도군"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                kyungbookDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            case "경남":
+                var kyungnamDistricts = [
+                    "경남 전체", "경남 창원시", "경남 고성군", "경남 산청군", "경남 남해군", "경남 통영시",
+                    "경남 하동군", "경남 밀양시", "경남 거창군", "경남 의령군", "경남 창녕군",
+                    "경남 양산시", "경남 김해시", "경남 합천군", "경남 함양군", "경남 거제시",
+                    "경남 함안군", "경남 진주시", "경남 사천시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                kyungnamDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break;
+
+            // 다른 시/도들에 대한 목록도 추가할 수 있습니다
+            default:
+                var jejuDistricts = [
+                    "제주 전체", "제주 제주시", "제주 서귀포시"
+                ];
+                // 배열을 순회하면서 옵션을 추가
+                jejuDistricts.forEach(function(district) {
+                area2.options.add(new Option(district, district));
+                });
+                break
+        }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#get_data').click(function() {
+            var Areaselect = $('#area2').val(); // jQuery로 선택된 시/군/구 가져오기
+            var dateSelect1 = $('#dateSelect1').val();
+            var timeSelect1 = $('#timeSelect1').val();
+            var dateSelect2 = $('#dateSelect2').val();
+            var timeSelect2 = $('#timeSelect2').val();
+
+            console.log("Selected Area:", Areaselect);
+            console.log("Selected Date 1:", dateSelect1);
+            console.log("Selected Time 1:", timeSelect1);
+            console.log("Selected Date 2:", dateSelect2);
+            console.log("Selected Time 2:", timeSelect2);
+
+            $.ajax({
+                url: '/get_data',  // Django URL 설정에 따라 변경
+                type: 'GET',
+                data: {
+                    Areaselect: Areaselect,
+                    dateSelect1: dateSelect1,
+                    timeSelect1: timeSelect1,
+                    dateSelect2: dateSelect2,
+                    timeSelect2: timeSelect2
+                },
+                //success: function(response) {
+                success: function(pred_chart) {
+                    //console.log('서버응답:', response);
+                    console.log('서버응답:', pred_chart);
+
+                    // 서버에서 받은 데이터를 사용하여 그래프를 생성
+                    //createChart(response);
+                    // 이미지 데이터를 이미지 태그의 src 속성에 설정하여 표시
+                    $('#chart_image').attr('src', 'data:image/png;base64,' + pred_chart);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    // 에러 처리 로직 추가
+                }
+            });
+        });
+    });
+
+    //비교하기
+    $(document).ready(function() {
+        $('#compare').click(function() {
+            var Areaselect = $('#area1').val(); // jQuery로 선택된 시/군/구 가져오기
+            var dateSelect1 = $('#dateSelect1').val();
+            var timeSelect1 = $('#timeSelect1').val();
+            var dateSelect2 = $('#dateSelect2').val();
+            var timeSelect2 = $('#timeSelect2').val();
+
+            console.log("Selected Area:", Areaselect);
+            console.log("Selected Date 1:", dateSelect1);
+            console.log("Selected Time 1:", timeSelect1);
+            console.log("Selected Date 2:", dateSelect2);
+            console.log("Selected Time 2:", timeSelect2);
+
+            $.ajax({
+                url: '/compare',  // Django URL 설정에 따라 변경
+                type: 'GET',
+                data: {
+                    Areaselect: Areaselect,
+                    dateSelect1: dateSelect1,
+                    timeSelect1: timeSelect1,
+                    dateSelect2: dateSelect2,
+                    timeSelect2: timeSelect2
+                },
+                //success: function(response) {
+                success: function(pred_chart) {
+                    //console.log('서버응답:', response);
+                    console.log('서버응답:', pred_chart);
+
+                    // 서버에서 받은 데이터를 사용하여 그래프를 생성
+                    //createChart(response);
+                    // 이미지 데이터를 이미지 태그의 src 속성에 설정하여 표시
+                    $('#chart_image').attr('src', 'data:image/png;base64,' + pred_chart);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    // 에러 처리 로직 추가
+                }
+            });
+        });
+    });
+    //function get_data() {
+    //    var Areaselect = $('#area2').val(); // jQuery로 선택된 시/군/구 가져오기
+    //    var dateSelect1 = $('#dateSelect1').val();
+    //    var timeSelect1 = $('#timeSelect1').val();
+//        var dateSelect2 = $('#dateSelect2').val();
+//        var timeSelect2 = $('#timeSelect2').val();
+
+//        console.log("Selected Area:", Areaselect);
+  //      console.log("Selected Date 1:", dateSelect1);
+    ////    console.log("Selected Time 1:", timeSelect1);
+     //   console.log("Selected Date 2:", dateSelect2);
+       // console.log("Selected Time 2:", timeSelect2);
+
+      //  $.ajax({
+          //  url: '/get_data',
+        //    type: 'GET',
+            //data: {
+          //      Areaselect: Areaselect,
+           //     dateSelect1: dateSelect1,
+            //    timeSelect1: timeSelect1,
+            //    dateSelect2: dateSelect2,
+        //        timeSelect2: timeSelect2
+         //   },
+         //   success: function(response) {
+           //     console.log('Server Response:', response);
+
+                // 서버에서 받은 데이터를 사용하여 그래프를 생성합니다.
+             //   createChart(response);
+           // },
+           // error: function(xhr, status, error) {
+          //      console.error('Error:', error);
+             //   // 에러 처리 로직 추가
+          //  }
+       // });
+   // }
+</script>
+
+</head>
+<body class="w3-light-grey">
+	<div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+        <span class="w3-bar-item w3-right w3-button w3-col" id="jip"><i class="fas fa-house"></i></span>
+    </div>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+        <div class="w3-container w3-row">
+            <div class="w3-col s3">
+                <img src="https://data1.pokemonkorea.co.kr/newdata/pokedex/full/000701.png" class="w3-circle w3-margin-right" style="width:46px">
+            </div>
+            <div class="w3-col s9 w3-bar">
+                <span><b>{{ SID }} </b><strong class="todayDate"></strong></span><br>
+                {% if SID is None %}
+                    <a class="w3-bar-item w3-button"><i class="fas fa-user" id="login"></i></a>
+                    <a class="w3-bar-item w3-button"><i class="fas fa-user-plus" id="join"></i></a>
+                {% else %}
+                    <a class="w3-bar-item w3-button"><i class="fas fa-user-xmark" id="logout"></i></a>
+                    <a class="w3-bar-item w3-button"><i class="fas fa-address-card" id="myPage"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="w3-container">
+            <h5>목차</h5>
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
+        </div>
+    </nav>
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:310px;margin-top:43px;">
+
+        <!-- Header -->
+        <header class="w3-container">
+            <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+            <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
+            <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">여행지 추천 받기</button></h6>
+            <div class='w3-col'style="display: inline;">
+                <div class='w3-quarter l3' style="margin-right: -50px!important;">
+                    <h5><i class="fas fa-cloud-sun-rain"></i><b class="cityName"></b><b><small class="todayDate"></small> 날씨정보</b></h5>
+                </div>
+            </div>
+        </header>
+        <div class="w3-container">
+            <div class="">
+                <h6>
+                    <b><label for="areaSelect">지역 선택 : </label>
+                        <select id="area1" onchange="updateArea2()">
+                            <option disabled selected>시/도</option>
+                            <option value="서울">서울</option>
+                            <option value="부산">부산</option>
+                            <option value="대구">대구</option>
+                            <option value="인천">인천</option>
+                            <option value="광주">광주</option>
+                            <option value="대전">대전</option>
+                            <option value="울산">울산</option>
+                            <option value="세종">세종</option>
+                            <option value="경기">경기</option>
+                            <option value="강원">강원</option>
+                            <option value="충북">충북</option>
+                            <option value="충남">충남</option>
+                            <option value="전북">전북</option>
+                            <option value="전남">전남</option>
+                            <option value="경북">경북</option>
+                            <option value="경남">경남</option>
+                            <option value="제주">제주</option>
+                        </select>
+                        <select id="area2">
+                            <option disabled selected>시/군/구</option>
+                        </select>
+                </h6>
+            </div>
+        </div>
+        
+        <div class="w3-container">
+            <div class="">
+                <h6>
+                    <b><label for="timeSelect">일시 선택 : </label>
+                        <input type="date" id="dateSelect1">
+                        <select id="timeSelect1" style="margin-right: 10px;">
+                            <option disabled selected>시간</option>
+                            <option value="00:00:00">00:00:00</option>
+                            <option value="01:00:00">01:00:00</option>
+                            <option value="02:00:00">02:00:00</option>
+                            <option value="03:00:00">03:00:00</option>
+                            <option value="04:00:00">04:00:00</option>
+                            <option value="05:00:00">05:00:00</option>
+                            <option value="06:00:00">06:00:00</option>
+                            <option value="07:00:00">07:00:00</option>
+                            <option value="08:00:00">08:00:00</option>
+                            <option value="09:00:00">09:00:00</option>
+                            <option value="10:00:00">10:00:00</option>
+                            <option value="11:00:00">11:00:00</option>
+                            <option value="12:00:00">12:00:00</option>
+                            <option value="13:00:00">13:00:00</option>
+                            <option value="14:00:00">14:00:00</option>
+                            <option value="15:00:00">15:00:00</option>
+                            <option value="16:00:00">16:00:00</option>
+                            <option value="17:00:00">17:00:00</option>
+                            <option value="18:00:00">18:00:00</option>
+                            <option value="19:00:00">19:00:00</option>
+                            <option value="20:00:00">20:00:00</option>
+                            <option value="21:00:00">21:00:00</option>
+                            <option value="22:00:00">22:00:00</option>
+                            <option value="23:00:00">23:00:00</option>
+                        </select> ~
+                        <input type="date" id="dateSelect2" style="margin-left: 10px;">
+                        <select id="timeSelect2"> 
+                            <option disabled selected>시간</option>
+                            <option value="00:00:00">00:00:00</option>
+                            <option value="01:00:00">01:00:00</option>
+                            <option value="02:00:00">02:00:00</option>
+                            <option value="03:00:00">03:00:00</option>
+                            <option value="04:00:00">04:00:00</option>
+                            <option value="05:00:00">05:00:00</option>
+                            <option value="06:00:00">06:00:00</option>
+                            <option value="07:00:00">07:00:00</option>
+                            <option value="08:00:00">08:00:00</option>
+                            <option value="09:00:00">09:00:00</option>
+                            <option value="10:00:00">10:00:00</option>
+                            <option value="11:00:00">11:00:00</option>
+                            <option value="12:00:00">12:00:00</option>
+                            <option value="13:00:00">13:00:00</option>
+                            <option value="14:00:00">14:00:00</option>
+                            <option value="15:00:00">15:00:00</option>
+                            <option value="16:00:00">16:00:00</option>
+                            <option value="17:00:00">17:00:00</option>
+                            <option value="18:00:00">18:00:00</option>
+                            <option value="19:00:00">19:00:00</option>
+                            <option value="20:00:00">20:00:00</option>
+                            <option value="21:00:00">21:00:00</option>
+                            <option value="22:00:00">22:00:00</option>
+                            <option value="23:00:00">23:00:00</option>
+                        </select>    
+                    </b>
+                    <button class="w3-margin-left" id="get_data" style="background-color: rgb(67, 115, 219);
+                                     color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>추세 ⏎</b></button>
+                    <button id="compare" style="background-color: rgb(243, 109, 154);
+                                     color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>비교 ⏎</b></button>
+                </h6>
+            </div>
+        </div>
+        <!-- 여기에 그래프를 삽입 -->
+        <div style="text-align: left; padding-left: 20px; padding-top: 20px; margin-bottom: 0; color: #444;">
+        <b>▶ 미세먼지 농도(PM10) 예측치(단위: ㎍/m³)</b>
+        </div>
+        <div class=" w3-round w3-margin" style="padding-left: 14px; margin-bottom: 10px;">
+            <div class="w3-col w3-center w3-blue" style="width:24.6%">좋음(0~30)</div>
+            <div class="w3-col w3-center w3-green" style="width:24.6%">보통(31~80)</div>
+            <div class="w3-col w3-center w3-yellow" style="width:24.6%">나쁨(81~150)</div>
+            <div class="w3-col w3-center w3-red" style="width:24.6%">매우나쁨(151~)</div>
+        </div>
+        <div class="chart-container" style="margin-top: 10px;">
+            <img id="chart_image" src="" style="width: 100%; display: block;">
+        </div>
+</body>
+</html>
