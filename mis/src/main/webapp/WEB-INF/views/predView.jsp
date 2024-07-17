@@ -11,8 +11,8 @@
 <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
 <style>
-	
 	.w3-container p {
         margin-top: 5px;
         margin-bottom: 5px;
@@ -64,6 +64,7 @@
     .legtext{
     	font-size: 13px;
     }
+    
     #leghr {
     	margin-top: 3px;
     	margin-bottom: 5px;
@@ -136,9 +137,51 @@
             
             $('.legbutton').click(function() {
             	var clickid = $(this).attr('id');
-                
+            	$('#pm10').removeClass('w3-red');
+            	$('#pm25').removeClass('w3-red');
+            	$('#oz').removeClass('w3-red');
+            	$('#no').removeClass('w3-red');
+            	$('#co').removeClass('w3-red');
+            	$('#so').removeClass('w3-red');
+                // 클릭된 버튼에 active 클래스를 추가합니다.
+                $(this).addClass('w3-red');
             	switch(clickid){
-                	
+            		case "pm10":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~30)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(31~80)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(81~150)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(151~)');
+                        break;
+            		case "pm25":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~15)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(16~35)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(36~75)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(75~)');
+                        break;
+            		case "oz":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~0.03)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(0.031~0.09)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(0.091~0.15)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(0.151~)');
+                        break;
+            		case "no":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~0.03)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(0.031~0.06)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(0.061~0.2)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(0.21~)');
+                        break;
+            		case "co":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~2)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(2.1~9)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(9.1~15)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(15.1~)');
+                        break;
+            		case "so":
+            			$('#good').html('<i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~0.02)');
+            			$('#middle').html('<i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(0.021~0.05)');
+            			$('#bad').html('<i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(0.051~0.15)');
+            			$('#toobad').html('<i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(0.151~)');
+                        break;
                 }
             });
         });
@@ -370,8 +413,17 @@
           <tr>
             <td><i class="fa-solid fa-globe w3-text-yellow w3-xlarge"></i></td>
             <td>오존(O<small>3</small>)</td>
-        <c:if test="${PRED.pred_oz > 0}">
-	        <td><i>${PRED.pred_oz}</i>&nbsp;<small>ppm<small></td>
+        <c:if test="${PRED.pred_oz > 0 and PRED.pred_oz <= 0.03}">
+	        <td class="w3-text-blue">${PRED.pred_oz}&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_oz >= 0.031 and PRED.pred_oz <= 0.9}">
+	        <td class="w3-text-green">${PRED.pred_oz}&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_oz >= 0.091 and PRED.pred_oz <= 0.15}">
+	        <td class="w3-text-yellow">${PRED.pred_oz}&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_oz >= 0.151}">
+	        <td class="w3-text-red">${PRED.pred_oz}&nbsp;<small>ppm<small></td>
         </c:if>
         <c:if test="${PRED.pred_oz <= 0}">
 	        <td>점검중...</td>
@@ -380,8 +432,17 @@
           <tr>
             <td><i class="fa-solid fa-skull-crossbones w3-text-green w3-xlarge"></i></td>
             <td>이산화질소(NO<small>2</small>)</td>
-        <c:if test="${PRED.pred_no2 > 0}">
-	        <td><i>${PRED.pred_no2}</i>&nbsp;<small>ppm<small></td>
+        <c:if test="${PRED.pred_no2 > 0 and PRED.pred_no2 <= 0.03}">
+	        <td class="w3-text-blue"><i>${PRED.pred_no2}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_no2 >= 0.031 and PRED.pred_no2 <= 0.06}">
+	        <td class="w3-text-green"><i>${PRED.pred_no2}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_no2 >= 0.061 and PRED.pred_no2 <= 0.2}">
+	        <td class="w3-text-yellow"><i>${PRED.pred_no2}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_no2 >= 0.21}">
+	        <td class="w3-text-red"><i>${PRED.pred_no2}</i>&nbsp;<small>ppm<small></td>
         </c:if>
         <c:if test="${PRED.pred_no2 <= 0}">
 	        <td>점검중...</td>
@@ -390,18 +451,36 @@
           <tr>
             <td><i class="fa-solid fa-disease w3-text-blue w3-xlarge"></i></td>
             <td>일산화탄소(CO)</td>
-        <c:if test="${PRED.pred_co > 0}">
-	        <td><i>${PRED.pred_co}</i>&nbsp;<small>ppm<small></td>
+        <c:if test="${PRED.pred_co > 0 and PRED.pred_co <= 2}">
+	        <td class="w3-text-blue"><i>${PRED.pred_co}</i>&nbsp;<small>ppm<small></td>
         </c:if>
-        <c:if test="${PRED.pred_co <= 0}">
+        <c:if test="${PRED.pred_co >= 2.1 and PRED.pred_co <= 9}">
+	        <td class="w3-text-green"><i>${PRED.pred_co}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_co > 9.1 and PRED.pred_co <= 15}">
+	        <td class="w3-text-yellow"><i>${PRED.pred_co}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_co >= 15.1}">
+	        <td class="w3-text-red"><i>${PRED.pred_co}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_co <= 0}"> 
 	        <td>점검중...</td>
         </c:if>
           </tr>
           <tr>
             <td><i class="fa-solid fa-biohazard w3-text-purple w3-xlarge"></i></td>
             <td>아황산가스(SO<small>2</small>)</td>
-        <c:if test="${PRED.pred_so > 0}">
-	        <td><i>${PRED.pred_so}</i>&nbsp;<small>ppm<small></td>
+        <c:if test="${PRED.pred_so > 0 and PRED.pred_so <= 0.02}">
+	        <td class="w3-text-blue"><i>${PRED.pred_so}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_so >= 0.021 and PRED.pred_so <= 0.05}">
+	        <td class="w3-text-green"><i>${PRED.pred_so}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_so > 0.051 and PRED.pred_so <= 0.15}">
+	        <td class="w3-text-yellow"><i>${PRED.pred_so}</i>&nbsp;<small>ppm<small></td>
+        </c:if>
+        <c:if test="${PRED.pred_so >= 0.151}">
+	        <td class="w3-text-red"><i>${PRED.pred_so}</i>&nbsp;<small>ppm<small></td>
         </c:if>
         <c:if test="${PRED.pred_so <= 0}">
 	        <td>점검중...</td>
@@ -414,15 +493,15 @@
        			<Strong>범례보기</Strong>
       			</div>
        		<div class="w3-center" style="width: 70%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
-       			<div id="pm10" class="legbutton w3-button w3-half w3-border" style="margin-right: 10px;">
+       			<div id="pm10" class="w3-red legbutton w3-button w3-half w3-border" style="margin-right: 10px;">
        				미세먼지(pm10)
        			</div>
-       			<div class="legbutton w3-button w3-half w3-border">
+       			<div id="pm25" class="legbutton w3-button w3-half w3-border">
        				초미세먼지(pm25)
        			</div>
        		</div>
-       		<div id="pm25" class="w3-center" style="width: 90%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
-       			<div class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
+       		<div class="w3-center" style="width: 90%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
+       			<div id="oz" class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
        				오존(O<small>3</small>)
        			</div>
        			<div id="no" class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
@@ -437,16 +516,16 @@
        		</div>
        		<div class="w3-center" style="width: 98%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
 			    <div class="w3-border" style="width: 100%; display: flex; justify-content: space-between;">
-			        <div id="good" class="w3-quarter" style="flex: 1; text-align: center;">
+			        <div id="good" class="legtext w3-quarter" style="flex: 1; text-align: center;">
 			            <i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~30)
 			        </div>
-			        <div id="middle" class="w3-quarter" style="flex: 1; text-align: center;">
+			        <div id="middle" class="legtext w3-quarter" style="flex: 1; text-align: center;">
 			            <i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(31~80)
 			        </div>
-			        <div id="bad" class="w3-quarter" style="flex: 1; text-align: center;">
+			        <div id="bad" class="legtext w3-quarter" style="flex: 1; text-align: center;">
 			            <i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(81~150)
 			        </div>
-			        <div id="toobad" class="w3-quarter" style="flex: 1; text-align: center;">
+			        <div id="toobad" class="legtext w3-quarter" style="flex: 1; text-align: center;">
 			            <i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(151~)
 			        </div>
 			    </div>
