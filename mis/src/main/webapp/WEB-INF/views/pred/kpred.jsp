@@ -119,9 +119,9 @@
 			            var sco = parseFloat(obj.predicted_co);
 			            var sno2 = parseFloat(obj.predicted_no2);
 			            var sso2 = parseFloat(obj.predicted_so2);
-
+						console.log(obj);
 			            var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
-			            var dataList = [spm25, spm10, so3, sco, sno2, sso2];
+			            var dataList = [spm25, spm10, sco, so3, sno2, sso2];
 
 			            // AQI 값을 표시합니다.
 			            for (var i = 0; i < dataList.length; i++) {
@@ -192,6 +192,7 @@
 			            $('#ao3').html(obj.ko3 + '%');
 			            $('#ano2').html(obj.kno2 + '%');
 			            $('#aso2').html(obj.kso2 + '%');
+			            
 			            $('#apm25').css('width', obj.kpm25 + '%');
 			            $('#apm10').css('width', obj.kpm10 + '%');
 			            $('#ano2').css('width', obj.kno2 + '%');
@@ -242,11 +243,11 @@
 		    });
 		    var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
 		    var ppm25 = parseFloat($('.predict_pm25').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var ppm10 = parseFloat($('.predict_pm10').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var pno2 = parseFloat($('.predict_no2').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var pso2 = parseFloat($('.predict_so2').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var pco = parseFloat($('.predict_co').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var po3 = parseFloat($('.predict_o3').html().substring(0, $('.predict_pm25').html().length - 4));
+		    var ppm10 = parseFloat($('.predict_pm10').html().substring(0, $('.predict_pm10').html().length - 4));
+		    var pno2 = parseFloat($('.predict_no2').html().substring(0, $('.predict_no2').html().length - 4));
+		    var pso2 = parseFloat($('.predict_so2').html().substring(0, $('.predict_so2').html().length - 4));
+		    var pco = parseFloat($('.predict_co').html().substring(0, $('.predict_co').html().length - 4));
+		    var po3 = parseFloat($('.predict_o3').html().substring(0, $('.predict_o3').html().length - 4));
 		    
 		    var average = (ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6;
 		    $('#cai-value').html(average.toFixed(2) + ' IAQI');
