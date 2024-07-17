@@ -117,10 +117,20 @@ public class Member {
 	// 마이페이지 데이터 조회 요청 처리 함수
 	@RequestMapping("/mypage.mis")
 	public ModelAndView mypage(HttpSession session, ModelAndView mv, RedirectView rv, String id) {
-		String sid = (String) session.getAttribute("SID");
-		 MemberVO mVO = mDao.memberInfo(sid);
-		 mv.addObject("DATA", mVO);
-		 mv.setViewName("mypage");
-		 return mv;
+	    // 세션에서 로그인한 회원의 ID를 가져옴
+	    String sid = (String) session.getAttribute("SID");
+	    
+	    // 회원 정보 조회
+	    MemberVO mVO = mDao.memberInfo(sid);
+	    
+	    // 조회된 회원 정보를 ModelAndView 객체에 추가
+	    mv.addObject("DATA", mVO);
+	    
+	    // 마이페이지 뷰 이름 설정
+	    mv.setViewName("mypage");
+	    
+	    // ModelAndView 객체 반환
+	    return mv;
 	}
+
 }
