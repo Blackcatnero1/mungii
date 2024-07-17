@@ -23,20 +23,22 @@
         cursor: pointer; /* 기본 상태에서도 커서 변경 */
     }
     #disInfo .tooltip-text {
-        visibility: hidden;
-        width: 700px;
-        background-color: white;
-        color: #000;
-        text-align: left;
-        border-radius: 1px;
-        padding: 5px;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%; /* 화살표를 아래로 이동 */
-        left: 50%;
-        margin-left: -60px;
-        opacity: 0;
-        transition: opacity 0.3s;
+		visibility: hidden;
+		width: 700px;
+		background-color: white;
+		color: #000;
+		text-align: left;
+		border-radius: 5px;
+		padding: 10px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		position: absolute;
+		z-index: 1;
+		font-size: 13px;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -60px;
+		opacity: 0;
+		transition: opacity 0.3s;
     }
     #disInfo .tooltip-text::after {
         content: "";
@@ -72,6 +74,10 @@
 	    height:1px;
 	    border:0;
 	}
+	.treecol {
+	    display: block;
+	    margin-bottom: 10px;
+	}
 </style>
 <script type="text/javascript">
         $(document).ready(function(){
@@ -98,6 +104,9 @@
             });
             $('#goPred').click(function(){
             	$(location).attr('href', '/mis/kpred/kpred.mis');
+            });
+            $('#goTime').click(function(){
+            	$(location).attr('href', 'http://58.72.151.124:6012/pred');
             });
             $('#goPark').click(function(){
             	$(location).attr('href', '/mis/park/park.mis');
@@ -224,7 +233,7 @@
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-red" id="realTime"><i class="fa fa-eye fa-fw"></i> 단기 예측</a>
     <a id = "goPred" href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 중(장)기 예측</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
+    <a id="goTime" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 시간별 예측</a>
   </div>
 </nav>
 
@@ -540,9 +549,8 @@
     <h5><b><i class="fa fa-bell fa-fw"></i>생활 기상 정보</b></h5>
     <p><b>불쾌 지수</b> <i id="disInfo" class="fa-solid fa-circle-exclamation">
         <span class="tooltip-text">
-        	<span class="w3-col" style="font-size:13px;">온도, 습도, 풍속 등 여러 조건에서 인간이 느끼는 쾌적한 만족도 또는 불쾌한 정도나 스트레스를 수치화한 것.</span>
-        	<span class="w3-col">&nbsp;</span>
-        	<span class="w3-col">불쾌지수 = 0.81 X 섭씨온도 + 0.01 X 상대습도(%)(0.99 X 섭씨온도 - 14.3)+ 46.3</span>
+        	<span class="treecol" style="font-size:13px;">온도, 습도, 풍속 등 여러 조건에서 인간이 느끼는 쾌적한 만족도 또는 불쾌한 정도나 스트레스를 수치화한 것.</span>
+        	<span class="treecol">불쾌지수 = 0.81 X 섭씨온도 + 0.01 X 상대습도(%)(0.99 X 섭씨온도 - 14.3)+ 46.3</span>
         </span>
     </i></p>
     <div class="w3-grey">
