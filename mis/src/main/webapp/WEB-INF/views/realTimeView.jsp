@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>해외 미세먼지 확인하기</title>
+    <title>실시간 미세먼지 확인하기</title>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
