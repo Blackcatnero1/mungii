@@ -172,8 +172,8 @@
 			                }
 			            }
 			            if (count > 0) {
-			                var avg = sum / count;
-			                $('#cai-value').html(avg.toFixed(2) + ' IAQI');
+			                var avg = parseInt(sum / count);
+			                $('#cai-value').html(avg + ' IAQI');
 			    		    if (avg <= 50) {
 			    		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
 			    		    } else if (avg <= 100) {
@@ -242,15 +242,14 @@
 			    });
 		    });
 		    var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
-		    var ppm25 = parseFloat($('.predict_pm25').html().substring(0, $('.predict_pm25').html().length - 4));
-		    var ppm10 = parseFloat($('.predict_pm10').html().substring(0, $('.predict_pm10').html().length - 4));
-		    var pno2 = parseFloat($('.predict_no2').html().substring(0, $('.predict_no2').html().length - 4));
-		    var pso2 = parseFloat($('.predict_so2').html().substring(0, $('.predict_so2').html().length - 4));
-		    var pco = parseFloat($('.predict_co').html().substring(0, $('.predict_co').html().length - 4));
-		    var po3 = parseFloat($('.predict_o3').html().substring(0, $('.predict_o3').html().length - 4));
-		    
-		    var average = (ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6;
-		    $('#cai-value').html(average.toFixed(2) + ' IAQI');
+		    var ppm25 = parseInt($('.predict_pm25').html());
+		    var ppm10 = parseInt($('.predict_pm10').html());
+		    var pno2 = parseInt($('.predict_no2').html());
+		    var pso2 = parseInt($('.predict_so2').html());
+		    var pco = parseInt($('.predict_co').html());
+		    var po3 = parseInt($('.predict_o3').html());
+		    var average = parseInt((ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6);
+		    $('#cai-value').html(average + ' IAQI');
 		    if (average <= 50) {
 		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
 		    } else if (average <= 100) {
@@ -376,7 +375,7 @@
 	        <div class="w3-left"><i class="fa-solid fa-regular fa-sun w3-xxxlarge"></i></div>
 	        <div class="w3-right">
 	          <hr>
-	          	<span class='w3-col'>오존<sub>(O3)</sub></span>
+	          	<span>오존<sub>(O3)</sub></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	          	<span class="predict_o3">${MISLIST.predicted_o3} AQI</span>
 	        </div>
 	      </div>
@@ -388,7 +387,7 @@
 	        <div class="w3-left"><i class="fa-solid fa-cloud w3-xxxlarge"></i></div>
 	        <div class="w3-right">
 	          <hr>
-	          	<span>일산화탄소<sub>(CO)</sub></span>
+	          	<span>일산화탄소<sub>(CO)</sub></span>&nbsp;&nbsp;
 	          	<span class="predict_co">${MISLIST.predicted_co} AQI</span>
 	        </div>
 	      </div>
@@ -432,11 +431,11 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5>오늘의 미세먼지는 ?!</h5>
+        <h5><b><i class="fa-solid fa-play"></i> 오늘의 미세먼지는 ?!</b></h5>
         <img src="/mis/image/하랑이/빨강이.jpg" style="height:305px;" id="hrang">
       </div>
       <div class="w3-twothird">
-        <h5>예측값</h5>
+        <h5><b><i class="fa-solid fa-play"></i> 예측값</b></h5>
         <table class="w3-table w3-striped w3-white">
           <tr>
             <td><i class="fa-solid fa-person w3-text-green w3-xlarge"></i></td>
@@ -479,7 +478,7 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5><b>예측 정확도<small>(단위 : 단계별)</small></b></h5>
+    <h5><b><i class="fa-solid fa-play"></i> 예측 정확도<small>(단위 : 단계별)</small></b></h5>
 
     <p style="margin:3px;"><b>PM25(미세먼지)</b></p>
     <div class="w3-grey">
@@ -508,7 +507,7 @@
   </div>
 	<hr>
   <div class="w3-container">
-    <h5><b>평균 예측률 높은 지역</b></h5>
+    <h5><b><i class="fa-solid fa-play"></i> 평균 예측률 높은 지역</b></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
       		<tr>

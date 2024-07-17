@@ -88,7 +88,7 @@
 		select arate, city, rank from (	
 		select arate, city, rownum rank from(           
 		select
-		    round((KPM25+KPM10+KO3+KCO+KNO2+KSO2) / 6) arate, city, rownum rno
+		    round((KPM25+KPM10) / 2) arate, city, rownum rno
 		from
 		    accuracy_score
 		order by
