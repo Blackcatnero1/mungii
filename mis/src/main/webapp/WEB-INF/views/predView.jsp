@@ -52,6 +52,25 @@
         visibility: visible;
         opacity: 1;
     }
+    
+    .legbutton{
+    	height: 22px;
+	    line-height: 10px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+    }
+    
+    .legtext{
+    	font-size: 13px;
+    }
+    #leghr {
+    	margin-top: 3px;
+    	margin-bottom: 5px;
+	    background:pink;
+	    height:1px;
+	    border:0;
+	}
 </style>
 <script type="text/javascript">
         $(document).ready(function(){
@@ -73,8 +92,14 @@
                 $(location).attr('href', '/mis/realTimeDust/rlogin.mis');
             });
             
-            $('#goback').click(function(){
+            $('#goBack').click(function(){
             	$(location).attr('href', '/mis/realTimeDust/view.mis');
+            });
+            $('#goPred').click(function(){
+            	$(location).attr('href', '/mis/kpred/kpred.mis');
+            });
+            $('#goPark').click(function(){
+            	$(location).attr('href', '/mis/park/park.mis');
             });
 
             $('#home').click(function(){
@@ -107,6 +132,14 @@
 
             $('#moreShow').click(function(){
             	window.open('https://www.google.com/search?q=${PRED.name}+%EA%B4%80%EA%B4%91%EB%AA%85%EC%86%8C&sca_esv=62f2cb7c00ed810a&sca_upv=1&sxsrf=ADLYWIKrXvG5pAvLeqVjjNNZbujx_gEtvw:1720577807961&udm=15&sa=X&ved=2ahUKEwjH5rTos5uHAxWfp1YBHZRlBAoQxN8JegQIMhAb&biw=1422&bih=996&dpr=0.9', '_blank');
+            });
+            
+            $('.legbutton').click(function() {
+            	var clickid = $(this).attr('id');
+                
+            	switch(clickid){
+                	
+                }
             });
         });
 </script>
@@ -141,12 +174,13 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Dashboard</h5>
+    <h5><i class="fa-solid fa-list"></i> 목차</h5>
+    <hr>
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-red" id="realTime"><i class="fa fa-users fa-fw"></i> 단기 예측</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> 중(장)기 예측</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-red" id="realTime"><i class="fa fa-eye fa-fw"></i> 단기 예측</a>
+    <a id = "goPred" href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 중(장)기 예측</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> 응애</a>
   </div>
 </nav>
@@ -160,9 +194,9 @@
 
   <!-- Header -->
   <header class="w3-container">
-	<h6><button id="goback" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
-	<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
-	<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
+	<h6><button id="goBack" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
+	<h6><button id="goPred"class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
+	<h6><button id="goPark" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">여행지 추천 받기</button></h6>
     
     <div class='w3-col' style="padding-top:10px">
     	<div class='w3-left'>
@@ -285,7 +319,18 @@
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
         <h5><b><i class="fa-solid fa-smog"></i>미세먼지 정보</b></h5>
-        <img src="/mis/goo/a.jpg" style="width:100%" alt="Google Regional Map">
+        <c:if test="${PRED.pred_pm10 == 0}">
+	        <img src="/mis/image/하랑이/파랑이.jpg" style="width:100%" alt="일기예보 하랑이">	        
+        </c:if>
+        <c:if test="${PRED.pred_pm10 == 1}">
+	        <img src="/mis/image/하랑이/초록이.jpg" style="width:100%" alt="일기예보 하랑이">	        
+        </c:if>
+        <c:if test="${PRED.pred_pm10 == 1}">
+	        <img src="/mis/image/하랑이/노랑이.jpg" style="width:100%" alt="일기예보 하랑이">	        
+        </c:if>
+        <c:if test="${PRED.pred_pm10 == 1}">
+	        <img src="/mis/image/하랑이/빨강이.jpg" style="width:100%" alt="일기예보 하랑이">	        
+        </c:if>        
       </div>
       <div class="w3-twothird">
         <h5>&nbsp;</h5>
@@ -363,6 +408,51 @@
         </c:if>
           </tr>
         </table>
+        <hr id=leghr>
+        <div class="w3-col w3-border-grey w3-round-xlarge w3-center">
+       		<div class="w3-dark-grey w3-border w3-round-xlarge" style="margin-bottom: 5px;">
+       			<Strong>범례보기</Strong>
+      			</div>
+       		<div class="w3-center" style="width: 70%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
+       			<div id="pm10" class="legbutton w3-button w3-half w3-border" style="margin-right: 10px;">
+       				미세먼지(pm10)
+       			</div>
+       			<div class="legbutton w3-button w3-half w3-border">
+       				초미세먼지(pm25)
+       			</div>
+       		</div>
+       		<div id="pm25" class="w3-center" style="width: 90%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
+       			<div class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
+       				오존(O<small>3</small>)
+       			</div>
+       			<div id="no" class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
+       				이산화질소(NO<small>2</small>)
+       			</div>
+       			<div id="co" class="legbutton legtext w3-button w3-quarter w3-border" style="margin-right: 10px;">
+       				일산화탄소(CO)
+       			</div>
+       			<div id="so" class="legbutton legtext w3-button w3-quarter w3-border">
+       				아황산가스(SO<small>2</small>)
+       			</div>
+       		</div>
+       		<div class="w3-center" style="width: 98%; margin: auto; margin-bottom: 5px; display: flex; justify-content: space-between;">
+			    <div class="w3-border" style="width: 100%; display: flex; justify-content: space-between;">
+			        <div id="good" class="w3-quarter" style="flex: 1; text-align: center;">
+			            <i class="fa-regular fa-circle-dot w3-text-blue"></i> 좋음(0~30)
+			        </div>
+			        <div id="middle" class="w3-quarter" style="flex: 1; text-align: center;">
+			            <i class="fa-regular fa-circle-dot w3-text-green"></i> 보통(31~80)
+			        </div>
+			        <div id="bad" class="w3-quarter" style="flex: 1; text-align: center;">
+			            <i class="fa-regular fa-circle-dot w3-text-yellow"></i> 나쁨(81~150)
+			        </div>
+			        <div id="toobad" class="w3-quarter" style="flex: 1; text-align: center;">
+			            <i class="fa-regular fa-circle-dot w3-text-red"></i> 매우나쁨(151~)
+			        </div>
+			    </div>
+			</div>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -400,20 +490,20 @@
       <div class="w3-col m10 w3-container">
         <h4>김불쾌 <span id="current-time-1" class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
         <c:if test="${DISCOMFORT < 68}">
-	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ]로 좋은 날씨로 <b>쾌적함</b>을 느끼실 수 있을겁니다.
+	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ](으)로 좋은 날씨로 <b>쾌적함</b>을 느끼실 수 있을겁니다.
 	        	<b>활기찬 하루 보내세요!</b>
         </c:if>
         <c:if test="${68 <= DISCOMFORT && DISCOMFORT < 75}">
-	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ]로 <b>일부의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
+	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ](으)로 <b>일부의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
 	        	기온과 습도로 인해 몸에 찝찝함이 남아있으면서 약간의 불쾌감을 느끼실 수도 있겠습니다.
 	        	사소한 일에도 짜증을 느낄 수 있으므로, <b>활동 중간 중간 적절한 휴식</b>이 필요할거 같습니다.</p><br>
         </c:if>
         <c:if test="${75 <= DISCOMFORT && DISCOMFORT < 80}">
-	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ]로 <b>반 정도의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
+	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ](으)로 <b>반 정도의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
 	        	정말 사소한 일에도 불쾌감을 느끼는 경우가 많을 수 있겠습니다. 때문에 <b>충분한 휴식은 물론이고, 달콤한 음식이나, 가벼운 산책등으로 감정을 제어</b>하는게 도움이 될거같습니다.</p><br>
         </c:if>
         <c:if test="${DISCOMFORT >= 80}">
-	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ]로 <b>대부분의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
+	        <p>오늘 불쾌지수는 [ ${DISCOMFORT} ](으)로 <b>대부분의 사람들이 불쾌감</b>을 느낄 수 있겠습니다. 
 	        	<b>기온이 과도하게 높아지면서 공격성이 증가하고, 충동적인 행동을 하게되는 경향이 생기게 되며,</b> 
 	        	<b>습도가 높아질수록 집중력이 감퇴되고, 피로감을 더 느끼게 됩니다.</b> 불쾌감에 얼굴을 찌푸리며 나쁜 일들과 상처입은 일들을 떠올리며 화르 내지만 말고 깊은 호흡과 함께 지금 이 순간에 잠시 머무르며 주변을 수용하는 태도를 가져보는게 어떨까요?</p><br>
         </c:if>
@@ -517,21 +607,8 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Recent Users</h5>
-    <ul class="w3-ul w3-card-4 w3-white">
-      <li class="w3-padding-16">
-        <img src="/mis/avatar/img_avatar11.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Mike</span><br>
-      </li>
-      <li class="w3-padding-16">
-        <img src="/mis/avatar/img_avatar21.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Jill</span><br>
-      </li>
-      <li class="w3-padding-16">
-        <img src="/mis/avatar/img_avatar23.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
-        <span class="w3-xlarge">Jane</span><br>
-      </li>
-    </ul>
+    <h5 style="padding-top:30px"><b><i class="fa-solid fa-book-open"></i>미세먼지 예측 정확도</b></h5>
+    <iframe class="w3-card-4" src="http://localhost:8000/mis/showChart.tm/" name="iframe_a" height="440px" width="100%" title="Iframe Example" style= "overflow:hidden" scrolling="no"></iframe>
   </div>
   <hr>
 
@@ -539,23 +616,19 @@
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-        <p>Language</p>
-        <p>Country</p>
-        <p>City</p>
+        <h5 class="w3-bottombar w3-border-green">Used Prediction Model</h5>
+        <p>Tenserflow Regression</p>
+        <p>K Nearest Neighbors</p>
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-red">System</h5>
-        <p>Browser</p>
-        <p>OS</p>
-        <p>More</p>
+        <h5 class="w3-bottombar w3-border-red">Used Library</h5>
+        <p>scikit-learn</p>
+        <p>TensorFlow</p>
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-orange">Target</h5>
-        <p>Users</p>
-        <p>Active</p>
-        <p>Geo</p>
-        <p>Interests</p>
+        <h5 class="w3-bottombar w3-border-orange">Used Data</h5>
+        <p>Korea WeatherForecast Data</p>
+        <p>Korea FindDust Data</p>
       </div>
     </div>
   </div>
