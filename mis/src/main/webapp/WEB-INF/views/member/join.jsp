@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Join</title>
+    <title>미안행 회원가입 페이지</title>
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
@@ -91,6 +91,9 @@
             $('#home1').click(function(){
                 $(location).attr('href', '/mis');
             });
+            $('#jip').click(function(){
+                $(location).attr('href', '/mis');
+            });
             
             $('#join').click(function(){
                 var sid = $(document.frm.id).val();
@@ -164,9 +167,10 @@
     </script>
 </head>
 <body>
-	<div class="w3-content w3-center" style="max-width:1000px">
+<div class="w3-content mxw700">
+	<div class="w3-content w3-center">
 		<div class="field">
-   			<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:700px; height:200px;">
+   			<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:700px; height:200px;" id="jip">
     	</div>	
 	    <div class="w3-content w3-container container w3-card-4" style='padding-top:0;'>
 	        <form method="GET" action="/mis/member/joinProc.mis" name="frm" id="frm" class="form w3-padding">
@@ -183,7 +187,7 @@
 		                <label for="id" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">아이디 :</label>
 		                <input type="text" name="id" id="id" placeholder="아이디를 입력하세요." class="w3-col s6 l6 w3-input w3-border w3-round">
 		                <div class="w3-button w3-gray w3-round w3-center" id="chkBtn" style="width: 85px; height: 45px; margin-top: 0px; margin-right: 4%; margin-bottom: 0px; padding-top: 12px;">Check</div>
-		                <small id="idmsg" class="w3-hide">* 이미 사용중인 아이디입니다.</small>
+		                <small id="idmsg" class="w3-hide" style="margin-left:10px;">* 이미 사용중인 아이디입니다.</small>
 		            </div>
 		            <div class="w3-col w3-margin-left w3-margin-right form-group">
 		                <label for="pw" class="w3-col m4 lbl w3-text-gray w3-right-align w3-padding" style="width: 175px; margin-top: 3px;">비밀번호 :</label>
@@ -230,6 +234,20 @@
 	            <div class="w3-button w3-dark-gray w3-center w3-third" id="join">회원가입</div>
 	        </div>
 	    </div>
+    
+  </div>
+    <div class="w3-col w3-padding-16 w3-dark-gray">
+    <div class="w3-row">
+      <div class="w3-container w3-col">
+      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 60px; width: 54px; margin-top:20px;">
+      	<div>
+			<h6><small> Team. 먼지가 되어 member. 전민경 김광섭, 김한민, 김유진, 허광혁 Tel. 02) 3667-3688</small></h6>
+			<h6><small> AI데이터플랫폼(with Python, JAVA, Spring)을 이용한 빅데이터 분석 전문가 과정(8회차)</small></h6>
+      	</div>
+      </div>
     </div>
+  </div>
+  </div>
+    
 </body>
 </html>

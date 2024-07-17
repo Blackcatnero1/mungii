@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Mis Park</title>
+    <title>관광지 추천받기</title>
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -156,7 +156,7 @@
         });
         $('.hrefTag').click(function(){
         	var sid = $(this).attr('id');
-        	$(location).attr('href', 'https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=0&acr=1&acq=tjfdkrzpdl&qdt=0&ie=utf8&query=' + sid);
+            window.open('https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=0&acr=1&acq=tjfdkrzpdl&qdt=0&ie=utf8&query=' + sid, '_blank');
         })
      });
  		function handleClick() {
@@ -195,30 +195,29 @@
 				<h6 class="w3-left-align">&nbsp;&nbsp;<i class="fa-solid fa-user"></i>
 			      	<c:if test="${SID eq null}">
 						<b> Guest </b> 님 환영합니다.
-			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
-			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+			     		<a class="w3-bar-item w3-button" id="login"><i class="fa-solid fa-user"></i></a>
+			     		<a class="w3-bar-item w3-button" id="join"><i class="fa-solid fa-user-plus"></i></a>
 			     </c:if>
 			     <c:if test="${SID ne null}">
 						<b> ${SID} </b> 님 환영합니다.
-			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
-			     		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+			     		<a class="w3-bar-item w3-button" id="logout"><i class="fa-solid fa-user-xmark"></i></a>
+			     		<a class="w3-bar-item w3-button" id="myPage"><i class="fa-solid fa-address-card"></i></a>
 			     </c:if>
 				</h6>
 			</div>
-			<div class="w3-third w3-center" style="margin-top:10px;">
+			<div class="w3-third w3-center" style="margin-top:5px;">
 				<h6 class="w3-right-align"><b>
-					<label for="city">정렬 기준 : </label>
-					<select class="" id="sort">
-						<option disabled selected value="rec">정렬</option>
-						<option value='rec'>추천순</option>
+					<label for="city"><i class="fa-solid fa-play"></i> 정렬 기준 : </label>
+					<select id="sort" style="padding:5px;">
+						<option selected value='rec'>추천순</option>
 						<option value="pkreview">리뷰순</option>
 						<option value="pmis">대기질순</option>
 					</select>
 				</b></h6>
 			</div>
-			<div class="w3-third w3-center" style="margin-top:8px;">
+			<div class="w3-third w3-center" style="margin-top:5px;">
 				<h6 class=" w3-right-align">
-					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect"></b>
+					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect" style="padding:3px;"></b>
 					<button class="w3-margin-left"><i class="fa-solid fa-square-check" id="selCityDate"></i></button>
 				</h6>
 			</div>
@@ -283,13 +282,12 @@
 </c:if>
 	</div>
 <!-- END w3-content -->
-  <div class="w3-col w3-padding-16 w3-dark-gray">
+  <div class="w3-col w3-padding-16 w3-dark-gray w3-margin-top">
     <div class="w3-row">
       <div class="w3-container w3-col">
-      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 80px; width: 72px; margin-top:30px;">
+      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 80px; width: 72px;">
       	<div>
-	        <h6> Team. 먼지가 되어 leader. 전민경 . 02) 3667-3688 business</h6>
-			<h6> Team member. 김광섭, 김한민, 김유진, 허광혁</h6>
+			<h6> Team. 먼지가 되어 member. 전민경 김광섭, 김한민, 김유진, 허광혁 Tel. 02) 3667-3688</h6>
 			<h6> AI데이터플랫폼(with Python, JAVA, Spring)을 이용한 빅데이터 분석 전문가 과정(8회차)</h6>
       	</div>
       </div>

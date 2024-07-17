@@ -695,7 +695,7 @@
   <hr>
   <div class="w3-container">
     <h5 style="padding-top:30px"><b><i class="fa-solid fa-book-open"></i>미세먼지 예측 정확도</b></h5>
-    <iframe class="w3-card-4" src="http://localhost:8000/mis/showChart.tm/" name="iframe_a" height="440px" width="100%" title="Iframe Example" style= "overflow:hidden" scrolling="no"></iframe>
+    <iframe class="w3-card-4" src="http://58.72.151.124:6012/showChart.tm/" name="iframe_a" height="440px" width="100%" title="Iframe Example" style= "overflow:hidden" scrolling="no"></iframe>
   </div>
   <hr>
 

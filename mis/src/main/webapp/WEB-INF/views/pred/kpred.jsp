@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>${LNAME} 날씨 예측하기</title>
+<title>${LNAME} 중(장)기 예측</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
@@ -96,7 +96,7 @@
 		        	$('#' + sensor).attr('style', 'background-color: rgb(160, 119, 133);');
 			        $('#' + sensor).prepend('<span class="w3-right">치명적</span>');
 		        }
-	
+			
 		        // 예시: HTML에 정수 형태로 변환한 값 표시
 		    });
 		    $('#selCityDate').click(function(){
@@ -177,15 +177,6 @@
 			            if (count > 0) {
 			                var avg = parseInt(sum / count);
 			                $('#cai-value').html(avg + ' IAQI');
-			    		    if (avg <= 50) {
-			    		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
-			    		    } else if (avg <= 100) {
-			    		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
-			    		    } else if (avg <= 150) {
-			    		        $('#hrang').attr('src', '/mis/image/하랑이/노랑이.jpg');
-			    		    } else {
-			    		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
-			    		    }
 			            } else {
 			                $('#cai-value').html('데이터 없음');
 			            }
@@ -195,6 +186,20 @@
 			            $('#ao3').html(obj.ko3 + '%');
 			            $('#ano2').html(obj.kno2 + '%');
 			            $('#aso2').html(obj.kso2 + '%');
+			            
+			            
+			            
+		    		    if (spm10 <= 50) {
+		    		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
+		    		    } else if (spm10 <= 100) {
+		    		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
+		    		    } else if (spm10 <= 150) {
+		    		        $('#hrang').attr('src', '/mis/image/하랑이/노랑이.jpg');
+		    		    } else {
+		    		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
+		    		    }
+
+			            
 			            
 			            $('#apm25').css('width', obj.kpm25 + '%');
 			            $('#apm10').css('width', obj.kpm10 + '%');
@@ -254,9 +259,9 @@
 		    var average = parseInt((ppm25 + ppm10 + pno2 + pso2 + pco + po3) / 6);
 		    $('#cai-value').html(average + ' IAQI');
 		    if (average <= 50) {
-		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
-		    } else if (average <= 100) {
 		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
+		    } else if (average <= 100) {
+		        $('#hrang').attr('src', '/mis/image/하랑이/초록이.jpg');
 		    } else if (average <= 150) {
 		        $('#hrang').attr('src', '/mis/image/하랑이/노랑이.jpg');
 		    } else {
@@ -273,7 +278,7 @@
 <!-- Top container -->
 
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4;">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  메뉴</button>
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  목차</button>
   <span class="w3-bar-item w3-right w3-button w3-col" id="jip"><i class="fa-solid fa-house"></i></span>
 </div>
 
@@ -291,12 +296,12 @@
       <span><b>Guest 님 환영합니다.</b></span><br>
     </c:if>
       <c:if test="${SID eq null}">
-      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user " id="login"></i></a>
-      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-plus " id="join"></i></a>
+      		<a class="w3-bar-item w3-button" id="login"><i class="fa-solid fa-user"></i></a>
+      		<a class="w3-bar-item w3-button"id="join"><i class="fa-solid fa-user-plus"></i></a>
       </c:if>
       <c:if test="${SID ne null}">
-      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-user-xmark" id="logout"></i></a>
-      		<a class="w3-bar-item w3-button"><i class="fa-solid fa-address-card" id="myPage"></i></a>
+      		<a class="w3-bar-item w3-button" id="logout"><i class="fa-solid fa-user-xmark"></i></a>
+      		<a class="w3-bar-item w3-button" id="myPage"><i class="fa-solid fa-address-card"></i></a>
       </c:if>
     </div>
   </div>
@@ -326,14 +331,14 @@
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
 		<h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
 		<div class='w3-col'>
-			<div class='w3-third w3-left'>
-				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small>(</small><small class="todayDate"></small><small>)</small> 대기정보</b></h5>
+			<div class='w3-third w3-left' style="margin-top:5px;">
+				<h5><i class="fa-solid fa-play"></i><b class="cityName"> ${MISLIST.city}</b><b><small>(</small><small class="todayDate"></small><small>)</small> 예측정보</b></h5>
 			</div>
-			<div class="w3-third w3-left">
+			<div class="w3-third w3-center">
 				<h6><b>
 					<label for="city"><i class="fa-solid fa-play"></i> 도시 선택 : </label>
-					<select id="city">
-						<option disabled selected>시/구를 선택하세요.</option>
+					<select id="city" style="padding:5px;">
+						<option disabled selected>${MISLIST.city}</option>
 	                    <c:forEach var="DATA" items="${CITYLIST}" varStatus="st">
 	                    	<option value="${DATA.city }">${DATA.city}</option>
 	                    </c:forEach>
@@ -342,7 +347,7 @@
 			</div>
 			<div class="w3-third w3-left">
 				<h6>
-					<b><label for="dateSelect"><i class="fa-solid fa-play"></i> 날짜 선택 : </label><input type="date" id="dateSelect"></b>
+					<b><label for="dateSelect"><i class="fa-solid fa-play"></i> 날짜 선택 : </label><input type="date" id="dateSelect" style="padding:3px;"></b>
 					<button class="w3-margin-left" id="selCityDate"><i class="fa-solid fa-square-check"></i></button>
 				</h6>
 			</div>
@@ -352,24 +357,24 @@
   <div class="w3-margin-bottom">
   	<div class='w3-half w3-row-padding' style='padding-right:0px'>
 	    <div class="w3-third">
+	      <div class="w3-container w3-padding-16 aqiblock" id='pm10'>
+	        <div class="w3-left"><i class="fa-solid fa-temperature-high w3-xxxlarge"></i></div>
+	        <div class="w3-right">
+	          <hr>
+	          	<span>미세먼지<sub>(PM10)</sub></span>
+	          	<span class="predict_pm10">${MISLIST.predicted_pm10} AQI</span>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="w3-third">
 	      <div class="w3-container w3-padding-16" id='pm25'>
 	        <div class="w3-left"><i class="fa-solid fa-temperature-low w3-xxxlarge"></i></div>
 	        <div class="w3-right">
 	          <div>
 	          	<hr>
-	          	<span>미세먼지<sub>(PM25)</sub></span>
+	          	<span style="font-size:14px;">초미세먼지<sub>(PM2.5)</sub></span>
 	          	<span class="predict_pm25">${MISLIST.predicted_pm25} AQI</span>
 	          </div>
-	        </div>
-	      </div>
-	    </div>
-	    <div class="w3-third">
-	      <div class="w3-container w3-padding-16 aqiblock" id='pm10'>
-	        <div class="w3-left"><i class="fa-solid fa-temperature-high w3-xxxlarge"></i></div>
-	        <div class="w3-right">
-	          <hr>
-	          	<span>초미세먼지<sub>(PM10)</sub></span>
-	          	<span class="predict_pm10">${MISLIST.predicted_pm10} AQI</span>
 	        </div>
 	      </div>
 	    </div>
@@ -418,8 +423,8 @@
 	</div>
 </div>
 <div class="w3-container">
-    <h5><i class="fa-solid fa-play"></i><b> 측정 기준<small>(기준 : AQI)</small></b></h5>
-    <div class="w3-grey w3-margin-top">
+    <h5 class=" w3-margin-top"><i class="fa-solid fa-play"></i><b> 측정 기준<small>(기준 : AQI)</small></b></h5>
+    <div class="w3-grey">
         <div class="w3-col">
 	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(171, 209, 98);"><b>좋음<small>(1 ~ 50)</small></b></div>
 	        <div class="w3-col l2 w3-container w3-center w3-padding" style="background-color: rgb(248, 212, 97);"><b>보통<small>(51 ~ 100)</small></b></div>
@@ -434,11 +439,11 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5><b><i class="fa-solid fa-play"></i> 오늘의 미세먼지는 ?!</b></h5>
+        <h6><b><i class="fa-solid fa-play"></i></b><b class="todayDate"></b><b>의 미세먼지는?</b></h6>
         <img src="/mis/image/하랑이/빨강이.jpg" style="height:305px;" id="hrang">
       </div>
       <div class="w3-twothird">
-        <h5><b><i class="fa-solid fa-play"></i> 예측값</b></h5>
+        <h5><b><i class="fa-solid fa-play"></i> 예측된 대기질 값</b></h5>
         <table class="w3-table w3-striped w3-white">
           <tr>
             <td><i class="fa-solid fa-person w3-text-green w3-xlarge"></i></td>
@@ -446,14 +451,14 @@
            	<td><i id="cai-value"></i><td>
           </tr>
           <tr>
-            <td><i class="fa-solid fa-temperature-low w3-text-blue w3-xlarge"></i></td>
-            <td>미세먼지 (PM25)</td>
-            <td><i class="predict_pm25">${MISLIST.predicted_pm25 } AQI</i></td>
+            <td><i class="fa-solid fa-temperature-high w3-text-red w3-xlarge"></i></td>
+            <td>미세먼지 (PM10)</td>
+            <td><i class="predict_pm10">${MISLIST.predicted_pm10 } AQI</i></td>
           </tr>
           <tr>
-            <td><i class="fa-solid fa-temperature-high w3-text-red w3-xlarge"></i></td>
-            <td>초미세먼지 (PM10)</td>
-            <td><i class="predict_pm10">${MISLIST.predicted_pm10 } AQI</i></td>
+            <td><i class="fa-solid fa-temperature-low w3-text-blue w3-xlarge"></i></td>
+            <td>초미세먼지 (PM2.5)</td>
+            <td><i class="predict_pm25">${MISLIST.predicted_pm25 } AQI</i></td>
           </tr>
           <tr>
             <td><i class="fa-solid fa-sun w3-text-yellow w3-xlarge"></i></td>
@@ -483,13 +488,13 @@
   <div class="w3-container">
     <h5><b><i class="fa-solid fa-play"></i> 예측 정확도<small>(단위 : 단계별)</small></b></h5>
 
-    <p style="margin:3px;"><b>PM25(미세먼지)</b></p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-red" id="apm25" style="width:${ACCU.kpm25}%">${ACCU.kpm25}%</div>
-    </div>
-    <p style="margin:3px;"><b>PM10(초미세먼지)</b></p>
+    <p style="margin:3px;"><b>PM10(미세먼지)</b></p>
     <div class="w3-grey">
       <div class="w3-container w3-center w3-padding w3-red" id="apm10" style="width:${ACCU.kpm10}%">${ACCU.kpm10}%</div>
+    </div>
+    <p style="margin:3px;"><b>PM2.5(초미세먼지)</b></p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" id="apm25" style="width:${ACCU.kpm25}%">${ACCU.kpm25}%</div>
     </div>
     <p style="margin:3px;"><b>CO(일산화탄소)</b></p>
     <div class="w3-grey">
@@ -508,21 +513,8 @@
       <div class="w3-container w3-center w3-padding w3-red" id="aso2" style="width:${ACCU.kso2}%">${ACCU.kso2 }%</div>
     </div>
   </div>
-	<hr>
-  <div class="w3-container">
-    <h5><b><i class="fa-solid fa-play"></i> 평균 예측률 높은 지역</b></h5>
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
-      		<tr>
-		        <td class="w3-half">${ DATA.city}</td>
-		        <td class="w3-half">${DATA.arate }%</td>
-	      </tr>
-	      </c:forEach>
-    </table><br>
-  </div>
-  <hr>
-  <div class="w3-container">
-    <h5><b>초미세먼지(PM25)가 제일 좋은 지역(단위 : AQI)</b> <small>(</small><small><b class="todayDate"></b></small><small>)</small></h5>
+  <div class="w3-container w3-margin-top">
+    <h5><b><i class="fa-solid fa-play"></i> 예측된 미세먼지(PM10)가 제일 좋은 지역</b><small><b>(단위 : AQI) - (</b></small><small><b class="todayDate"></b></small><small><b>)</b></small></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 		<c:forEach var="DATA" items="${DATERANK}" varStatus="st">
 		    <tr>
@@ -532,7 +524,18 @@
 		</c:forEach>
     </table><br>
   </div>
-  <hr>
+	
+  <div class="w3-container">
+    <h5><b><i class="fa-solid fa-play"></i> 평균 미세먼지<small>(pm10)</small> 예측률 높은 지역</b></h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+	      <c:forEach var="DATA" items="${RANKLIST}" varStatus="st">
+      		<tr>
+		        <td class="w3-half">${ DATA.city}</td>
+		        <td class="w3-half">${DATA.arate }%</td>
+	      </tr>
+	      </c:forEach>
+    </table><br>
+  </div>
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">

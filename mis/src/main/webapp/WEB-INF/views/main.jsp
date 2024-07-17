@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>mis Main</title>
+    <title>미안행 메인 페이지</title>
     <link rel="stylesheet" type="text/css" href="/mis/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/mis/css/user.css">
     <script type="text/javascript" src="/mis/js/jquery-3.7.1.min.js"></script>
@@ -110,9 +110,9 @@
             	$(location).attr('href', '/mis/realTimeDust/view.mis');
             });
             $('.hrefTag').click(function(){
-            	var sid = $(this).attr('id');
-            	$(location).attr('href', 'https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=0&acr=1&acq=tjfdkrzpdl&qdt=0&ie=utf8&query=' + sid);
-            })
+                var sid = $(this).attr('id');
+                window.open('https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=0&acr=1&acq=tjfdkrzpdl&qdt=0&ie=utf8&query=' + sid, '_blank');
+            });
          	// 모든 기사 링크에 클릭 이벤트 추가
             var articleList = document.getElementById('articleList');
 	        var articles = [
@@ -123,7 +123,7 @@
 	            { title: '미세먼지 줄이고 건강은 지키는 8가지 실천방법', url: 'https://www.korea.kr/news/healthView.do?newsId=148912595#health' },
 	            { title: '미세먼지란?', url: 'https://www.ehtis.or.kr/cmn/sym/mnu/mpm/60001011/htmlMenuView.do' },
 	            { title: '인천시 / 도시 숲으로 미세먼지·이산화탄소 감소한다', url: 'https://fksm.co.kr/news/view.php?idx=66673&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
-	            //{ title: '국가미세먼지정보센터, 아시아 4개국 대기 배출관리 기술 교육', url: 'https://fksm.co.kr/news/view.php?idx=66418&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
+	            { title: '국가미세먼지정보센터, 아시아 4개국 대기 배출관리 기술 교육', url: 'https://fksm.co.kr/news/view.php?idx=66418&sm=w_total&stx=%EB%AF%B8%EC%84%B8%EB%A8%BC%EC%A7%80&stx2=&w_section1=&sdate=&edate=' },
 	            //{ title: '폐 망가뜨리는 미세 먼지 ‘이 음식’ 먹으면 배출', url: 'https://m.health.chosun.com/svc/news_view.html?contid=2023020701441' }
 	        ];
 	
@@ -191,7 +191,7 @@
     </header>
     <!-- Grid -->
     <div class="w3-col l8 m8">
-        <!-- 좌분면 -->
+    	<sub class="w3-margin-left" style="margin-bottom:0px;">※ 해당 순위는 AQI 순위를 기반으로 작성되었습니다. (AQI : 전 세계 대기질 지수 단위)</sub>
 	    <!-- 국내 순위 -->
 	    <div class="w3-col l6 m6 s6">
 	        <div class="w3-white w3-margin-right w3-margin-left">
@@ -205,7 +205,7 @@
                 <c:forEach items="${linksList2}" var="link" varStatus="loop">
                     <c:if test="${loop.index < 5}">
                         <li class="w3-margin-bottom">
-                            <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;"><b>${link.text}</b></a>
+                            <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;" target="_blank"><b>${link.text}</b></a>
                             <div><b>AQI : ${link.aqi}</b></div>
                         </li>
                     </c:if>
@@ -234,6 +234,7 @@
 	         </ol>
 	     </div>
 	 </div>
+	 
 	 <div class="w3-col w3-center">
        	<div>
 	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">추천 관광지</h3>
@@ -266,8 +267,8 @@
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                             <p><input class="w3-input w3-border" name="id" id="id" type="text" placeholder="아이디" style="padding-left: 10px"></p>
                             <p><input type="password" class="w3-input w3-border" name="pw" id="pw" placeholder="비밀번호"></p>
-                            <div class="w3-col w3-half w3-button w3-blue" id="login" style="margin: 0px; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그인</div>
-                            <div class="w3-col w3-half w3-button w3-green w3-margin-top" id="join" style="border-bottom-right-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">회원가입</div>
+                            <div class="w3-col w3-half w3-button w3-blue" id="login" style="margin: 0px;">로그인</div>
+                            <div class="w3-col w3-half w3-button w3-green" id="join" >회원가입</div>
                         </div>
                     </c:if>
                     <c:if test="${not empty SID}">
@@ -276,15 +277,14 @@
                         </div>
                         <div class="w3-container w3-white" style="padding-bottom: 10px;">
                         	<h5 class="w3-center w3-padding"><b>${SID}</b> 님 환영합니다.</h5>
-                            <div class="w3-col w3-half w3-button w3-pale-red" id="logout" style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">로그아웃</div>
-                            <div class="w3-col w3-half w3-button w3-gray w3-margin-top" id="myPage" style="border-bottom-right-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;">마이페이지</div>
+                            <div class="w3-col w3-button w3-pale-red" id="logout">로그아웃</div>
                         </div>
                     </c:if>
                 </div>
             </form>
             <!-- 우하단 -->
             <div class="w3-white w3-margin">
-			    <div class="w3-container w3-padding w3-black w3-center">
+			    <div class="w3-container w3-padding w3-black">
 			        <h4 style="margin: 0px;">관련 기사</h4>
 			    </div>
 			    <div id="articleList" class="w3-container w3-white w3-padding" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column;">
@@ -303,10 +303,9 @@
 <div class="w3-col w3-padding-16 w3-dark-gray">
     <div class="w3-row">
       <div class="w3-container w3-col">
-      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 80px; width: 72px; margin-top:30px;">
+      	<img class="w3-col l2 m2 w3-right w3-round-large" src="/mis/image/LOGO.png" style="height: 80px; width: 72px;">
       	<div>
-	        <h6> Team. 먼지가 되어 leader. 전민경 . 02) 3667-3688 business</h6>
-			<h6> Team member. 김광섭, 김한민, 김유진, 허광혁</h6>
+			<h6> Team. 먼지가 되어 member. 전민경 김광섭, 김한민, 김유진, 허광혁 Tel. 02) 3667-3688</h6>
 			<h6> AI데이터플랫폼(with Python, JAVA, Spring)을 이용한 빅데이터 분석 전문가 과정(8회차)</h6>
       	</div>
       </div>
