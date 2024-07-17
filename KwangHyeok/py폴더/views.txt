@@ -1,0 +1,12 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+from misProject.predData.make_PredData import makePreData
+from misProject.predChart import makeChart
+
+def make_PredData(request):
+    makePreData()  # make_PredData 함수 호출
+    return HttpResponse("make_PredData 함수가 실행되었습니다.")
+
+def make_KNNChart(request):
+    tag_data = makeChart.makeKnn_Chart()
+    return render(request, 'misProject/knn_Chart.html', {'tag_data' : tag_data})

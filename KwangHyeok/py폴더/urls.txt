@@ -1,0 +1,7 @@
+from django.urls import path
+from misProject import views
+
+urlpatterns = [
+    path('weatherScheduler.mis/', views.make_PredData, name='getScheduler'),
+    path('showChart.tm/', views.make_KNNChart, name='make_KNNChart'),
+]
