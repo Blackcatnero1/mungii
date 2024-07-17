@@ -119,6 +119,7 @@
 		            pkreview desc, pmis asc 
 		    )   ) where rno between #{startRno} and #{endRno}
 	</select>
+	
 	<!-- 미세먼지별 정렬 담당 질의명령 -->
 	<select id="misSort" parameterType="page" resultType="pVO">
 		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 
@@ -168,6 +169,7 @@
 		            pmis
 		    )   ) where rno between #{startRno} and #{endRno}
 	</select>
+	
 	<!-- 리뷰별 정렬 담당 질의명령 -->
 	<select id="reviewSort" parameterType="page" resultType="pVO">
 		select rno, kdate, pname, pcity, city, pmis, pkreview, plink 

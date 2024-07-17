@@ -46,18 +46,21 @@ public class Kpred {
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
 	}
+	
 	@RequestMapping("/kpred.mis")
 	public ModelAndView goTests(ModelAndView mv, HttpSession session) {
 		String sid = (String) session.getAttribute("SID");
 		KpredVO kpredVO = kDao.getCityDate();
 		List cityList = kDao.getCityname();
 		KpredVO kVO = kDao.selAccu();
+		
 		List rankList = kDao.accRank();
 		List dateRank = kDao.dateRank(kpredVO.getKdate().substring(0,10));
+		mv.addObject("DATERANK", dateRank);
 		mv.addObject("RANKLIST", rankList);
+		
 		mv.addObject("ACCU", kVO);
 		mv.addObject("CITYLIST", cityList);
-		mv.addObject("DATERANK", dateRank);
 		mv.addObject("MISLIST", kpredVO);
 		mv.addObject("SID", sid);
 		mv.setViewName("pred/kpred");
@@ -72,6 +75,7 @@ public class Kpred {
 		KpredVO vo = kDao.selCityDate(kVO);
 		return vo;
 	}
+	
 	@RequestMapping("/selDateRank.mis")
 	@ResponseBody
 	public List<KpredVO> selDateRank(String kdate, KpredVO kVO) {
@@ -79,6 +83,7 @@ public class Kpred {
 		List dateRank = kDao.dateRank(kVO.getKdate().substring(0,10));
 		return dateRank;
 	}
+	
 	// 로그아웃 처리 요청
 	@RequestMapping("/klogout.mis")
 	public ModelAndView klogout(HttpSession session, ModelAndView mv, RedirectView rv) {

@@ -186,9 +186,12 @@
 			            $('#ao3').html(obj.ko3 + '%');
 			            $('#ano2').html(obj.kno2 + '%');
 			            $('#aso2').html(obj.kso2 + '%');
-			            
-			            
-			            
+			            $('#apm25').css('width', obj.kpm25 + '%');
+			            $('#apm10').css('width', obj.kpm10 + '%');
+			            $('#ano2').css('width', obj.kno2 + '%');
+			            $('#aso2').css('width', obj.kso2 + '%');
+			            $('#ao3').css('width', obj.ko3 + '%');
+			            $('#aco').css('width', obj.kco + '%');
 		    		    if (spm10 <= 50) {
 		    		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
 		    		    } else if (spm10 <= 100) {
@@ -198,15 +201,6 @@
 		    		    } else {
 		    		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
 		    		    }
-
-			            
-			            
-			            $('#apm25').css('width', obj.kpm25 + '%');
-			            $('#apm10').css('width', obj.kpm10 + '%');
-			            $('#ano2').css('width', obj.kno2 + '%');
-			            $('#aso2').css('width', obj.kso2 + '%');
-			            $('#ao3').css('width', obj.ko3 + '%');
-			            $('#aco').css('width', obj.kco + '%');
 			            
 			    	    // 배열로 변수와 요소들을 관리
 			    		var kkpm25 = obj.kpm25;
@@ -233,7 +227,6 @@
 			            alert("요청이 실패하였습니다.");
 			        }
 			    });
-			    
 			    $.ajax({
 			        type: "post",
 			        url: "/mis/kpred/selDateRank.mis",

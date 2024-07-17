@@ -66,11 +66,9 @@ public class Park {
 		if(nowPage == 0) {
 			nowPage = 1;
 		}
-		
 		int total = pDao.getParkTotal();
 		page.setTotalCount(total);
 		page.setPage(nowPage, total);
-		
 		// 데이터 베이스에서 조회
 		List<ParkVO> list = pDao.misSort(page);
 		// 데이터 전달하고
@@ -123,6 +121,7 @@ public class Park {
 		return mv;	
 	}
 	
+	// 관광지 리스트에서 예측뷰로 전송
 	@RequestMapping("/parkPred.mis")
 	public ModelAndView parkPred(ModelAndView mv, HttpSession session, ParkVO pVO, KpredVO kVO, String pdate, String pcity) {
 		String sid = (String) session.getAttribute("SID");
@@ -142,6 +141,7 @@ public class Park {
 		mv.setViewName("pred/kpred");
 		return mv;
 	}
+	
 	// 로그아웃 처리 요청
 	@RequestMapping("/parkLogout.mis")
 	public ModelAndView klogout(HttpSession session, ModelAndView mv, RedirectView rv) {
@@ -174,7 +174,6 @@ public class Park {
 			// 로그인에 성공한 상태
 			session.setAttribute("SID", mVO.getId());
 		}
-		
 		rv.setUrl(view);
 		mv.setView(rv);
 		return mv;
