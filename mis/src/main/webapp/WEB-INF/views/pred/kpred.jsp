@@ -46,9 +46,11 @@
             $('#login').click(function(){
                 $(location).attr('href', '/mis/kpred/klogin.mis');
             });
+            
 		    // 현재 날짜
 		    var currentDate = new Date();
 		    var currentDateString = currentDate.toISOString().split('T')[0]; // 현재 날짜 문자열 (YYYY-MM-DD 형식)
+		    
 		    // 2024년 12월 31일
 		    var limitDate = new Date('2024-12-31');
 		    var limitDateString = limitDate.toISOString().split('T')[0]; // 2024년 12월 31일 문자열 (YYYY-MM-DD 형식)
@@ -66,11 +68,11 @@
 		    $('.todayDate').html(syear + '년 ' + smonth + '월 ' + sday + '일');
 		    
 		    
-		    var sensors = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
+		    var aqis = ['pm25', 'pm10', 'co', 'o3', 'no2', 'so2'];
 		
-		    sensors.forEach(function(sensor) {
+		    aqis.forEach(function(aqi) {
 		        // 단위로 나누기
-		        var valueText = $('#' + sensor + ' span:nth-child(3)').text().trim(); // 예: "1.00 AQI"
+		        var valueText = $('#' + aqi + ' span:nth-child(3)').text().trim(); // 예: "1.00 AQI"
 		        var value = parseFloat(valueText); // 문자열을 소수로 변환
 	
 		        // 정수 형태로 변환
@@ -78,33 +80,33 @@
 	
 		        // 예시: 정수 형태로 변환한 값을 기준으로 클래스 추가
 				if (integerValue <= 50) {
-		            $('#' + sensor).attr('style', 'background-color: rgb(171, 209, 98);');
-			        $('#' + sensor).prepend('<span class="w3-right">좋음</span>');
+		            $('#' + aqi).attr('style', 'background-color: rgb(171, 209, 98);');
+			        $('#' + aqi).prepend('<span class="w3-right">좋음</span>');
 		        } else if (integerValue <= 100) {
-		        	$('#' + sensor).attr('style', 'background-color: rgb(248, 212, 97);');
-			        $('#' + sensor).prepend('<span class="w3-right">보통</span>');
+		        	$('#' + aqi).attr('style', 'background-color: rgb(248, 212, 97);');
+			        $('#' + aqi).prepend('<span class="w3-right">보통</span>');
 		        } else if (integerValue <= 150) {
-		        	$('#' + sensor).attr('style', 'background-color: rgb(251, 153, 86);');
-			        $('#' + sensor).prepend('<span class="w3-right">나쁨</span>');
+		        	$('#' + aqi).attr('style', 'background-color: rgb(251, 153, 86);');
+			        $('#' + aqi).prepend('<span class="w3-right">나쁨</span>');
 		        } else if (integerValue <= 200) {
-		        	$('#' + sensor).attr('style', 'background-color: rgb(246, 104, 106);');
-			        $('#' + sensor).prepend('<span class="w3-right">매우나쁨</span>');
+		        	$('#' + aqi).attr('style', 'background-color: rgb(246, 104, 106);');
+			        $('#' + aqi).prepend('<span class="w3-right">매우나쁨</span>');
 		        } else if (integerValue <= 250) {
-		        	$('#' + sensor).attr('style', 'background-color: rgb(164, 125, 184);');
-			        $('#' + sensor).prepend('<span class="w3-right">심각</span>');
+		        	$('#' + aqi).attr('style', 'background-color: rgb(164, 125, 184);');
+			        $('#' + aqi).prepend('<span class="w3-right">심각</span>');
 		        } else if (integerValue <= 300) {
-		        	$('#' + sensor).attr('style', 'background-color: rgb(160, 119, 133);');
-			        $('#' + sensor).prepend('<span class="w3-right">치명적</span>');
+		        	$('#' + aqi).attr('style', 'background-color: rgb(160, 119, 133);');
+			        $('#' + aqi).prepend('<span class="w3-right">치명적</span>');
 		        }
 			
 		        // 예시: HTML에 정수 형태로 변환한 값 표시
 		    });
 		    $('#selCityDate').click(function(){
 		    	if(!$('#city').val()){
-		    		alert('도시를 선택하세요.');
-		    		return;
+		    		var scity = '서울';
+		    	}else{
+				    var scity = $('#city').val();
 		    	}
-			    var scity = $('#city').val();
 			    var sdate = $('#dateSelect').val();
 			    var data = {
 						city: scity,
@@ -116,82 +118,58 @@
 			        data: data,
 			        success: function(obj) {
 			            $('.cityName').html(obj.city);
-			            var spm25 = parseFloat(obj.predicted_pm25);
-			            var spm10 = parseFloat(obj.predicted_pm10);
-			            var so3 = parseFloat(obj.predicted_o3);
-			            var sco = parseFloat(obj.predicted_co);
-			            var sno2 = parseFloat(obj.predicted_no2);
-			            var sso2 = parseFloat(obj.predicted_so2);
-						console.log(obj);
-			            var aqis = ['pm25', 'pm10', 'co', 'o3', 'so2', 'no2'];
+			            var spm25 = parseInt(obj.predicted_pm25);
+			            var spm10 = parseInt(obj.predicted_pm10);
+			            var so3 = parseInt(obj.predicted_o3);
+			            var sco = parseInt(obj.predicted_co);
+			            var sno2 = parseInt(obj.predicted_no2);
+			            var sso2 = parseInt(obj.predicted_so2);
+			            
+			            var aqis = ['pm25', 'pm10', 'co', 'o3', 'no2', 'so2'];
 			            var dataList = [spm25, spm10, sco, so3, sno2, sso2];
-
+						var accuRate = [obj.kpm25, obj.kpm10, obj.kco, obj.ko3, obj.kno2, obj.kso2]
+						
 			            // AQI 값을 표시합니다.
 			            for (var i = 0; i < dataList.length; i++) {
 			                $('.predict_' + aqis[i]).html(dataList[i] + ' AQI');
+			                
+				            // AQI 레벨에 따라 배경색과 등급을 할당합니다.
+			                if (dataList[i] <= 50) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
+		                        $('#' + aqis[i] + ' > span').html('좋음');
+		                    } else if (dataList[i] <= 100) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
+		                        $('#' + aqis[i] + ' > span').html('보통');
+		                    } else if (dataList[i] <= 150) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
+		                        $('#' + aqis[i] + ' > span').html('나쁨');
+		                    } else if (dataList[i] <= 200) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
+		                        $('#' + aqis[i] + ' > span').html('매우나쁨');
+		                    } else if (dataList[i] <= 250) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
+		                        $('#' + aqis[i] + ' > span').html('심각');
+		                    } else if (dataList[i] <= 300) {
+		                        $('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
+		                        $('#' + aqis[i] + ' > span').html('치명적');
+		                    }
+				            
+				            // 데이터별 예측률을 표기하고 해당 예측률의 길이에 맞게 색상채우기
+				            $('#a' + aqis[i]).css('width', accuRate[i] + '%').html(accuRate[i] + '%');
+				            
+				         	// 배열로 변수와 요소들을 관리
+				            if (accuRate[i] > 80) {
+				            	$('#a' + aqis[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-green');
+				    	    }else if(accuRate[i] > 60){
+				            	$('#a' + aqis[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-yellow');
+				    	    }else if(accuRate[i] > 40){
+				            	$('#a' + aqis[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-orange');
+				    	    }else{
+				            	$('#a' + aqis[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-red');
+				    	    }
+				            
 			            }
-
-			            // 날짜를 표시합니다.
-			            var kyear = obj.kdate.substring(0, 4);
-			            var kmonth = obj.kdate.substring(5, 7);
-			            var kday = obj.kdate.substring(8, 10);
-			            $('.todayDate').html( kyear + '년 ' + kmonth + '월 ' + kday + '일');
-
-			            // AQI 레벨에 따라 배경색과 등급을 할당합니다.
-			            for (var i = 0; i < aqis.length; i++) {
-			                if (!isNaN(dataList[i])) {
-			                    if (dataList[i] <= 50) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(171, 209, 98);');
-			                        $('#' + aqis[i] + ' > span').html('좋음');
-			                    } else if (dataList[i] <= 100) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(248, 212, 97);');
-			                        $('#' + aqis[i] + ' > span').html('보통');
-			                    } else if (dataList[i] <= 150) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(251, 153, 86);');
-			                        $('#' + aqis[i] + ' > span').html('나쁨');
-			                    } else if (dataList[i] <= 200) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(246, 104, 106);');
-			                        $('#' + aqis[i] + ' > span').html('매우나쁨');
-			                    } else if (dataList[i] <= 250) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(164, 125, 184);');
-			                        $('#' + aqis[i] + ' > span').html('심각');
-			                    } else if (dataList[i] <= 300) {
-			                        $('#' + aqis[i]).attr('style', 'background-color: rgb(160, 119, 133);');
-			                        $('#' + aqis[i] + ' > span').html('치명적');
-			                    }
-			                } else {
-			                    // Handle NaN values (if any)
-			                    $('#' + aqis[i]).attr('style', 'background-color: lightgray;');
-			                    $('#' + aqis[i] + ' > span').html('데이터 없음');
-			                }
-			            }
-			            // CAI 값을 계산하고 표시합니다.
-			            var sum = 0;
-			            var count = 0;
-			            for (var i = 0; i < dataList.length; i++) {
-			                if (!isNaN(dataList[i])) {
-			                    sum += dataList[i];
-			                    count++;
-			                }
-			            }
-			            if (count > 0) {
-			                var avg = parseInt(sum / count);
-			                $('#cai-value').html(avg + ' IAQI');
-			            } else {
-			                $('#cai-value').html('데이터 없음');
-			            }
-			            $('#apm25').html(obj.kpm25 + '%');
-			            $('#apm10').html(obj.kpm10 + '%');
-			            $('#aco').html(obj.kco + '%');
-			            $('#ao3').html(obj.ko3 + '%');
-			            $('#ano2').html(obj.kno2 + '%');
-			            $('#aso2').html(obj.kso2 + '%');
-			            $('#apm25').css('width', obj.kpm25 + '%');
-			            $('#apm10').css('width', obj.kpm10 + '%');
-			            $('#ano2').css('width', obj.kno2 + '%');
-			            $('#aso2').css('width', obj.kso2 + '%');
-			            $('#ao3').css('width', obj.ko3 + '%');
-			            $('#aco').css('width', obj.kco + '%');
+			            // 미세먼지(pm10) 지수에 따라서 캐릭터 색상 변경
 		    		    if (spm10 <= 50) {
 		    		        $('#hrang').attr('src', '/mis/image/하랑이/파랑이.jpg');
 		    		    } else if (spm10 <= 100) {
@@ -201,27 +179,23 @@
 		    		    } else {
 		    		        $('#hrang').attr('src', '/mis/image/하랑이/빨강이.jpg');
 		    		    }
-			            
-			    	    // 배열로 변수와 요소들을 관리
-			    		var kkpm25 = obj.kpm25;
-			    		var kkpm10 = obj.kpm10;
-			    		var kkco = obj.kco;
-			    		var kko3 = obj.ko3;
-			    		var kkno2 = obj.kno2;
-			    		var kkso2 = obj.kso2;
-			    	    var kklist = [kkpm25, kkpm10, kkco, kko3, kkno2, kkso2];
-			    	    var aalist = ['apm25', 'apm10', 'aco', 'ao3', 'ano2', 'aso2'];
-			    	    for(var i = 0 ; i < kklist.length ; i++){
-				    	    if (kklist[i] > 80) {
-				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-green');
-				    	    }else if(kklist[i] > 60){
-				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-yellow');
-				    	    }else if(kklist[i] > 40){
-				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-orange');
-				    	    }else{
-				            	$('#' + aalist[i]).removeClass('w3-red w3-green w3-yellow w3-orange').addClass('w3-red');
-				    	    }
-			    	    }
+		    		    
+			            // 출력된 날짜로 날짜를 변경
+			            $('.todayDate').html( obj.kdate.substring(0, 4) + '년 ' + obj.kdate.substring(5, 7) + '월 ' + obj.kdate.substring(8, 10) + '일');
+
+			            // CAI 값을 계산하고 표시합니다.
+			            var sum = 0;
+			            var count = 0;
+			            for (var i = 0; i < dataList.length; i++) {
+		                    sum += dataList[i];
+		                    count++;
+			            }
+			            if (count > 0) {
+			                var avg = parseInt(sum / count);
+			                $('#cai-value').html(avg + ' IAQI');
+			            } else {
+			                $('#cai-value').html('데이터 없음');
+			            }
 			        },
 			        error: function(xhr, status, error) {
 			            alert("요청이 실패하였습니다.");
@@ -331,7 +305,7 @@
 				<h6><b>
 					<label for="city"><i class="fa-solid fa-play"></i> 도시 선택 : </label>
 					<select id="city" style="padding:5px;">
-						<option disabled selected>${MISLIST.city}</option>
+						<option disabled selected value="${MISLIST.city}">${MISLIST.city}</option>
 	                    <c:forEach var="DATA" items="${CITYLIST}" varStatus="st">
 	                    	<option value="${DATA.city }">${DATA.city}</option>
 	                    </c:forEach>
