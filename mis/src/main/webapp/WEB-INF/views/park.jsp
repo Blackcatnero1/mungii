@@ -175,17 +175,17 @@
 <div class="w3-content" style="max-width:1000px">
 	
 	  <!-- 헤더1 -->
-	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()">
+	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()" style="cursor:pointer;">
 		<div class="header">
     		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
 		</div>
 	</header>
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-white">
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천 받기</button></h6>
+	<header class="w3-container w3-center">
+        <h6 style="background-color: rgb(171, 209, 98);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime"><b>실시간 정보 보기</b></button></h6>
+        <h6 style="background-color: rgb(246, 104, 106);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred"><b>미세먼지 예측하기</b></button></h6>
+        <h6 style="background-color: rgb(164, 125, 184);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="park"><b>관광지 추천받기</b></button></h6>
 	</header>
 		<!-- 본문박스 -->
 	
@@ -209,7 +209,8 @@
 				<h6 class="w3-right-align"><b>
 					<label for="city"><i class="fa-solid fa-play"></i> 정렬 기준 : </label>
 					<select id="sort" style="padding:5px;">
-						<option selected value='rec'>추천순</option>
+						<option selected disabled>정렬</option>
+						<option value='rec'>추천순</option>
 						<option value="pkreview">리뷰순</option>
 						<option value="pmis">대기질순</option>
 					</select>
@@ -218,7 +219,7 @@
 			<div class="w3-third w3-center" style="margin-top:5px;">
 				<h6 class=" w3-right-align">
 					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect" style="padding:3px;"></b>
-					<button class="w3-margin-left"><i class="fa-solid fa-square-check" id="selCityDate"></i></button>
+					<button class="w3-margin-left" id="selCityDate"><i class="fa-solid fa-square-check"></i></button>
 				</h6>
 			</div>
 		</div>

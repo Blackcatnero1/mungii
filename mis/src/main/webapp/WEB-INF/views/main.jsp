@@ -184,27 +184,27 @@
    		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
     </div>
     <!-- 버튼헤더(필요시 갯수추가) -->
-    <header class="w3-container w3-center w3-white w3-padding">
-        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
-        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측하기</button></h6>
-        <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천받기</button></h6>
+    <header class="w3-container w3-center w3-padding">
+        <h6 style="background-color: rgb(171, 209, 98);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime"><b>실시간 정보 보기</b></button></h6>
+        <h6 style="background-color: rgb(246, 104, 106);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred"><b>미세먼지 예측하기</b></button></h6>
+        <h6 style="background-color: rgb(164, 125, 184);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="park"><b>관광지 추천받기</b></button></h6>
     </header>
     <!-- Grid -->
     <div class="w3-col l8 m8">
-    	<sub class="w3-margin-left" style="margin-bottom:0px;">※ 해당 순위는 AQI 순위를 기반으로 작성되었습니다. (AQI : 전 세계 대기질 지수 단위)</sub>
+    	<div class="w3-col">
 	    <!-- 국내 순위 -->
 	    <div class="w3-col l6 m6 s6">
 	        <div class="w3-white w3-margin-right w3-margin-left">
 	            <div class="w3-center">
 	                <h3>국내</h3>
 	            </div>
-	            <hr style="border: solid 1px black; margin: 0;">
-	            <ol id="domestic-ranking">
+	            <hr style="border: solid 1px black; margin: 0; padding:0;">
+	            <ol id="domestic-ranking" style="margin-bottom:0px!important;">
                 <!-- JSP forEach 루프 -->
                 <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
                 <c:forEach items="${linksList2}" var="link" varStatus="loop">
                     <c:if test="${loop.index < 5}">
-                        <li class="w3-margin-bottom">
+                        <li class="w3-margin-top">
                             <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;" target="_blank"><b>${link.text}</b></a>
                             <div><b>AQI : ${link.aqi}</b></div>
                         </li>
@@ -216,12 +216,12 @@
     
 	   <!-- 해외 순위 -->
 	   <div class="w3-col l6 m6 s6">
-	       <div class="w3-white w3-margin-left w3-margin-right ">
+	       <div class="w3-white w3-margin-left w3-margin-right">
 	           <div class="w3-center">
 	               <h3>해외</h3>
 	           </div>
-	           <hr style="border: solid 1px black; margin: 0;">
-	           <ol id="international-ranking">
+	           <hr style="border: solid 1px black; margin:0; padding:0;">
+	           <ol id="international-ranking" style="margin-bottom:0px!important;">
 	            <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
 	            <c:forEach items="${linksList}" var="link" varStatus="loop">
 	                <c:if test="${loop.index < 5}">
@@ -234,7 +234,10 @@
 	         </ol>
 	     </div>
 	 </div>
-	 
+   	</div>
+   	<div class="w3-col w3-center" style="margin-top:0px;">
+	 	<sub class="w3-margin-left">※ 해당 순위는 AQI 순위를 기반으로 작성되었습니다. (AQI : 전 세계 대기질 지수 단위)</sub>
+	 	</div>
 	 <div class="w3-col w3-center">
        	<div>
 	        <h3 class="w3-white w3-margin-left w3-margin-right w3-padding w3-center">추천 관광지</h3>
