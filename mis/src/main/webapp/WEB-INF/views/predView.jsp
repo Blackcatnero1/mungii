@@ -370,7 +370,7 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5><b><i class="fa-solid fa-smog"></i>미세먼지 정보</b></h5>
+        <h5><b><i class="fa-solid fa-smog"></i>미세먼지 예측 정보</b></h5>
         <c:if test="${PRED.pred_pm10 == 0}">
 	        <img src="/mis/image/하랑이/파랑이.jpg" style="width:100%" alt="일기예보 하랑이">	        
         </c:if>
@@ -559,12 +559,12 @@
 
     <p><b>강수 확률(오전)</b></p>
     <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-orange" style="width:${RAINP_AM}">${RAINP_AM}</div>
+      <div class="w3-container w3-center w3-padding w3-orange" style="width:${PRED.rainp_am}">${PRED.rainp_am}</div>
     </div>
 
     <p><b>강수 확률(오후)</b></p>
     <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-green" style="width:${RAINP_PM}">${RAINP_PM}</div>
+      <div class="w3-container w3-center w3-padding w3-green" style="width:${PRED.rainp_pm}">${PRED.rainp_pm}</div>
     </div>
   </div>
   <hr>

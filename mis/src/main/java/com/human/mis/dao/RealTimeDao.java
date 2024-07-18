@@ -12,7 +12,7 @@ public class RealTimeDao {
 	@Autowired
 	SqlSessionTemplate session;
 	/**
-	 * 게시글등록 데이터베이스작업 전담 처리함수
+	 * 서울시 지역구 전담 처리 함수
 	 */
 	public List<RealTimeVO> getSeoulGooList() {
 		return session.selectList("rtSQL.GooName");
