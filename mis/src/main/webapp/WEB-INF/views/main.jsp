@@ -191,20 +191,20 @@
     </header>
     <!-- Grid -->
     <div class="w3-col l8 m8">
-    	<div class="w3-col" style="margin-bottom:0px!important;">
+    	<div class="w3-col">
 	    <!-- 국내 순위 -->
-	    <div class="w3-col l6 m6 s6" style="margin-bottom:0px!important;">
-	        <div class="w3-white w3-margin-right w3-margin-left" style="margin-bottom:0px!important;">
+	    <div class="w3-col l6 m6 s6">
+	        <div class="w3-white w3-margin-right w3-margin-left">
 	            <div class="w3-center">
 	                <h3>국내</h3>
 	            </div>
 	            <hr style="border: solid 1px black; margin: 0;">
-	            <ol id="domestic-ranking">
+	            <ol id="domestic-ranking" style="margin-bottom:0px!important;">
                 <!-- JSP forEach 루프 -->
                 <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
                 <c:forEach items="${linksList2}" var="link" varStatus="loop">
                     <c:if test="${loop.index < 5}">
-                        <li class="w3-margin-bottom">
+                        <li class="w3-margin-top">
                             <a href="${link.href}" class="w3-text-gray w3-left-align" style="text-decoration:none;" target="_blank"><b>${link.text}</b></a>
                             <div><b>AQI : ${link.aqi}</b></div>
                         </li>
@@ -215,13 +215,13 @@
     </div>
     
 	   <!-- 해외 순위 -->
-	   <div class="w3-col l6 m6 s6" style="margin-bottom:0px!important;">
-	       <div class="w3-white w3-margin-left w3-margin-right " style="margin-bottom:0px!important;">
+	   <div class="w3-col l6 m6 s6">
+	       <div class="w3-white w3-margin-left w3-margin-right">
 	           <div class="w3-center">
 	               <h3>해외</h3>
 	           </div>
-	           <hr style="border: solid 1px black; margin: 0;">
-	           <ol id="international-ranking">
+	           <hr style="border: solid 1px black; margin:0;">
+	           <ol id="international-ranking" style="margin-bottom:0px!important;">
 	            <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
 	            <c:forEach items="${linksList}" var="link" varStatus="loop">
 	                <c:if test="${loop.index < 5}">
