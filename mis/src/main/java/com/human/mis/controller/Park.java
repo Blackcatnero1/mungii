@@ -16,14 +16,23 @@ import com.human.mis.util.PageUtil;
 import com.human.mis.vo.*;
 
 /**
- * 이 클래스는 태마파크 정보를 처리를 해주는 컨트롤러 클래스
+ * 이 클래스는 테마파크 정보를 처리를 해주는 컨트롤러 클래스
  * @author 김한민
  * @since 2024.07.09
  * @version v.1.0
  * 			
  * 			작업이력 ]
  * 					2024.07.09	: 	[ 담당자 ] 김한민
- * 									테마파크 리스트 뷰 작업
+ * 									테마파크 리스트 뷰 + 페이징 작업
+ * 
+ * 					2024.07.15	: 	[ 담당자 ] 김광섭
+ * 									테마파크 날짜 선택 기능 추가
+ * 
+ * 					2024.07.16	: 	[ 담당자 ] 김광섭
+ * 									테마파크 선택된 날짜와 도시 예측 기능 추가
+ * 
+ * 					2024.07.17	: 	[ 담당자 ] 김광섭
+ * 									테마파크 정렬 기능 추가
  */
 @Controller
 @RequestMapping("/park")
@@ -160,9 +169,7 @@ public class Park {
 	// 로그인 처리요청
 	@RequestMapping("/parkLoginProc.mis")
 	public ModelAndView loginProc(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
-		
 		String view = "/mis/park/park.mis";
-		
 		// getLogin() 에 login이 되면 있으면 1이 넘어 온다.
 		int cnt = mDao.getLogin(mVO);
 		// memberVO에 있는 setCnt() 를 사용해서 cnt를 넣어준다.

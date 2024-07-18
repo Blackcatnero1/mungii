@@ -21,6 +21,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.human.mis.dao.*;
 import com.human.mis.vo.*;
 
+/**
+ * 이 클래스는 메인 페이지 정보를 처리를 해주는 컨트롤러 클래스
+ * @author 김한민
+ * @since 2024.07.09
+ * @version v.1.0
+ * 			
+ * 			작업이력 ]
+ * 					2024.07.09	: 	[ 담당자 ] 김한민
+ * 									메인 페이지 템플릿 구성, 설계
+ * 
+ * 					2024.07.11	: 	[ 담당자 ] 김광섭
+ * 									국내, 해외 대기질 순위 추가
+ * 
+ * 					2024.07.16	: 	[ 담당자 ] 김광섭
+ * 									추천 관광지 관련 태그 추가
+ */
+
 @Controller
 public class MainController {
     @Autowired

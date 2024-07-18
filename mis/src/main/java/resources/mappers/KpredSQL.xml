@@ -3,42 +3,17 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kSQL">
-	<!-- 대륙 조회 질의명령 -->
-	<select id="getContinent" resultType="kVO">
-		select
-			distinct(continent)
-		from
-			city
-	</select>
-	<select id="getCountry" resultType="kVO" parameterType="String">
-		select
-			distinct(country)
-		from
-			city
-		where
-			continent = #{continent}
-	</select>
-	<select id="getCity" resultType="kVO" parameterType="kVO">
-		select
-			cityname
-		from
-			city
-		where
-			continent = #{continent}
-            AND country = #{country}
-	</select>
 	
-	<!-- 날짜와 도시로 조회 -->
-	<select id="cityDate" resultType="kVO">
-	    SELECT
-	        *
-	    FROM
-	        kpreddata
-	    WHERE
-	        city = '서울'
-	        AND kdate = TRUNC(SYSDATE)
+	<!-- 도시 조회하는 질의명령 -->
+	<select id="selCity" resultType="kVO">
+		select
+			distinct(city) city
+		from
+			kpreddata
+		order by
+			city
 	</select>
-	
+
 	<!-- 도시, 날짜 선택 후 조회 -->
 	<select id="selCityDate" resultType="kVO" parameterType="kVO">
    		select
@@ -51,36 +26,7 @@
             AND kdate = to_date(#{kdate})
 	</select>
 	
-	<!-- 테마파크로 해당도시 조회 -->
-	<select id="parkCityDate" resultType="kVO" parameterType="kVO">
-	    SELECT
-	        *
-	    FROM
-	        kpreddata
-	    WHERE
-	        city = #{city}
-	        AND kdate = TRUNC(SYSDATE)
-	</select>
-	
-	<!-- 도시 조회 -->
-	<select id="selCity" resultType="kVO">
-		select
-			distinct(city) city
-		from
-			kpreddata
-		order by
-			city
-	</select>
-	
-	<select id="selAccu" resultType="kVO">
-		select
-			*
-		from
-			accuracy_score
-		where
-			city = '서울'
-	</select>
-	
+	<!-- 도시 입력 후 해당 도시의 예측 데이터의 예측률 가져오는 질의명령 -->
 	<select id="accCity" resultType="kVO" parameterType="String">
 		select
 			*
@@ -90,6 +36,7 @@
 			city = #{city}
 	</select>
 	
+	<!-- 현재까지의 데이터 예측률 순위를 보여주는 질의명령 -->
 	<select id="accRank" resultType="kVO">
 		select arate, city, rank from (	
 		select arate, city, rownum rank from(           
@@ -103,6 +50,7 @@
 		where rank between 1 and 5
 	</select>
 	
+	<!-- 선택한 날짜의 미세먼지 순위를 나타내는 질의명령 -->
 	<select id="dateRank" resultType="kVO" parameterType="String">
 		select rno, city, kdate, predicted_pm10 from
 		    (
