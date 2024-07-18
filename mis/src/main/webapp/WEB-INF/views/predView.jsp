@@ -120,7 +120,7 @@
             	var date = $('#predictionDate').val()
             	var name = $('#lang').val()
             	
-            	alert(date + ' / ' + name);
+            	
             	// form태그에 넣는 과정
             	var el_Date = document.createElement('input');            	
             	$(el_Date).attr('type', 'hidden');
