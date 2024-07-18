@@ -351,6 +351,8 @@
                     //createChart(response);
                     // 이미지 데이터를 이미지 태그의 src 속성에 설정하여 표시
                     $('#chart_image').attr('src', 'data:image/png;base64,' + pred_chart);
+//아래 .show 추가
+                    $('#chart-container').show();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
@@ -394,6 +396,9 @@
                     //createChart(response);
                     // 이미지 데이터를 이미지 태그의 src 속성에 설정하여 표시
                     $('#chart_image').attr('src', 'data:image/png;base64,' + pred_chart);
+
+//아래 .show 추가
+                    $('#chart-container').show();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
@@ -402,41 +407,7 @@
             });
         });
     });
-    //function get_data() {
-    //    var Areaselect = $('#area2').val(); // jQuery로 선택된 시/군/구 가져오기
-    //    var dateSelect1 = $('#dateSelect1').val();
-    //    var timeSelect1 = $('#timeSelect1').val();
-//        var dateSelect2 = $('#dateSelect2').val();
-//        var timeSelect2 = $('#timeSelect2').val();
-
-//        console.log("Selected Area:", Areaselect);
-  //      console.log("Selected Date 1:", dateSelect1);
-    ////    console.log("Selected Time 1:", timeSelect1);
-     //   console.log("Selected Date 2:", dateSelect2);
-       // console.log("Selected Time 2:", timeSelect2);
-
-      //  $.ajax({
-          //  url: '/get_data',
-        //    type: 'GET',
-            //data: {
-          //      Areaselect: Areaselect,
-           //     dateSelect1: dateSelect1,
-            //    timeSelect1: timeSelect1,
-            //    dateSelect2: dateSelect2,
-        //        timeSelect2: timeSelect2
-         //   },
-         //   success: function(response) {
-           //     console.log('Server Response:', response);
-
-                // 서버에서 받은 데이터를 사용하여 그래프를 생성합니다.
-             //   createChart(response);
-           // },
-           // error: function(xhr, status, error) {
-          //      console.error('Error:', error);
-             //   // 에러 처리 로직 추가
-          //  }
-       // });
-   // }
+    
 </script>
 
 </head>
@@ -583,27 +554,39 @@
                             <option value="21:00:00">21:00:00</option>
                             <option value="22:00:00">22:00:00</option>
                             <option value="23:00:00">23:00:00</option>
+                        </b>
                         </select>    
-                    </b>
-                    <button class="w3-margin-left" id="get_data" style="background-color: rgb(67, 115, 219);
-                                     color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>추세 ⏎</b></button>
-                    <button id="compare" style="background-color: rgb(243, 109, 154);
-                                     color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>비교 ⏎</b></button>
+<!--아래 button 태그 2개 변경-->        
+                        <button class="w3-margin-left" id="get_data" style="background-color: rgb(67, 115, 219);
+                                        color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>시간별 예측 ⏎</b></button>
+                        <button id="compare" style="background-color: rgb(243, 109, 154);
+                                        color: white; border: 1px solid rgb(247, 247, 247); border-radius: 3px; cursor: pointer;"><b>지역별 비교 ⏎</b></button>
                 </h6>
             </div>
         </div>
-        <!-- 여기에 그래프를 삽입 -->
+<!--아래 div 추가--> 
+    <div style="text-align: center;">
+        <div style="margin-left: 100px; display: block; text-align: left; border: 1px solid #ccc; padding: 10px; max-width: 750px; width: 90%; box-sizing: border-box;">
+            <div style="padding-left: 20px; color: rgb(67, 115, 219); font-size: 13px;">
+                <b>* 시간별 예측 : 예측을 원하는 [시/도], [시/군/구], [일시] 선택 후 [시간별 예측]을 클릭하세요.</b>
+            </div>
+            <div style="padding-left: 20px; padding-top: 2px; margin-bottom: 0; color: rgb(243, 109, 154); font-size: 13px;">
+                <b>* 지역별 비교 : 예측치를 비교하고 싶은 [시/도]의 [시/군/구]를 '전체'로, [일시] 선택 후 [지역별 조회]를 클릭하세요.</b>
+            </div>
+        </div>
+    </div>
         <div style="text-align: left; padding-left: 20px; padding-top: 20px; margin-bottom: 0; color: #444;">
         <b>▶ 미세먼지 농도(PM10) 예측치(단위: ㎍/m³)</b>
         </div>
-        <div class=" w3-round w3-margin" style="padding-left: 14px; margin-bottom: 10px;">
+        <div class=" w3-round w3-margin" style="padding-left: 14px; margin-bottom: 10px; flex-direction: column; justify-content: center; align-items: center;">
             <div class="w3-col w3-center w3-blue" style="width:24.6%">좋음(0~30)</div>
             <div class="w3-col w3-center w3-green" style="width:24.6%">보통(31~80)</div>
             <div class="w3-col w3-center w3-yellow" style="width:24.6%">나쁨(81~150)</div>
             <div class="w3-col w3-center w3-red" style="width:24.6%">매우나쁨(151~)</div>
         </div>
-        <div class="chart-container" style="margin-top: 10px;">
-            <img id="chart_image" src="" style="width: 100%; display: block;">
+<!--아래 div 추가-->
+        <div class="chart-container" id="chart-container" style="margin-top: 10px; display: none;">
+            <img id="chart_image" style="width: 100%; display: block; margin-top: 15px;">
         </div>
 </body>
 </html>
