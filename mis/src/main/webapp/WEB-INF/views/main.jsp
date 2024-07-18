@@ -198,7 +198,7 @@
 	            <div class="w3-center">
 	                <h3>국내</h3>
 	            </div>
-	            <hr style="border: solid 1px black; margin: 0;">
+	            <hr style="border: solid 1px black; margin: 0; padding:0;">
 	            <ol id="domestic-ranking" style="margin-bottom:0px!important;">
                 <!-- JSP forEach 루프 -->
                 <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
@@ -220,7 +220,7 @@
 	           <div class="w3-center">
 	               <h3>해외</h3>
 	           </div>
-	           <hr style="border: solid 1px black; margin:0;">
+	           <hr style="border: solid 1px black; margin:0; padding:0;">
 	           <ol id="international-ranking" style="margin-bottom:0px!important;">
 	            <!-- JSP forEach 루프 (첫 5개 요소만 반복) -->
 	            <c:forEach items="${linksList}" var="link" varStatus="loop">
