@@ -1,0 +1,8 @@
+CREATE TABLE pred (
+    ds TIMESTAMP NOT NULL,
+    yhat NUMBER(20) NOT NULL,
+    area VARCHAR2(20 CHAR) NOT NULL,
+    CONSTRAINT pred_ds_NN CHECK (ds IS NOT NULL),
+    CONSTRAINT pred_yhat_NN CHECK (yhat IS NOT NULL),
+    CONSTRAINT pred_area_NN CHECK (area IS NOT NULL)
+);
