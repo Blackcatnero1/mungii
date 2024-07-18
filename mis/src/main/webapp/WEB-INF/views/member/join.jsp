@@ -91,6 +91,9 @@
             $('#home1').click(function(){
                 $(location).attr('href', '/mis');
             });
+            $('#home2').click(function(){
+                $(location).attr('href', '/mis');
+            });
             $('#jip').click(function(){
                 $(location).attr('href', '/mis');
             });
@@ -168,7 +171,7 @@
 </head>
 <body>
 <div class="w3-content mxw700">
-	<div class="w3-content w3-center">
+	<div class="w3-content w3-center" style="cursor:pointer;" id="home2">
 		<div class="field">
    			<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:700px; height:200px;" id="jip">
     	</div>	

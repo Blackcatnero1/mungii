@@ -175,7 +175,7 @@
 <div class="w3-content" style="max-width:1000px">
 	
 	  <!-- 헤더1 -->
-	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()">
+	<header class="w3-display-container w3-wide" id="home" onclick="handleClick()" style="cursor:pointer;">
 		<div class="header">
     		<img src='https://github.com/Blackcatnero1/mungii/blob/branch/yujin/Gmail/export202406271712491601.png?raw=true' style="width:1000px; height:250px;">
 		</div>
