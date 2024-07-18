@@ -40,10 +40,8 @@ public class RealTime {
 	// 실시간화면 보기 요청
 	@RequestMapping("view.mis")
 	public ModelAndView goRealTimeDust(HttpSession session, ModelAndView mv, RedirectView rv, MemberVO mVO) {
-		System.out.println("################# rtView IN");
 		List<RealTimeVO> gooName_List = rtDao.getSeoulGooList();
 		String sid = (String) session.getAttribute("SID");
-		System.out.println("################# rtView sid : " + sid);
 		if(sid == null){
 			sid = "Guest";
 		}
@@ -60,33 +58,34 @@ public class RealTime {
 		String isache = "";
 		List<RealTimeVO> attraction = rtDao.getAttraction(rtVO);
 		List<String> cityNameList = rtDao.getCity();
+		
+		// 로그인유저의 아이디 정보
 		String sid = (String) session.getAttribute("SID");
+		// 로그인 유저가 없을시 Guest계정으로 변경
 		if(sid == null){
 			sid = "Guest";
 		}
 		else {
+			// 로그인 회원의 질명 정보
 			isache = rtDao.getAche(sid);			
 		}
 		
+		// 선택 날짜, 지역, 지역의 일기예보 및 예측 상황
 		realTimeVO = rtDao.getWeather(rtVO);
 		
+		// 불쾌지수 계산
 		realTimeVO.setName(rtVO.getName());
 		realTimeVO.setDate(rtVO.getDate());
-		
 		double discomfort = 0.81*realTimeVO.getTemp_avg()+0.01*realTimeVO.getHum_avg()*(0.99 * realTimeVO.getTemp_avg() - 14.3)+ 46.3;
 		double disIndex = Math.round(discomfort * 100) / 100.0;
 		
-		String rainp_am = realTimeVO.getRainp_am();
-		String rainp_pm = realTimeVO.getRainp_pm();
 		
-		mv.addObject("ISACHE", isache);
-		mv.addObject("LCITY", cityNameList);
-		mv.addObject("SID", sid);
-		mv.addObject("ALIST", attraction);
-		mv.addObject("RAINP_PM", rainp_pm);
-		mv.addObject("RAINP_AM", rainp_am);
-		mv.addObject("DISCOMFORT", disIndex);
-		mv.addObject("PRED", realTimeVO);
+		mv.addObject("ISACHE", isache);			// 회원의 질병 유무
+		mv.addObject("LCITY", cityNameList);	// 선택 지역 이름
+		mv.addObject("SID", sid);				// 회원 아이디
+		mv.addObject("ALIST", attraction);		// 여행지
+		mv.addObject("DISCOMFORT", disIndex);	// 불쾌 지수
+		mv.addObject("PRED", realTimeVO);		// 예측 수치
 		mv.setViewName("predView");
 		return mv;
 	}

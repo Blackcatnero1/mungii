@@ -46,37 +46,51 @@
             });
 
             $('#goPred').click(function(){
-            	// 예측 날짜 도시이름 받아오기
-            	var date = $('#predictionDate').val()
-            	var name = $('#predictionDate').attr('name');
-    					
-				// 새로고침 없이 페이지로 넘어왔을때 초기화
-            	if(issubmit){
-            		alert("저장 데이터를 초기화 하기 위해서 새로고침을 진행합니다.");
-            		location.reload(true);
-            		return false;
-            	}
-            	
-  					// submib 되었음을 확인
-  					issubmit = true;
-  					
-            	// form태그에 넣는 과정
-            	var el_Date = document.createElement('input');            	
-            	$(el_Date).attr('type', 'hidden');
-            	$(el_Date).attr('name', 'date');
-            	$(el_Date).val(date);
-            	
-            	var el_Name = document.createElement('input');
-            	$(el_Name).attr('type', 'hidden');
-            	$(el_Name).attr('name', 'name');
-            	$(el_Name).val(name);
-            	
-            	$('#frm').append(el_Date);
-            	$('#frm').append(el_Name);
+				// 예측 날짜와 도시 이름 받아오기
+				var date = $('#predictionDate').val();
+				var name = $('#predictionDate').attr('name');
 				
-            	// form 태그 submit
-            	$('#frm').attr('action', '/mis/realTimeDust/goPred.mis');
-            	$('#frm').submit();
+				// 현재 날짜 가져오기
+				var toDate = new Date();
+				var inputDate = new Date(date);
+				
+				// 날짜 비교
+				var maxDate = new Date(toDate);
+				maxDate.setDate(toDate.getDate() + 3);
+				
+				if (inputDate < toDate || inputDate > maxDate) {
+				    alert('날짜를 잘못 입력하셨습니다.');
+				    location.reload(true);
+				    return false;
+				}
+			
+				// 이중 서브밋 확인 및 초기화
+				if (issubmit) {
+				    alert("저장 데이터를 초기화 하기 위해서 새로고침을 진행합니다.");
+				    location.reload(true);
+				    return false;
+				}
+				
+				// submit 되었음을 확인
+				issubmit = true;
+				
+				// form태그에 넣는 과정
+				var el_Date = document.createElement('input');
+				$(el_Date).attr('type', 'hidden');
+				$(el_Date).attr('name', 'date');
+				$(el_Date).val(date);
+				
+				var el_Name = document.createElement('input');
+				$(el_Name).attr('type', 'hidden');
+				$(el_Name).attr('name', 'name');
+				$(el_Name).val(name);
+				
+				$('#frm').append(el_Date);
+				$('#frm').append(el_Name);
+				
+				// form 태그 submit
+				$('#frm').attr('action', '/mis/realTimeDust/goPred.mis');
+				$('#frm').submit();
             });
             
             $(document).on("click", "#mispred", function() {
