@@ -433,9 +433,9 @@
 
   <!-- Header -->
   <header class="w3-center" style="padding-bottom:10px">
-	<h6><button id="goback" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">실시간 정보 보기</button></h6>
-	<h6><button id="gomis" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">미세먼지 예측 하기</button></h6>
-	<h6><button id="gopark" class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off">관광지 추천받기</button></h6>
+     <h6 style="background-color: rgb(171, 209, 98);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="goback"><b>실시간 정보 보기</b></button></h6>
+     <h6 style="background-color: rgb(246, 104, 106);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="gomis"><b>미세먼지 예측하기</b></button></h6>
+     <h6 style="background-color: rgb(164, 125, 184);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="gopark"><b>관광지 추천받기</b></button></h6>
   </header>
 </div>
 <div id="map"></div>	

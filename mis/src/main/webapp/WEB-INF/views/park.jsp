@@ -182,10 +182,10 @@
 	</header>
 	
 	<!-- 버튼헤더(필요시 갯수추가) -->
-	<header class="w3-container w3-center w3-white">
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime">실시간 정보 보기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred">미세먼지 예측 하기</button></h6>
-	    <h6><button class="w3-button w3-white w3-third w3-large w3-opacity w3-hover-opacity-off" id="park">관광지 추천 받기</button></h6>
+	<header class="w3-container w3-center">
+        <h6 style="background-color: rgb(171, 209, 98);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="realTime"><b>실시간 정보 보기</b></button></h6>
+        <h6 style="background-color: rgb(246, 104, 106);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="kpred"><b>미세먼지 예측하기</b></button></h6>
+        <h6 style="background-color: rgb(164, 125, 184);"><button class="w3-button w3-third w3-large w3-opacity w3-hover-opacity-off" id="park"><b>관광지 추천받기</b></button></h6>
 	</header>
 		<!-- 본문박스 -->
 	
@@ -209,7 +209,8 @@
 				<h6 class="w3-right-align"><b>
 					<label for="city"><i class="fa-solid fa-play"></i> 정렬 기준 : </label>
 					<select id="sort" style="padding:5px;">
-						<option selected value='rec'>추천순</option>
+						<option selected disabled>정렬</option>
+						<option value='rec'>추천순</option>
 						<option value="pkreview">리뷰순</option>
 						<option value="pmis">대기질순</option>
 					</select>
