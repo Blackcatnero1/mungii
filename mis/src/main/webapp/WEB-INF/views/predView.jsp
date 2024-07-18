@@ -377,10 +377,10 @@
         <c:if test="${PRED.pred_pm10 == 1}">
 	        <img src="/mis/image/하랑이/초록이.jpg" style="width:100%" alt="일기예보 하랑이">	        
         </c:if>
-        <c:if test="${PRED.pred_pm10 == 1}">
+        <c:if test="${PRED.pred_pm10 == 2}">
 	        <img src="/mis/image/하랑이/노랑이.jpg" style="width:100%" alt="일기예보 하랑이">	        
         </c:if>
-        <c:if test="${PRED.pred_pm10 == 1}">
+        <c:if test="${PRED.pred_pm10 == 3}">
 	        <img src="/mis/image/하랑이/빨강이.jpg" style="width:100%" alt="일기예보 하랑이">	        
         </c:if>        
       </div>
