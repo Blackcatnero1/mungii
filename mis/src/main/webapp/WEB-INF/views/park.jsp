@@ -219,7 +219,7 @@
 			<div class="w3-third w3-center" style="margin-top:5px;">
 				<h6 class=" w3-right-align">
 					<b><label for="dateSelect">날짜 선택 : </label><input type="date" id="dateSelect" style="padding:3px;"></b>
-					<button class="w3-margin-left"><i class="fa-solid fa-square-check" id="selCityDate"></i></button>
+					<button class="w3-margin-left" id="selCityDate"><i class="fa-solid fa-square-check"></i></button>
 				</h6>
 			</div>
 		</div>
